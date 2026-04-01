@@ -5,26 +5,24 @@ import '../models/user_model.dart';
 import '../services/supabase_service.dart';
 import '../services/cache_service.dart';
 import 'connectivity_provider.dart';
+import '../features/chat/notifiers/chat_history_notifier.dart';
 
-/// Streams Supabase auth state changes.
 final authStateProvider = StreamProvider<AuthState>((ref) {
   return SupabaseService.onAuthStateChange;
 });
 
-/// Whether the current user is authenticated with confirmed email.
 final isAuthenticatedProvider = Provider<bool>((ref) {
   return SupabaseService.isAuthenticated;
 });
 
-/// Provides the current user profile reactively, with local cache fallback.
-final userProfileProvider = AsyncNotifierProvider<UserProfileNotifier, UserModel?>(
-  UserProfileNotifier.new,
-);
+final userProfileProvider =
+    AsyncNotifierProvider<UserProfileNotifier, UserModel?>(
+      UserProfileNotifier.new,
+    );
 
 class UserProfileNotifier extends AsyncNotifier<UserModel?> {
   @override
   Future<UserModel?> build() async {
-    // Try cache first
     final cached = CacheService.getCachedProfile();
     final isOnline = ref.watch(isOnlineProvider);
 
@@ -37,7 +35,6 @@ class UserProfileNotifier extends AsyncNotifier<UserModel?> {
       }
       return profile ?? cached;
     } catch (e) {
-      // Return cached on error
       return cached;
     }
   }
@@ -51,4 +48,8 @@ class UserProfileNotifier extends AsyncNotifier<UserModel?> {
     await SupabaseService.updateProfile(updates);
     await refresh();
   }
+}
+
+void handleLogout(WidgetRef ref) {
+  ref.read(chatHistoryProvider.notifier).clear();
 }

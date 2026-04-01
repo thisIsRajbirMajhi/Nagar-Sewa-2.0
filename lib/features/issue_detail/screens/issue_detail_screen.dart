@@ -1,26 +1,31 @@
+import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter/services.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:video_player/video_player.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/widgets/app_button.dart';
 import '../../../models/issue_model.dart';
+import '../../../models/ai_models.dart';
 import '../../../services/supabase_service.dart';
+import '../../officer/notifiers/draft_response_notifier.dart';
 
-class IssueDetailScreen extends StatefulWidget {
+class IssueDetailScreen extends ConsumerStatefulWidget {
   final String issueId;
   const IssueDetailScreen({super.key, required this.issueId});
 
   @override
-  State<IssueDetailScreen> createState() => _IssueDetailScreenState();
+  ConsumerState<IssueDetailScreen> createState() => _IssueDetailScreenState();
 }
 
-class _IssueDetailScreenState extends State<IssueDetailScreen> {
+class _IssueDetailScreenState extends ConsumerState<IssueDetailScreen> {
   IssueModel? _issue;
   List<Map<String, dynamic>> _history = [];
   bool _isLoading = true;
@@ -45,7 +50,6 @@ class _IssueDetailScreenState extends State<IssueDetailScreen> {
   Future<void> _loadData() async {
     setState(() => _isLoading = true);
     try {
-      // Load issue + history + upvote status in PARALLEL (1 call, 3 fetches)
       final detail = await SupabaseService.getIssueDetail(widget.issueId);
       if (mounted) {
         setState(() {
@@ -89,14 +93,12 @@ class _IssueDetailScreenState extends State<IssueDetailScreen> {
 
   Future<void> _toggleUpvote() async {
     if (_issue == null) return;
-
     final wasUpvoted = _hasUpvoted;
     final wasDownvoted = _hasDownvoted;
     setState(() {
       _hasUpvoted = !wasUpvoted;
       if (_hasUpvoted) _hasDownvoted = false;
     });
-
     try {
       await SupabaseService.toggleUpvote(widget.issueId);
       await _refreshDataSilently();
@@ -108,21 +110,19 @@ class _IssueDetailScreenState extends State<IssueDetailScreen> {
         });
         ScaffoldMessenger.of(
           context,
-        ).showSnackBar(SnackBar(content: Text('Failed to update vote')));
+        ).showSnackBar(const SnackBar(content: Text('Failed to update vote')));
       }
     }
   }
 
   Future<void> _toggleDownvote() async {
     if (_issue == null) return;
-
     final wasDownvoted = _hasDownvoted;
     final wasUpvoted = _hasUpvoted;
     setState(() {
       _hasDownvoted = !wasDownvoted;
       if (_hasDownvoted) _hasUpvoted = false;
     });
-
     try {
       await SupabaseService.toggleDownvote(widget.issueId);
       await _refreshDataSilently();
@@ -134,7 +134,7 @@ class _IssueDetailScreenState extends State<IssueDetailScreen> {
         });
         ScaffoldMessenger.of(
           context,
-        ).showSnackBar(SnackBar(content: Text('Failed to update vote')));
+        ).showSnackBar(const SnackBar(content: Text('Failed to update vote')));
       }
     }
   }
@@ -161,6 +161,115 @@ Report via NagarSewa App
     SharePlus.instance.share(ShareParams(text: shareText.trim()));
   }
 
+  Future<void> _generateDraft() async {
+    if (_issue == null) return;
+
+    final lastTwoLogs = _history.length >= 2
+        ? _history.sublist(_history.length - 2)
+        : _history;
+    final statusLogs = lastTwoLogs
+        .map(
+          (e) => StatusLogEntry(
+            changedByName: 'Officer',
+            oldStatus: e['from_status'] ?? 'unknown',
+            newStatus: e['to_status'] ?? 'unknown',
+            officerNote: e['note'] ?? '',
+            changedAt:
+                DateTime.tryParse(e['created_at'] ?? '') ?? DateTime.now(),
+          ),
+        )
+        .toList();
+
+    try {
+      await ref
+          .read(draftResponseProvider.notifier)
+          .generateDraft(
+            _issue!.title,
+            _issue!.category,
+            _issue!.status,
+            statusLogs,
+          );
+
+      final draftState = ref.read(draftResponseProvider);
+      if (draftState is AsyncData<String?> &&
+          draftState.value != null &&
+          mounted) {
+        _showDraftResult(draftState.value!);
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed to generate draft: ${e.toString()}')),
+        );
+      }
+    }
+  }
+
+  void _showDraftResult(String draft) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => Container(
+        padding: const EdgeInsets.all(24),
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Icon(Icons.edit_note, color: AppColors.navyPrimary),
+                const SizedBox(width: 8),
+                Text(
+                  'AI Draft Resolution',
+                  style: GoogleFonts.inter(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.navyPrimary,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            Text(draft, style: GoogleFonts.inter(fontSize: 14, height: 1.5)),
+            const SizedBox(height: 24),
+            Row(
+              children: [
+                Expanded(
+                  child: OutlinedButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: const Text('Close'),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      Clipboard.setData(ClipboardData(text: draft));
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Copied to clipboard')),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.greenAccent,
+                      foregroundColor: Colors.white,
+                    ),
+                    child: const Text('Copy'),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     if (_isLoading) {
@@ -177,6 +286,8 @@ Report via NagarSewa App
     final issue = _issue!;
     final statusColor = AppColors.getStatusColor(issue.status);
     final categoryColor = AppColors.getCategoryColor(issue.category);
+    final draftState = ref.watch(draftResponseProvider);
+    final isGeneratingDraft = draftState.isLoading;
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -198,15 +309,12 @@ Report via NagarSewa App
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Media section (photos + video)
             _buildMediaSection(issue, categoryColor),
-
             Padding(
               padding: const EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Title + Status
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -242,7 +350,6 @@ Report via NagarSewa App
                   ).animate().fadeIn(),
                   const SizedBox(height: 16),
 
-                  // Metadata cards
                   _buildInfoRow(
                     Icons.category,
                     'Category',
@@ -280,7 +387,6 @@ Report via NagarSewa App
                     ),
                   const SizedBox(height: 8),
 
-                  // Description
                   if (issue.description != null &&
                       issue.description!.isNotEmpty) ...[
                     Text(
@@ -303,7 +409,6 @@ Report via NagarSewa App
                     const SizedBox(height: 16),
                   ],
 
-                  // Upvote & Downvote row
                   Container(
                     padding: const EdgeInsets.all(14),
                     decoration: BoxDecoration(
@@ -312,7 +417,6 @@ Report via NagarSewa App
                     ),
                     child: Row(
                       children: [
-                        // Upvote button
                         GestureDetector(
                           onTap: _toggleUpvote,
                           child: Container(
@@ -359,7 +463,6 @@ Report via NagarSewa App
                           ),
                         ),
                         const SizedBox(width: 8),
-                        // Downvote button
                         GestureDetector(
                           onTap: _toggleDownvote,
                           child: Container(
@@ -406,7 +509,6 @@ Report via NagarSewa App
                           ),
                         ),
                         const SizedBox(width: 8),
-                        // Share button
                         GestureDetector(
                           onTap: _shareIssue,
                           child: Container(
@@ -453,7 +555,37 @@ Report via NagarSewa App
                   ).animate().fadeIn(delay: 200.ms),
                   const SizedBox(height: 24),
 
-                  // Timeline
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton.icon(
+                      onPressed: isGeneratingDraft ? null : _generateDraft,
+                      icon: isGeneratingDraft
+                          ? const SizedBox(
+                              width: 16,
+                              height: 16,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2,
+                                color: Colors.white,
+                              ),
+                            )
+                          : const Icon(Icons.auto_awesome, size: 18),
+                      label: Text(
+                        isGeneratingDraft
+                            ? 'Generating Draft...'
+                            : 'Generate Resolution Draft',
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.navyPrimary,
+                        foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                    ),
+                  ).animate().fadeIn(delay: 300.ms),
+                  const SizedBox(height: 24),
+
                   Text(
                     'Status Timeline',
                     style: GoogleFonts.inter(
@@ -480,7 +612,6 @@ Report via NagarSewa App
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            // Timeline line + dot
                             SizedBox(
                               width: 30,
                               child: Column(
@@ -516,7 +647,6 @@ Report via NagarSewa App
                               ),
                             ),
                             const SizedBox(width: 12),
-                            // Entry content
                             Expanded(
                               child: Padding(
                                 padding: const EdgeInsets.only(bottom: 20),
@@ -562,7 +692,6 @@ Report via NagarSewa App
 
                   const SizedBox(height: 24),
 
-                  // Citizen confirmation buttons (if resolved)
                   if (issue.status == 'resolved') ...[
                     Text(
                       'Confirm Resolution',
@@ -639,7 +768,6 @@ Report via NagarSewa App
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Photos
         if (hasPhotos)
           Stack(
             alignment: Alignment.bottomCenter,
@@ -654,8 +782,7 @@ Report via NagarSewa App
                     return CachedNetworkImage(
                       imageUrl: issue.photoUrls[index],
                       fit: BoxFit.cover,
-                      memCacheWidth:
-                          800, // Limit decode size for memory savings
+                      memCacheWidth: 800,
                       placeholder: (context, url) => Container(
                         color: AppColors.surface,
                         child: const Center(
@@ -694,8 +821,6 @@ Report via NagarSewa App
                 ),
             ],
           ),
-
-        // Video player
         if (hasVideo) ...[
           if (hasPhotos) const SizedBox(height: 8),
           Container(
@@ -856,7 +981,6 @@ Report via NagarSewa App
     return labels[status] ?? status ?? 'Unknown';
   }
 
-  /// Formats a UTC timestamp string to local time display.
   String _formatDateTime(String dateTimeStr) {
     try {
       final dt = DateTime.parse(dateTimeStr).toLocal();
@@ -866,7 +990,6 @@ Report via NagarSewa App
     }
   }
 
-  /// Formats a DateTime to a relative "time ago" string.
   String _formatTimeAgo(DateTime date) {
     final now = DateTime.now();
     final localDate = date.toLocal();
