@@ -1,0 +1,59 @@
+name: nagar_sewa
+description: "NagarSewa — A civic accountability platform for India. Report infrastructure issues, track resolutions, and hold government accountable."
+publish_to: 'none'
+version: 1.1.0+2
+
+environment:
+  sdk: ^3.11.0
+
+dependencies:
+  cached_network_image: ^3.4.1
+  connectivity_plus: ^7.0.0
+  flutter:
+    sdk: flutter
+  flutter_dotenv: ^5.2.1
+  flutter_animate: ^4.5.2
+  flutter_riverpod: ^3.3.1
+  geocoding: ^4.0.0
+  geolocator: ^14.0.2
+  go_router: ^17.1.0
+  google_fonts: ^8.0.2
+  smooth_page_indicator: ^1.2.0-nullsafety.1
+  hive_flutter: ^1.1.0
+  image_picker: ^1.2.1
+  intl: ^0.20.2
+  path_provider: ^2.1.5
+  permission_handler: ^12.0.1
+  share_plus: ^12.0.1
+  supabase_flutter: ^2.12.2
+  url_launcher: ^6.3.2
+  video_player: ^2.11.1
+  maplibre_gl: ^0.25.0
+  location: ^8.0.1
+  latlong2: ^0.9.1
+  exif: ^3.3.0
+  image: ^4.5.4
+  flutter_image_compress: ^2.2.0
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+  flutter_launcher_icons: ^0.14.3
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  web:
+    generate: true
+    image_path: "assets/images/logo.png"
+  image_path: "assets/images/logo.png"
+  min_sdk_android: 21
+  adaptive_icon_background: "#FFFFFF"
+  adaptive_icon_foreground: "assets/images/logo.png"
