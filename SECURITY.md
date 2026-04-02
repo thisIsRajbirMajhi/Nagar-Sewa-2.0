@@ -15,7 +15,7 @@ We take the security of Nagar Sewa seriously. If you believe you have found a se
 
 Instead, please report them via:
 
-1. **Email**: [your-email@example.com](mailto:your-email@example.com)
+1. **Email**: [mrajbir96@gmail.com](mailto:mrajbir96@gmail.com)
 2. **GitHub Security Advisory**: Use the [private reporting feature](https://github.com/thisIsRajbirMajhi/Nagar-Sewa-2.0/security/advisories/new)
 
 Please include the following information in your report:
