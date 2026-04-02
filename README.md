@@ -41,7 +41,7 @@ A civic accountability platform for **Odisha, India**. Citizens report infrastru
 | **Routing** | [go_router](https://pub.dev/packages/go_router) |
 | **Backend** | [Supabase](https://supabase.com) (PostgreSQL, Auth, Storage, Edge Functions) |
 | **AI** | [Groq](https://groq.com) (Llama, Mixtral, LLaVA) via Supabase Edge Functions |
-| **Maps** | [MapLibre GL](https://maplibre.org) with OpenStreetMap tiles |
+| **Maps** | [MapLibre GL](https://maplibre.org) with [OpenFreeMap](https://openfreemap.org) tiles (No API key required) |
 | **Local Storage** | [Hive](https://pub.dev/packages/hive) + [SQLite](https://pub.dev/packages/sqflite) |
 | **State Management** | [Riverpod 3.x](https://riverpod.dev) |
 

@@ -39,6 +39,7 @@ app.*.map.json
 /android/app/release/
 android/.gradle/
 android/.cxx/
+android/.kotlin/
 android/gradle-wrapper.jar
 android/captures/
 android/gradlew

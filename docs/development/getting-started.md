@@ -29,7 +29,6 @@ Create `.env` file in project root (copy from `.env.example`):
 ```
 SUPABASE_URL=https://gipfcndtddodeyveexjx.supabase.co
 SUPABASE_ANON_KEY=<your-anon-key>
-GOOGLE_MAPS_API_KEY=<your-maps-api-key>
 ```
 
 **Note:** Never commit `.env` to version control. For production builds, configure credentials through platform-specific mechanisms (see [Deployment](../deployment/flutter-build.md)).
@@ -67,7 +66,7 @@ lib/
 | `go_router` | Navigation |
 | `supabase_flutter` | Backend integration |
 | `hive_flutter` | Local storage |
-| `maplibre_gl` | Map rendering |
+| `maplibre_gl` | [MapLibre GL](https://maplibre.org) with [OpenFreeMap](https://openfreemap.org) tiles (No API key required) |
 | `flutter_image_compress` | Image compression for AI |
 | `google_fonts` | Typography |
 | `flutter_animate` | Animations |
