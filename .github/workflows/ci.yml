@@ -53,10 +53,11 @@ jobs:
         run: flutter pub get
 
       - name: Run tests
+        if: hashFiles('test/') != ''
         run: flutter test --coverage
 
       - name: Upload coverage
-        if: always()
+        if: hashFiles('test/') != '' && always()
         uses: actions/upload-artifact@v7
         with:
           name: coverage-report
