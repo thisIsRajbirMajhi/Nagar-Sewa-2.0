@@ -26,7 +26,7 @@ tasks.register<Delete>("clean") {
 subprojects {
     tasks.withType<JavaCompile> {
         options.compilerArgs.add("-Xlint:-options")
-        sourceCompatibility = "17"
-        targetCompatibility = "17"
+        sourceCompatibility = "21"
+        targetCompatibility = "21"
     }
 }
