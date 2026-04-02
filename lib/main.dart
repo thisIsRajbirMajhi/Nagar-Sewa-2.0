@@ -19,6 +19,12 @@ Future<void> main() async {
     }
   }
 
+  final supabaseUrl =
+      dotenv.env['SUPABASE_URL'] ?? 'https://gipfcndtddodeyveexjx.supabase.co';
+  final supabaseAnonKey =
+      dotenv.env['SUPABASE_ANON_KEY'] ??
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdpcGZjbmR0ZGRvZGV5dmVleGp4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ2MzY4ODYsImV4cCI6MjA5MDIxMjg4Nn0.UrCE1v5sZH3rzF4XoptvQ8kqWFanJCz95aaX4LeQLeQ';
+
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
@@ -36,11 +42,11 @@ Future<void> main() async {
   await LogService.initialize();
   LogService.setupErrorHandlers();
 
-  const supabaseUrl = 'https://gipfcndtddodeyveexjx.supabase.co';
-  const supabaseAnonKey =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdpcGZjbmR0ZGRvZGV5dmVleGp4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ2MzY4ODYsImV4cCI6MjA5MDIxMjg4Nn0.UrCE1v5sZH3rzF4XoptvQ8kqWFanJCz95aaX4LeQLeQ';
-
-  await Supabase.initialize(url: supabaseUrl, anonKey: supabaseAnonKey);
+  await Supabase.initialize(
+    url: supabaseUrl,
+    anonKey: supabaseAnonKey,
+    debug: false,
+  );
 
   runApp(const ProviderScope(child: NagarSewaApp()));
 }

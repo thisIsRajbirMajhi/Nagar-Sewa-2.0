@@ -1,29 +1,19 @@
-# Miscellaneous
-*.class
-*.log
-*.pyc
-*.swp
-.DS_Store
-.atom/
-.build/
-.buildlog/
-.history
-.svn/
-.swiftpm/
-migrate_working_dir/
+# =============================================================================
+# Nagar Sewa - .gitignore
+# =============================================================================
 
-# IntelliJ related
-*.iml
-*.ipr
-*.iws
-.idea/
+# Environment variables & Secrets (NEVER commit these)
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.p12
+*.jks
+*.keystore
+key.properties
 
-# VS Code
-.vscode/
-
-# Flutter/Dart/Pub related
-**/doc/api/
-**/ios/Flutter/.last_build_id
+# Flutter/Dart
 .dart_tool/
 .flutter-plugins
 .flutter-plugins-dependencies
@@ -32,33 +22,85 @@ migrate_working_dir/
 /build/
 /coverage/
 pubspec.lock
+**/doc/api/
+**/ios/Flutter/.last_build_id
 
-# Symbolication related
+# Symbolication & Obfuscation
 app.*.symbols
-
-# Obfuscation related
 app.*.map.json
 
-# Android Studio
-/android/app/debug
-/android/app/profile
-/android/app/release
-
-# Environment variables
-.env
-.env.*
-!.env.example
-
-# Generated files
+# Generated code
 *.g.dart
 *.freezed.dart
 
-# Analysis output
+# Android
+/android/app/debug/
+/android/app/profile/
+/android/app/release/
+android/.gradle/
+android/.cxx/
+android/gradle-wrapper.jar
+android/captures/
+android/gradlew
+android/gradlew.bat
+android/local.properties
+android/**/*.keystore
+android/**/*.jks
+
+# iOS
+ios/Pods/
+ios/.symlinks/
+ios/DerivedData/
+ios/xcuserdata/
+ios/.generated/
+ios/Flutter/App.framework
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+ios/Flutter/Generated.xcconfig
+ios/Flutter/Debug.xcconfig
+ios/Flutter/Release.xcconfig
+ios/Flutter/ephemeral/
+ios/Flutter/app.flx
+ios/Flutter/app.zip
+ios/Flutter/flutter_assets/
+ios/Flutter/flutter_export_environment.sh
+ios/ServiceDefinitions.json
+ios/Runner/GeneratedPluginRegistrant.*
+ios/**/*.pbxuser
+ios/**/*.perspectivev3
+ios/**/*.mode1v3
+ios/**/*.mode2v3
+ios/**/*.moved-aside
+ios/Flutter/profile
+
+# Supabase
+supabase/.temp/
+
+# IDEs
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.opencode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+*.tmp
+
+# Analysis & Reports
 analyze_output.txt
+*.analysis_report.*
 
 # Worktrees
 .worktrees/
 
-# OS-specific
-Thumbs.db
-*.tmp
+# Python (if any scripts)
+*.pyc
+__pycache__/
+
+# Node (if any tooling)
+node_modules/
