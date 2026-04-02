@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  builder:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nagar-sewa-builder
+    volumes:
+      - .:/app
+      - /app/build
+      - /app/.dart_tool
+    environment:
+      - FLUTTER_DISABLE_ANALYTICS=true
+      - DART_DISABLE_ANALYTICS=true
+    working_dir: /app
+    command: flutter build apk --debug
+
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nagar-sewa-tester
+    volumes:
+      - .:/app
+      - /app/.dart_tool
+    environment:
+      - FLUTTER_DISABLE_ANALYTICS=true
+      - DART_DISABLE_ANALYTICS=true
+    working_dir: /app
+    command: flutter test
+
+  analyze:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nagar-sewa-analyzer
+    volumes:
+      - .:/app
+      - /app/.dart_tool
+    environment:
+      - FLUTTER_DISABLE_ANALYTICS=true
+      - DART_DISABLE_ANALYTICS=true
+    working_dir: /app
+    command: flutter analyze

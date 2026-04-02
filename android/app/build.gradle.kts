@@ -19,10 +19,7 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId = "com.nagarsewa.nagar_sewa"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
@@ -32,11 +29,35 @@ android {
         manifestPlaceholders["mapsApiKey"] = mapsApiKey
     }
 
+    signingConfigs {
+        create("release") {
+            val keystoreFile = rootProject.file("android/app/keystore.jks")
+            val signingFile = rootProject.file("android/signing.properties")
+            
+            if (signingFile.exists()) {
+                val properties = java.util.Properties()
+                properties.load(signingFile.inputStream())
+                
+                storeFile = keystoreFile
+                storePassword = properties.getProperty("keyStorePassword")
+                keyAlias = properties.getProperty("keyAlias")
+                keyPassword = properties.getProperty("keyPassword")
+            }
+        }
+    }
+
     buildTypes {
-        release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
+        debug {
             signingConfig = signingConfigs.getByName("debug")
+        }
+        release {
+            signingConfig = signingConfigs.getByName("release")
+            isMinifyEnabled = true
+            isShrinkResources = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
 }
