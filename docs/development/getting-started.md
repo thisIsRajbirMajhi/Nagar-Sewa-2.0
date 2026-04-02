@@ -24,14 +24,15 @@ flutter pub get
 
 ### 3. Configure Environment
 
-Create `.env` file in project root (development only):
+Create `.env` file in project root (copy from `.env.example`):
 
 ```
 SUPABASE_URL=https://gipfcndtddodeyveexjx.supabase.co
 SUPABASE_ANON_KEY=<your-anon-key>
+GOOGLE_MAPS_API_KEY=<your-maps-api-key>
 ```
 
-**Note:** For mobile release builds, credentials are hardcoded in `SupabaseService`. The `.env` file is only for web development.
+**Note:** Never commit `.env` to version control. For production builds, configure credentials through platform-specific mechanisms (see [Deployment](../deployment/flutter-build.md)).
 
 ### 4. Run the App
 

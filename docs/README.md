@@ -4,6 +4,8 @@
 >
 > A civic accountability platform for Odisha, India. Citizens report infrastructure issues, track resolutions, and hold government accountable — powered by AI verification and real-time tracking.
 
+For a project overview, quick start, and screenshots, see the [root README](../README.md).
+
 ---
 
 ## Documentation Index
