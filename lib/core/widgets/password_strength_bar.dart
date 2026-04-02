@@ -57,8 +57,8 @@ class PasswordStrengthBar extends StatelessWidget {
                   score <= 1
                       ? Icons.warning_amber_rounded
                       : score <= 2
-                          ? Icons.info_outline
-                          : Icons.check_circle_outline,
+                      ? Icons.info_outline
+                      : Icons.check_circle_outline,
                   size: 14,
                   color: _strengthColors[score - 1],
                 ),

@@ -36,9 +36,9 @@ class _DraftsScreenState extends State<DraftsScreen> {
     } catch (e) {
       if (mounted) {
         setState(() => _isLoading = false);
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to load drafts: $e')),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Failed to load drafts: $e')));
       }
     }
   }
@@ -59,18 +59,23 @@ class _DraftsScreenState extends State<DraftsScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: Text('Cancel',
-                style: GoogleFonts.inter(color: AppColors.textSecondary)),
+            child: Text(
+              'Cancel',
+              style: GoogleFonts.inter(color: AppColors.textSecondary),
+            ),
           ),
           ElevatedButton(
             onPressed: () => Navigator.pop(context, true),
             style: ElevatedButton.styleFrom(
               backgroundColor: AppColors.greenAccent,
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
+                borderRadius: BorderRadius.circular(10),
+              ),
             ),
-            child:
-                Text('Publish', style: GoogleFonts.inter(color: Colors.white)),
+            child: Text(
+              'Publish',
+              style: GoogleFonts.inter(color: Colors.white),
+            ),
           ),
         ],
       ),
@@ -87,9 +92,9 @@ class _DraftsScreenState extends State<DraftsScreen> {
         }
       } catch (e) {
         if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Error publishing draft: $e')),
-          );
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text('Error publishing draft: $e')));
         }
       }
     }
@@ -111,18 +116,23 @@ class _DraftsScreenState extends State<DraftsScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: Text('Cancel',
-                style: GoogleFonts.inter(color: AppColors.textSecondary)),
+            child: Text(
+              'Cancel',
+              style: GoogleFonts.inter(color: AppColors.textSecondary),
+            ),
           ),
           ElevatedButton(
             onPressed: () => Navigator.pop(context, true),
             style: ElevatedButton.styleFrom(
               backgroundColor: AppColors.urgentRed,
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
+                borderRadius: BorderRadius.circular(10),
+              ),
             ),
-            child:
-                Text('Delete', style: GoogleFonts.inter(color: Colors.white)),
+            child: Text(
+              'Delete',
+              style: GoogleFonts.inter(color: Colors.white),
+            ),
           ),
         ],
       ),
@@ -132,16 +142,16 @@ class _DraftsScreenState extends State<DraftsScreen> {
       try {
         await SupabaseService.deleteDraft(draft.id);
         if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Draft deleted')),
-          );
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(const SnackBar(content: Text('Draft deleted')));
           _loadDrafts();
         }
       } catch (e) {
         if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Error deleting draft: $e')),
-          );
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text('Error deleting draft: $e')));
         }
       }
     }
@@ -159,9 +169,7 @@ class _DraftsScreenState extends State<DraftsScreen> {
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: AppColors.navyPrimary,
-              ),
+              decoration: BoxDecoration(color: AppColors.navyPrimary),
               child: SafeArea(
                 bottom: false,
                 child: Column(
@@ -177,8 +185,11 @@ class _DraftsScreenState extends State<DraftsScreen> {
                               color: Colors.white.withValues(alpha: 0.15),
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            child: const Icon(Icons.arrow_back_ios_new,
-                                color: Colors.white, size: 18),
+                            child: const Icon(
+                              Icons.arrow_back_ios_new,
+                              color: Colors.white,
+                              size: 18,
+                            ),
                           ),
                         ),
                         const SizedBox(width: 16),
@@ -211,8 +222,11 @@ class _DraftsScreenState extends State<DraftsScreen> {
                             color: Colors.white.withValues(alpha: 0.15),
                             borderRadius: BorderRadius.circular(12),
                           ),
-                          child: const Icon(Icons.drafts_rounded,
-                              color: Colors.white, size: 22),
+                          child: const Icon(
+                            Icons.drafts_rounded,
+                            color: Colors.white,
+                            size: 22,
+                          ),
                         ),
                       ],
                     ),
@@ -228,24 +242,27 @@ class _DraftsScreenState extends State<DraftsScreen> {
                 child: _isLoading
                     ? const Center(child: CircularProgressIndicator())
                     : _drafts.isEmpty
-                        ? _buildEmptyState()
-                        : ListView.builder(
-                            padding: const EdgeInsets.all(16),
-                            itemCount: _drafts.length,
-                            itemBuilder: (context, index) {
-                              final widget = _buildDraftCard(_drafts[index], index);
-                              if (index < 10) {
-                                return widget
-                                    .animate()
-                                    .fadeIn(delay: Duration(milliseconds: 50 * index))
-                                    .slideX(
-                                        begin: 0.05,
-                                        end: 0,
-                                        delay: Duration(milliseconds: 50 * index));
-                              }
-                              return widget;
-                            },
-                          ),
+                    ? _buildEmptyState()
+                    : ListView.builder(
+                        padding: const EdgeInsets.all(16),
+                        itemCount: _drafts.length,
+                        itemBuilder: (context, index) {
+                          final widget = _buildDraftCard(_drafts[index], index);
+                          if (index < 10) {
+                            return widget
+                                .animate()
+                                .fadeIn(
+                                  delay: Duration(milliseconds: 50 * index),
+                                )
+                                .slideX(
+                                  begin: 0.05,
+                                  end: 0,
+                                  delay: Duration(milliseconds: 50 * index),
+                                );
+                          }
+                          return widget;
+                        },
+                      ),
               ),
             ),
           ],
@@ -385,7 +402,9 @@ class _DraftsScreenState extends State<DraftsScreen> {
                         children: [
                           Container(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 8, vertical: 2),
+                              horizontal: 8,
+                              vertical: 2,
+                            ),
                             decoration: BoxDecoration(
                               color: categoryColor.withValues(alpha: 0.12),
                               borderRadius: BorderRadius.circular(8),
@@ -402,7 +421,9 @@ class _DraftsScreenState extends State<DraftsScreen> {
                           const SizedBox(width: 8),
                           Container(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 8, vertical: 2),
+                              horizontal: 8,
+                              vertical: 2,
+                            ),
                             decoration: BoxDecoration(
                               color: AppColors.warning.withValues(alpha: 0.12),
                               borderRadius: BorderRadius.circular(8),
@@ -410,8 +431,11 @@ class _DraftsScreenState extends State<DraftsScreen> {
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Icon(Icons.edit_note_rounded,
-                                    size: 12, color: AppColors.warning),
+                                Icon(
+                                  Icons.edit_note_rounded,
+                                  size: 12,
+                                  color: AppColors.warning,
+                                ),
                                 const SizedBox(width: 3),
                                 Text(
                                   'Draft',
@@ -465,8 +489,11 @@ class _DraftsScreenState extends State<DraftsScreen> {
                 if (draft.address != null) ...[
                   Row(
                     children: [
-                      Icon(Icons.location_on_outlined,
-                          size: 14, color: AppColors.textLight),
+                      Icon(
+                        Icons.location_on_outlined,
+                        size: 14,
+                        color: AppColors.textLight,
+                      ),
                       const SizedBox(width: 4),
                       Expanded(
                         child: Text(
@@ -489,8 +516,11 @@ class _DraftsScreenState extends State<DraftsScreen> {
                     padding: const EdgeInsets.only(bottom: 10),
                     child: Row(
                       children: [
-                        Icon(Icons.photo_library_outlined,
-                            size: 14, color: AppColors.textLight),
+                        Icon(
+                          Icons.photo_library_outlined,
+                          size: 14,
+                          color: AppColors.textLight,
+                        ),
                         const SizedBox(width: 4),
                         Text(
                           '${draft.photoUrls.length} photo${draft.photoUrls.length != 1 ? 's' : ''} attached',
@@ -517,8 +547,11 @@ class _DraftsScreenState extends State<DraftsScreen> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Icon(Icons.send_rounded,
-                                  color: Colors.white, size: 16),
+                              const Icon(
+                                Icons.send_rounded,
+                                color: Colors.white,
+                                size: 16,
+                              ),
                               const SizedBox(width: 6),
                               Text(
                                 'Publish',
@@ -542,8 +575,11 @@ class _DraftsScreenState extends State<DraftsScreen> {
                           color: AppColors.urgentRed.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        child: Icon(Icons.delete_outline_rounded,
-                            color: AppColors.urgentRed, size: 20),
+                        child: Icon(
+                          Icons.delete_outline_rounded,
+                          color: AppColors.urgentRed,
+                          size: 20,
+                        ),
                       ),
                     ),
                   ],

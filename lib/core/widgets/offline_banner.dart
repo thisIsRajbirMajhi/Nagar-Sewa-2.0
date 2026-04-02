@@ -51,13 +51,13 @@ class OfflineBanner extends ConsumerWidget {
             ),
           ),
           Container(
-            width: 8,
-            height: 8,
-            decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.7),
-              shape: BoxShape.circle,
-            ),
-          )
+                width: 8,
+                height: 8,
+                decoration: BoxDecoration(
+                  color: Colors.white.withValues(alpha: 0.7),
+                  shape: BoxShape.circle,
+                ),
+              )
               .animate(onPlay: (c) => c.repeat(reverse: true))
               .fadeIn(duration: 800.ms)
               .then()
@@ -132,7 +132,7 @@ class _BackOnlineBannerState extends ConsumerState<BackOnlineBanner> {
   }
 }
 
-/// A banner that shows when pending items have been synced. 
+/// A banner that shows when pending items have been synced.
 /// Use this as a one-shot notification after sync completes.
 class SyncSuccessBanner extends StatelessWidget {
   final int syncedCount;
@@ -166,6 +166,11 @@ class SyncSuccessBanner extends StatelessWidget {
           ),
         ],
       ),
-    ).animate().slideY(begin: -1, end: 0, duration: 300.ms, curve: Curves.easeOut);
+    ).animate().slideY(
+      begin: -1,
+      end: 0,
+      duration: 300.ms,
+      curve: Curves.easeOut,
+    );
   }
 }

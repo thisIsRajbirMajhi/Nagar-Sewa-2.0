@@ -41,11 +41,7 @@ class BottomNavBar extends StatelessWidget {
                 icon: Icons.access_time_rounded,
                 label: 'History',
               ),
-              _buildNavItem(
-                index: 2,
-                icon: Icons.map_outlined,
-                label: 'Map',
-              ),
+              _buildNavItem(index: 2, icon: Icons.map_outlined, label: 'Map'),
               _buildNavItem(
                 index: 3,
                 icon: Icons.chat_bubble_outline_rounded,
@@ -83,8 +79,7 @@ class BottomNavBar extends StatelessWidget {
               style: TextStyle(
                 fontSize: 11,
                 fontWeight: isActive ? FontWeight.w600 : FontWeight.w400,
-                color:
-                    isActive ? AppColors.navyPrimary : AppColors.textLight,
+                color: isActive ? AppColors.navyPrimary : AppColors.textLight,
               ),
             ),
           ],

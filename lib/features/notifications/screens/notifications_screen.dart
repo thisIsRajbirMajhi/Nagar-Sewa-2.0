@@ -41,23 +41,35 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
 
   IconData _getTypeIcon(String type) {
     switch (type) {
-      case 'status_change': return Icons.swap_horiz;
-      case 'upvote': return Icons.thumb_up_outlined;
-      case 'resolution': return Icons.check_circle_outline;
-      case 'escalation': return Icons.priority_high;
-      case 'assignment': return Icons.assignment_ind;
-      default: return Icons.notifications_outlined;
+      case 'status_change':
+        return Icons.swap_horiz;
+      case 'upvote':
+        return Icons.thumb_up_outlined;
+      case 'resolution':
+        return Icons.check_circle_outline;
+      case 'escalation':
+        return Icons.priority_high;
+      case 'assignment':
+        return Icons.assignment_ind;
+      default:
+        return Icons.notifications_outlined;
     }
   }
 
   Color _getTypeColor(String type) {
     switch (type) {
-      case 'status_change': return AppColors.reportedBlue;
-      case 'upvote': return AppColors.greenAccent;
-      case 'resolution': return AppColors.resolvedGreen;
-      case 'escalation': return AppColors.urgentRed;
-      case 'assignment': return AppColors.communityOrange;
-      default: return AppColors.navyPrimary;
+      case 'status_change':
+        return AppColors.reportedBlue;
+      case 'upvote':
+        return AppColors.greenAccent;
+      case 'resolution':
+        return AppColors.resolvedGreen;
+      case 'escalation':
+        return AppColors.urgentRed;
+      case 'assignment':
+        return AppColors.communityOrange;
+      default:
+        return AppColors.navyPrimary;
     }
   }
 
@@ -79,8 +91,10 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
               await SupabaseService.markAllNotificationsRead();
               _loadNotifications();
             },
-            child: const Text('Mark all read',
-                style: TextStyle(color: Colors.white70, fontSize: 12)),
+            child: const Text(
+              'Mark all read',
+              style: TextStyle(color: Colors.white70, fontSize: 12),
+            ),
           ),
         ],
       ),
@@ -89,116 +103,121 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
         child: _isLoading
             ? const Center(child: CircularProgressIndicator())
             : _notifications.isEmpty
-                ? Center(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(Icons.notifications_off_outlined,
-                            size: 56, color: AppColors.textLight),
-                        const SizedBox(height: 12),
-                        Text(
-                          'No notifications yet',
-                          style: GoogleFonts.inter(
-                            fontSize: 16,
-                            color: AppColors.textSecondary,
-                          ),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          'You\'ll be notified about issue updates',
-                          style: GoogleFonts.inter(
-                            fontSize: 13,
-                            color: AppColors.textLight,
-                          ),
-                        ),
-                      ],
+            ? Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      Icons.notifications_off_outlined,
+                      size: 56,
+                      color: AppColors.textLight,
                     ),
-                  )
-                : ListView.separated(
-                    padding: const EdgeInsets.all(16),
-                    itemCount: _notifications.length,
-                    separatorBuilder: (_, i) => const Divider(height: 1),
-                    itemBuilder: (context, i) {
-                      final n = _notifications[i];
-                      final color = _getTypeColor(n.type);
-                      return GestureDetector(
-                        onTap: () {
-                          SupabaseService.markNotificationRead(n.id);
-                          if (n.issueId != null) {
-                            context.push('/issue/${n.issueId}');
-                          }
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(vertical: 12),
-                          color: n.isRead
-                              ? Colors.transparent
-                              : AppColors.surface,
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                padding: const EdgeInsets.all(8),
-                                decoration: BoxDecoration(
-                                  color: color.withValues(alpha: 0.1),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: Icon(_getTypeIcon(n.type),
-                                    color: color, size: 20),
-                              ),
-                              const SizedBox(width: 12),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      n.title,
-                                      style: GoogleFonts.inter(
-                                        fontSize: 14,
-                                        fontWeight: n.isRead
-                                            ? FontWeight.w400
-                                            : FontWeight.w600,
-                                        color: AppColors.textPrimary,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 2),
-                                    Text(
-                                      n.message,
-                                      style: GoogleFonts.inter(
-                                        fontSize: 12,
-                                        color: AppColors.textSecondary,
-                                      ),
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                    const SizedBox(height: 4),
-                                    Text(
-                                      DateFormat('dd MMM, hh:mm a')
-                                          .format(n.createdAt),
-                                      style: GoogleFonts.inter(
-                                        fontSize: 11,
-                                        color: AppColors.textLight,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              if (!n.isRead)
-                                Container(
-                                  width: 8,
-                                  height: 8,
-                                  decoration: BoxDecoration(
-                                    color: AppColors.greenAccent,
-                                    shape: BoxShape.circle,
+                    const SizedBox(height: 12),
+                    Text(
+                      'No notifications yet',
+                      style: GoogleFonts.inter(
+                        fontSize: 16,
+                        color: AppColors.textSecondary,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      'You\'ll be notified about issue updates',
+                      style: GoogleFonts.inter(
+                        fontSize: 13,
+                        color: AppColors.textLight,
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            : ListView.separated(
+                padding: const EdgeInsets.all(16),
+                itemCount: _notifications.length,
+                separatorBuilder: (_, i) => const Divider(height: 1),
+                itemBuilder: (context, i) {
+                  final n = _notifications[i];
+                  final color = _getTypeColor(n.type);
+                  return GestureDetector(
+                    onTap: () {
+                      SupabaseService.markNotificationRead(n.id);
+                      if (n.issueId != null) {
+                        context.push('/issue/${n.issueId}');
+                      }
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 12),
+                      color: n.isRead ? Colors.transparent : AppColors.surface,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              color: color.withValues(alpha: 0.1),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Icon(
+                              _getTypeIcon(n.type),
+                              color: color,
+                              size: 20,
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  n.title,
+                                  style: GoogleFonts.inter(
+                                    fontSize: 14,
+                                    fontWeight: n.isRead
+                                        ? FontWeight.w400
+                                        : FontWeight.w600,
+                                    color: AppColors.textPrimary,
                                   ),
                                 ),
-                            ],
+                                const SizedBox(height: 2),
+                                Text(
+                                  n.message,
+                                  style: GoogleFonts.inter(
+                                    fontSize: 12,
+                                    color: AppColors.textSecondary,
+                                  ),
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  DateFormat(
+                                    'dd MMM, hh:mm a',
+                                  ).format(n.createdAt),
+                                  style: GoogleFonts.inter(
+                                    fontSize: 11,
+                                    color: AppColors.textLight,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      ).animate().fadeIn(
-                          delay: Duration(milliseconds: i < 15 ? 50 * i : 0));
-                    },
-                  ),
+                          if (!n.isRead)
+                            Container(
+                              width: 8,
+                              height: 8,
+                              decoration: BoxDecoration(
+                                color: AppColors.greenAccent,
+                                shape: BoxShape.circle,
+                              ),
+                            ),
+                        ],
+                      ),
+                    ),
+                  ).animate().fadeIn(
+                    delay: Duration(milliseconds: i < 15 ? 50 * i : 0),
+                  );
+                },
+              ),
       ),
     );
   }

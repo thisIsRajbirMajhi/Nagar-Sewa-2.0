@@ -95,7 +95,12 @@ class _FilteredIssuesScreenState extends State<FilteredIssuesScreen> {
         default:
           issues = await SupabaseService.getIssues();
       }
-      if (mounted) setState(() { _issues = issues; _isLoading = false; });
+      if (mounted) {
+        setState(() {
+          _issues = issues;
+          _isLoading = false;
+        });
+      }
     } catch (e) {
       if (mounted) setState(() => _isLoading = false);
     }
@@ -124,38 +129,42 @@ class _FilteredIssuesScreenState extends State<FilteredIssuesScreen> {
         child: _isLoading
             ? const Center(child: CircularProgressIndicator())
             : _issues.isEmpty
-                ? Center(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(Icons.inbox_rounded,
-                            size: 56, color: _color.withValues(alpha: 0.4)),
-                        const SizedBox(height: 16),
-                        Text(
-                          'No $_title found',
-                          style: GoogleFonts.inter(
-                            fontSize: 16,
-                            color: AppColors.textSecondary,
-                          ),
-                        ),
-                      ],
+            ? Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      Icons.inbox_rounded,
+                      size: 56,
+                      color: _color.withValues(alpha: 0.4),
                     ),
-                  )
-                : ListView.builder(
-                    padding: const EdgeInsets.all(16),
-                    itemCount: _issues.length,
-                    itemBuilder: (context, i) {
-                      final widget = ActivityItem(
-                        issue: _issues[i],
-                        onTap: () => context.push('/issue/${_issues[i].id}'),
-                      );
-                      if (i < 10) {
-                        return widget.animate().fadeIn(
-                            delay: Duration(milliseconds: 50 * i));
-                      }
-                      return widget;
-                    },
-                  ),
+                    const SizedBox(height: 16),
+                    Text(
+                      'No $_title found',
+                      style: GoogleFonts.inter(
+                        fontSize: 16,
+                        color: AppColors.textSecondary,
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            : ListView.builder(
+                padding: const EdgeInsets.all(16),
+                itemCount: _issues.length,
+                itemBuilder: (context, i) {
+                  final widget = ActivityItem(
+                    issue: _issues[i],
+                    onTap: () => context.push('/issue/${_issues[i].id}'),
+                  );
+                  if (i < 10) {
+                    return widget.animate().fadeIn(
+                      delay: Duration(milliseconds: 50 * i),
+                    );
+                  }
+                  return widget;
+                },
+              ),
       ),
     );
   }

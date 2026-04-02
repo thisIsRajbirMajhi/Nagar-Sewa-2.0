@@ -7,8 +7,8 @@ import 'connectivity_provider.dart';
 /// Notifications provider with offline caching.
 final notificationsProvider =
     AsyncNotifierProvider<NotificationsNotifier, List<NotificationModel>>(
-  NotificationsNotifier.new,
-);
+      NotificationsNotifier.new,
+    );
 
 class NotificationsNotifier extends AsyncNotifier<List<NotificationModel>> {
   @override

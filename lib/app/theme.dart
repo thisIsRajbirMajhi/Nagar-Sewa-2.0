@@ -115,7 +115,10 @@ class AppTheme {
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: false,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 14,
+        ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide(color: AppColors.border),
@@ -132,10 +135,7 @@ class AppTheme {
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide(color: AppColors.error),
         ),
-        hintStyle: GoogleFonts.inter(
-          fontSize: 14,
-          color: AppColors.textLight,
-        ),
+        hintStyle: GoogleFonts.inter(fontSize: 14, color: AppColors.textLight),
         labelStyle: GoogleFonts.inter(
           fontSize: 14,
           color: AppColors.textSecondary,
@@ -145,9 +145,7 @@ class AppTheme {
         color: AppColors.cardBg,
         elevation: 2,
         shadowColor: AppColors.shadow,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         margin: EdgeInsets.zero,
       ),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
@@ -156,7 +154,10 @@ class AppTheme {
         unselectedItemColor: AppColors.textLight,
         type: BottomNavigationBarType.fixed,
         elevation: 8,
-        selectedLabelStyle: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+        selectedLabelStyle: TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.w600,
+        ),
         unselectedLabelStyle: TextStyle(fontSize: 12),
       ),
       dividerTheme: DividerThemeData(
@@ -167,9 +168,7 @@ class AppTheme {
       snackBarTheme: SnackBarThemeData(
         backgroundColor: AppColors.navyPrimary,
         contentTextStyle: GoogleFonts.inter(color: AppColors.textWhite),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         behavior: SnackBarBehavior.floating,
       ),
     );
@@ -285,7 +284,10 @@ class AppTheme {
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: false,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 14,
+        ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide(color: AppColors.border),
@@ -302,10 +304,7 @@ class AppTheme {
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide(color: AppColors.error),
         ),
-        hintStyle: GoogleFonts.inter(
-          fontSize: 14,
-          color: AppColors.textLight,
-        ),
+        hintStyle: GoogleFonts.inter(fontSize: 14, color: AppColors.textLight),
         labelStyle: GoogleFonts.inter(
           fontSize: 14,
           color: AppColors.textSecondary,
@@ -315,9 +314,7 @@ class AppTheme {
         color: AppColors.cardBg,
         elevation: 2,
         shadowColor: AppColors.shadow,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         margin: EdgeInsets.zero,
       ),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
@@ -326,7 +323,10 @@ class AppTheme {
         unselectedItemColor: AppColors.textLight,
         type: BottomNavigationBarType.fixed,
         elevation: 8,
-        selectedLabelStyle: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+        selectedLabelStyle: const TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.w600,
+        ),
         unselectedLabelStyle: const TextStyle(fontSize: 12),
       ),
       dividerTheme: DividerThemeData(
@@ -337,12 +337,9 @@ class AppTheme {
       snackBarTheme: SnackBarThemeData(
         backgroundColor: AppColors.navyPrimary,
         contentTextStyle: GoogleFonts.inter(color: AppColors.textWhite),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         behavior: SnackBarBehavior.floating,
       ),
     );
   }
 }
-

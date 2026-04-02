@@ -46,7 +46,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
     if (strength < 2) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: const Text('Password is too weak. Please use a stronger password.'),
+          content: const Text(
+            'Password is too weak. Please use a stronger password.',
+          ),
           backgroundColor: AppColors.error,
         ),
       );
@@ -79,10 +81,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             ? ErrorMessages.friendly(e)
             : _getSignUpErrorMessage(e);
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(message),
-            backgroundColor: AppColors.error,
-          ),
+          SnackBar(content: Text(message), backgroundColor: AppColors.error),
         );
       }
     } catch (e) {
@@ -158,8 +157,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
               const SizedBox(height: 8),
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 8,
+                ),
                 decoration: BoxDecoration(
                   color: AppColors.surface,
                   borderRadius: BorderRadius.circular(8),
@@ -258,8 +259,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
               const SizedBox(height: 8),
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 8,
+                ),
                 decoration: BoxDecoration(
                   color: AppColors.surface,
                   borderRadius: BorderRadius.circular(8),
@@ -284,8 +287,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
                 child: Row(
                   children: [
-                    Icon(Icons.info_outline,
-                        size: 16, color: AppColors.info),
+                    Icon(Icons.info_outline, size: 16, color: AppColors.info),
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
@@ -407,9 +409,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ).animate().fadeIn(delay: 500.ms).slideX(begin: -0.1),
 
                 // Password strength bar
-                PasswordStrengthBar(password: _passwordValue)
-                    .animate()
-                    .fadeIn(delay: 550.ms),
+                PasswordStrengthBar(
+                  password: _passwordValue,
+                ).animate().fadeIn(delay: 550.ms),
                 const SizedBox(height: 16),
 
                 // Confirm password
@@ -428,7 +430,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       color: AppColors.textLight,
                     ),
                     onPressed: () => setState(
-                        () => _obscureConfirmPassword = !_obscureConfirmPassword),
+                      () => _obscureConfirmPassword = !_obscureConfirmPassword,
+                    ),
                   ),
                 ).animate().fadeIn(delay: 600.ms).slideX(begin: -0.1),
                 const SizedBox(height: 32),

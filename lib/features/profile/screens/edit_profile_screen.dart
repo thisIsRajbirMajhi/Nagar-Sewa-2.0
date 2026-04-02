@@ -51,7 +51,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
       if (cached != null) {
         _populateFields(cached);
       }
-      
+
       final profile = await SupabaseService.getProfile();
       if (profile != null) {
         if (mounted) {
@@ -61,9 +61,9 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to load profile')),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Failed to load profile')));
       }
     } finally {
       if (mounted) {
@@ -81,7 +81,10 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
 
   Future<void> _pickImage() async {
     final picker = ImagePicker();
-    final picked = await picker.pickImage(source: ImageSource.gallery, imageQuality: 70);
+    final picked = await picker.pickImage(
+      source: ImageSource.gallery,
+      imageQuality: 70,
+    );
     if (picked != null) {
       setState(() {
         _newAvatar = File(picked.path);
@@ -93,7 +96,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
     try {
       // Show loading in ward field
       _wardController.text = 'Fetching location...';
-      
+
       bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
       if (!serviceEnabled) {
         _wardController.text = '';
@@ -114,13 +117,17 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
       }
 
       final position = await Geolocator.getCurrentPosition();
-      final placemarks = await placemarkFromCoordinates(position.latitude, position.longitude);
-      
+      final placemarks = await placemarkFromCoordinates(
+        position.latitude,
+        position.longitude,
+      );
+
       if (placemarks.isNotEmpty) {
         final place = placemarks.first;
         // Construct a pseudo ward/area string
         setState(() {
-          _wardController.text = '${place.subLocality ?? ''} ${place.locality ?? ''}'.trim();
+          _wardController.text =
+              '${place.subLocality ?? ''} ${place.locality ?? ''}'.trim();
         });
       } else {
         setState(() {
@@ -145,16 +152,16 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
     setState(() => _isSaving = true);
     try {
       String? avatarUrl = _currentAvatarUrl;
-      
+
       if (_newAvatar != null) {
         final bytes = await _newAvatar!.readAsBytes();
         final uid = SupabaseService.userId ?? 'anon';
         final path = '$uid/avatar_${DateTime.now().millisecondsSinceEpoch}.jpg';
-        
+
         avatarUrl = await SupabaseService.uploadImage(
-          path, 
-          bytes, 
-          bucket: 'avatars'
+          path,
+          bytes,
+          bucket: 'avatars',
         );
       }
 
@@ -182,9 +189,9 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error updating profile: $e')),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Error updating profile: $e')));
       }
     } finally {
       if (mounted) setState(() => _isSaving = false);
@@ -196,7 +203,10 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
     if (_isLoading) {
       return Scaffold(
         backgroundColor: AppColors.background,
-        appBar: AppBar(backgroundColor: AppColors.navyPrimary, title: const Text('Edit Profile')),
+        appBar: AppBar(
+          backgroundColor: AppColors.navyPrimary,
+          title: const Text('Edit Profile'),
+        ),
         body: const Center(child: CircularProgressIndicator()),
       );
     }
@@ -231,15 +241,23 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                                   image: FileImage(_newAvatar!),
                                   fit: BoxFit.cover,
                                 )
-                              : _currentAvatarUrl != null && _currentAvatarUrl!.isNotEmpty
-                                  ? DecorationImage(
-                                      image: NetworkImage(_currentAvatarUrl!),
-                                      fit: BoxFit.cover,
-                                    )
-                                  : null,
+                              : _currentAvatarUrl != null &&
+                                    _currentAvatarUrl!.isNotEmpty
+                              ? DecorationImage(
+                                  image: NetworkImage(_currentAvatarUrl!),
+                                  fit: BoxFit.cover,
+                                )
+                              : null,
                         ),
-                        child: _newAvatar == null && (_currentAvatarUrl == null || _currentAvatarUrl!.isEmpty)
-                            ? Icon(Icons.person, size: 50, color: AppColors.textLight)
+                        child:
+                            _newAvatar == null &&
+                                (_currentAvatarUrl == null ||
+                                    _currentAvatarUrl!.isEmpty)
+                            ? Icon(
+                                Icons.person,
+                                size: 50,
+                                color: AppColors.textLight,
+                              )
                             : null,
                       ),
                       Positioned(
@@ -251,7 +269,11 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                             color: AppColors.greenAccent,
                             shape: BoxShape.circle,
                           ),
-                          child: const Icon(Icons.camera_alt, size: 18, color: Colors.white),
+                          child: const Icon(
+                            Icons.camera_alt,
+                            size: 18,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ],
@@ -259,42 +281,71 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                 ),
               ),
               const SizedBox(height: 32),
-              
+
               // Fields
-              Text('Full Name', style: GoogleFonts.inter(fontWeight: FontWeight.w600, color: AppColors.textPrimary)),
+              Text(
+                'Full Name',
+                style: GoogleFonts.inter(
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.textPrimary,
+                ),
+              ),
               const SizedBox(height: 8),
               TextFormField(
                 controller: _nameController,
-                decoration: const InputDecoration(hintText: 'Enter your full name'),
-                validator: (val) => val == null || val.isEmpty ? 'Name is required' : null,
+                decoration: const InputDecoration(
+                  hintText: 'Enter your full name',
+                ),
+                validator: (val) =>
+                    val == null || val.isEmpty ? 'Name is required' : null,
               ),
               const SizedBox(height: 20),
 
-              Text('Phone Number', style: GoogleFonts.inter(fontWeight: FontWeight.w600, color: AppColors.textPrimary)),
+              Text(
+                'Phone Number',
+                style: GoogleFonts.inter(
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.textPrimary,
+                ),
+              ),
               const SizedBox(height: 8),
               TextFormField(
                 controller: _phoneController,
                 keyboardType: TextInputType.phone,
-                decoration: const InputDecoration(hintText: 'e.g., +91 9876543210'),
+                decoration: const InputDecoration(
+                  hintText: 'e.g., +91 9876543210',
+                ),
               ),
               const SizedBox(height: 20),
 
-              Text('Ward No / Area', style: GoogleFonts.inter(fontWeight: FontWeight.w600, color: AppColors.textPrimary)),
+              Text(
+                'Ward No / Area',
+                style: GoogleFonts.inter(
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.textPrimary,
+                ),
+              ),
               const SizedBox(height: 8),
               Row(
                 children: [
                   Expanded(
                     child: TextFormField(
                       controller: _wardController,
-                      decoration: const InputDecoration(hintText: 'Enter ward or locality'),
+                      decoration: const InputDecoration(
+                        hintText: 'Enter ward or locality',
+                      ),
                     ),
                   ),
                   const SizedBox(width: 12),
                   IconButton(
                     onPressed: _autoFetchWard,
                     style: IconButton.styleFrom(
-                      backgroundColor: AppColors.navyPrimary.withValues(alpha: 0.1),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                      backgroundColor: AppColors.navyPrimary.withValues(
+                        alpha: 0.1,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
                     ),
                     icon: Icon(Icons.my_location, color: AppColors.navyPrimary),
                     tooltip: 'Auto-detect Location',

@@ -80,18 +80,18 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
                 // Lock icon
                 Container(
-                  width: 80,
-                  height: 80,
-                  decoration: BoxDecoration(
-                    color: AppColors.greenLight,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Icon(
-                    Icons.lock_reset_rounded,
-                    size: 40,
-                    color: AppColors.greenAccent,
-                  ),
-                )
+                      width: 80,
+                      height: 80,
+                      decoration: BoxDecoration(
+                        color: AppColors.greenLight,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Icon(
+                        Icons.lock_reset_rounded,
+                        size: 40,
+                        color: AppColors.greenAccent,
+                      ),
+                    )
                     .animate()
                     .fadeIn(delay: 200.ms, duration: 500.ms)
                     .scale(

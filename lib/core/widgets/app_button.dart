@@ -30,8 +30,7 @@ class AppButton extends StatelessWidget {
             onPressed: isLoading ? null : onPressed,
             style: OutlinedButton.styleFrom(
               foregroundColor: textColor ?? AppColors.navyPrimary,
-              side: BorderSide(
-                  color: backgroundColor ?? AppColors.navyPrimary),
+              side: BorderSide(color: backgroundColor ?? AppColors.navyPrimary),
               minimumSize: Size(width ?? double.infinity, 52),
             ),
             child: _buildChild(),
@@ -46,10 +45,7 @@ class AppButton extends StatelessWidget {
             child: _buildChild(),
           );
 
-    return SizedBox(
-      width: width ?? double.infinity,
-      child: button,
-    );
+    return SizedBox(width: width ?? double.infinity, child: button);
   }
 
   Widget _buildChild() {
@@ -66,11 +62,7 @@ class AppButton extends StatelessWidget {
     if (icon != null) {
       return Row(
         mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, size: 20),
-          const SizedBox(width: 8),
-          Text(text),
-        ],
+        children: [Icon(icon, size: 20), const SizedBox(width: 8), Text(text)],
       );
     }
     return Text(text);

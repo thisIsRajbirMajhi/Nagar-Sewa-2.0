@@ -19,9 +19,9 @@ class ErrorMessages {
         msg.contains('timeout') ||
         msg.contains('no internet') ||
         msg.contains('host lookup') ||
-        msg.contains('errno = 7') ||    // POSIX network unreachable
-        msg.contains('errno = 101') ||  // Linux ENETUNREACH
-        msg.contains('errno = 111') ||  // Linux ECONNREFUSED
+        msg.contains('errno = 7') || // POSIX network unreachable
+        msg.contains('errno = 101') || // Linux ENETUNREACH
+        msg.contains('errno = 111') || // Linux ECONNREFUSED
         msg.contains('clientexception');
   }
 

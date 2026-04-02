@@ -74,7 +74,10 @@ class AppHeader extends StatelessWidget {
             ),
             if (onMenuTap != null)
               IconButton(
-                icon: const Icon(Icons.notifications_outlined, color: Colors.white),
+                icon: const Icon(
+                  Icons.notifications_outlined,
+                  color: Colors.white,
+                ),
                 onPressed: onMenuTap,
               ),
           ],

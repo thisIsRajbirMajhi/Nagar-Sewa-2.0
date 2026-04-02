@@ -107,39 +107,43 @@ class _HistoryScreenState extends State<HistoryScreen> {
                 child: _isLoading
                     ? const Center(child: CircularProgressIndicator())
                     : _filteredIssues.isEmpty
-                        ? Center(
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Icon(Icons.history_rounded,
-                                    size: 56, color: AppColors.textLight),
-                                const SizedBox(height: 12),
-                                Text(
-                                  'No issues found',
-                                  style: GoogleFonts.inter(
-                                    fontSize: 16,
-                                    color: AppColors.textSecondary,
-                                  ),
-                                ),
-                              ],
+                    ? Center(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              Icons.history_rounded,
+                              size: 56,
+                              color: AppColors.textLight,
                             ),
-                          )
-                        : ListView.builder(
-                            padding: const EdgeInsets.symmetric(horizontal: 16),
-                            itemCount: _filteredIssues.length,
-                            itemBuilder: (context, i) {
-                              final widget = ActivityItem(
-                                issue: _filteredIssues[i],
-                                onTap: () => context
-                                    .push('/issue/${_filteredIssues[i].id}'),
-                              );
-                              if (i < 10) {
-                                return widget.animate().fadeIn(
-                                    delay: Duration(milliseconds: 50 * i));
-                              }
-                              return widget;
-                            },
-                          ),
+                            const SizedBox(height: 12),
+                            Text(
+                              'No issues found',
+                              style: GoogleFonts.inter(
+                                fontSize: 16,
+                                color: AppColors.textSecondary,
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    : ListView.builder(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        itemCount: _filteredIssues.length,
+                        itemBuilder: (context, i) {
+                          final widget = ActivityItem(
+                            issue: _filteredIssues[i],
+                            onTap: () =>
+                                context.push('/issue/${_filteredIssues[i].id}'),
+                          );
+                          if (i < 10) {
+                            return widget.animate().fadeIn(
+                              delay: Duration(milliseconds: 50 * i),
+                            );
+                          }
+                          return widget;
+                        },
+                      ),
               ),
             ),
           ],

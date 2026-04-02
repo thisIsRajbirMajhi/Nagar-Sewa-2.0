@@ -45,8 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
       );
 
       // Check if email is confirmed
-      if (response.user != null &&
-          response.user!.emailConfirmedAt == null) {
+      if (response.user != null && response.user!.emailConfirmedAt == null) {
         if (mounted) {
           _showEmailNotConfirmedDialog(_emailController.text.trim());
         }
@@ -82,8 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
     if (msg.contains('email not confirmed')) {
       return 'Your email hasn\'t been confirmed yet. Please check your inbox.';
     }
-    if (msg.contains('too many requests') ||
-        msg.contains('rate limit')) {
+    if (msg.contains('too many requests') || msg.contains('rate limit')) {
       return 'Too many login attempts. Please try again later.';
     }
     if (msg.contains('user not found')) {
@@ -100,81 +98,81 @@ class _LoginScreenState extends State<LoginScreen> {
     final isNetwork = _isNetworkError;
 
     return Container(
-      padding: const EdgeInsets.all(14),
-      margin: const EdgeInsets.only(bottom: 20),
-      decoration: BoxDecoration(
-        color: isNetwork
-            ? const Color(0xFFFFF3E0)
-            : AppColors.error.withValues(alpha: 0.08),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: isNetwork
-              ? const Color(0xFFFFB74D)
-              : AppColors.error.withValues(alpha: 0.3),
-        ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Icon(
-                isNetwork ? Icons.wifi_off_rounded : Icons.error_outline,
-                size: 20,
-                color: isNetwork
-                    ? const Color(0xFFE65100)
-                    : AppColors.error.withValues(alpha: 0.8),
-              ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      isNetwork ? 'No Connection' : 'Login Failed',
-                      style: GoogleFonts.inter(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                        color: isNetwork
-                            ? const Color(0xFFE65100)
-                            : AppColors.error,
-                      ),
-                    ),
-                    const SizedBox(height: 2),
-                    Text(
-                      _errorMessage!,
-                      style: GoogleFonts.inter(
-                        fontSize: 12,
-                        color: isNetwork
-                            ? const Color(0xFFBF360C)
-                            : AppColors.error.withValues(alpha: 0.85),
-                        height: 1.4,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
+          padding: const EdgeInsets.all(14),
+          margin: const EdgeInsets.only(bottom: 20),
+          decoration: BoxDecoration(
+            color: isNetwork
+                ? const Color(0xFFFFF3E0)
+                : AppColors.error.withValues(alpha: 0.08),
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(
+              color: isNetwork
+                  ? const Color(0xFFFFB74D)
+                  : AppColors.error.withValues(alpha: 0.3),
+            ),
           ),
-          if (!isNetwork && _errorMessage!.contains('reset'))
-            Padding(
-              padding: const EdgeInsets.only(top: 10),
-              child: GestureDetector(
-                onTap: () => context.push('/forgot-password'),
-                child: Text(
-                  'Reset Password →',
-                  style: GoogleFonts.inter(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.navyPrimary,
-                    decoration: TextDecoration.underline,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Icon(
+                    isNetwork ? Icons.wifi_off_rounded : Icons.error_outline,
+                    size: 20,
+                    color: isNetwork
+                        ? const Color(0xFFE65100)
+                        : AppColors.error.withValues(alpha: 0.8),
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          isNetwork ? 'No Connection' : 'Login Failed',
+                          style: GoogleFonts.inter(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                            color: isNetwork
+                                ? const Color(0xFFE65100)
+                                : AppColors.error,
+                          ),
+                        ),
+                        const SizedBox(height: 2),
+                        Text(
+                          _errorMessage!,
+                          style: GoogleFonts.inter(
+                            fontSize: 12,
+                            color: isNetwork
+                                ? const Color(0xFFBF360C)
+                                : AppColors.error.withValues(alpha: 0.85),
+                            height: 1.4,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              if (!isNetwork && _errorMessage!.contains('reset'))
+                Padding(
+                  padding: const EdgeInsets.only(top: 10),
+                  child: GestureDetector(
+                    onTap: () => context.push('/forgot-password'),
+                    child: Text(
+                      'Reset Password →',
+                      style: GoogleFonts.inter(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.navyPrimary,
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ),
-        ],
-      ),
-    )
+            ],
+          ),
+        )
         .animate()
         .fadeIn(duration: 300.ms)
         .shake(
@@ -243,8 +241,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(height: 48),
 
                 // Error banner
-                if (_errorMessage != null)
-                  _buildErrorBanner(),
+                if (_errorMessage != null) _buildErrorBanner(),
 
                 // Email field
                 AppTextField(
@@ -362,9 +359,9 @@ class _EmailConfirmationDialogState extends State<_EmailConfirmationDialog> {
       setState(() => _sent = true);
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(ErrorMessages.friendly(e))),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(ErrorMessages.friendly(e))));
       }
     } finally {
       if (mounted) setState(() => _isResending = false);
@@ -439,7 +436,11 @@ class _EmailConfirmationDialogState extends State<_EmailConfirmationDialog> {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(Icons.check_circle, color: AppColors.greenAccent, size: 18),
+                    Icon(
+                      Icons.check_circle,
+                      color: AppColors.greenAccent,
+                      size: 18,
+                    ),
                     const SizedBox(width: 8),
                     Text(
                       'Confirmation email sent!',

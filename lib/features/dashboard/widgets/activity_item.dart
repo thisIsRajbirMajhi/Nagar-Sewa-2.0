@@ -7,11 +7,7 @@ class ActivityItem extends StatelessWidget {
   final IssueModel issue;
   final VoidCallback? onTap;
 
-  const ActivityItem({
-    super.key,
-    required this.issue,
-    this.onTap,
-  });
+  const ActivityItem({super.key, required this.issue, this.onTap});
 
   Color get _accentColor => AppColors.getStatusColor(issue.status);
 
@@ -81,7 +77,9 @@ class ActivityItem extends StatelessWidget {
                           // Status badge
                           Container(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 4),
+                              horizontal: 10,
+                              vertical: 4,
+                            ),
                             decoration: BoxDecoration(
                               color: _accentColor,
                               borderRadius: BorderRadius.circular(20),

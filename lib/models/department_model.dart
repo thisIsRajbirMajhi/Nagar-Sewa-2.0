@@ -27,7 +27,8 @@ class DepartmentModel {
       description: json['description'] as String?,
       contactEmail: json['contact_email'] as String?,
       contactPhone: json['contact_phone'] as String?,
-      geoZones: (json['geo_zones'] as List<dynamic>?)
+      geoZones:
+          (json['geo_zones'] as List<dynamic>?)
               ?.map((e) => e as String)
               .toList() ??
           [],

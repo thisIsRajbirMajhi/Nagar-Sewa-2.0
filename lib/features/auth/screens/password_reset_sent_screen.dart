@@ -81,18 +81,18 @@ class _PasswordResetSentScreenState extends State<PasswordResetSentScreen> {
 
               // Animated email icon
               Container(
-                width: 100,
-                height: 100,
-                decoration: BoxDecoration(
-                  color: AppColors.greenLight,
-                  borderRadius: BorderRadius.circular(24),
-                ),
-                child: Icon(
-                  Icons.mark_email_read_rounded,
-                  size: 50,
-                  color: AppColors.greenAccent,
-                ),
-              )
+                    width: 100,
+                    height: 100,
+                    decoration: BoxDecoration(
+                      color: AppColors.greenLight,
+                      borderRadius: BorderRadius.circular(24),
+                    ),
+                    child: Icon(
+                      Icons.mark_email_read_rounded,
+                      size: 50,
+                      color: AppColors.greenAccent,
+                    ),
+                  )
                   .animate()
                   .fadeIn(duration: 600.ms)
                   .scale(
@@ -144,11 +144,7 @@ class _PasswordResetSentScreenState extends State<PasswordResetSentScreen> {
                 ),
                 child: Row(
                   children: [
-                    Icon(
-                      Icons.info_outline,
-                      size: 20,
-                      color: AppColors.info,
-                    ),
+                    Icon(Icons.info_outline, size: 20, color: AppColors.info),
                     const SizedBox(width: 12),
                     Expanded(
                       child: Text(

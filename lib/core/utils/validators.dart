@@ -49,8 +49,9 @@ class Validators {
     final hasUpper = RegExp(r'[A-Z]').hasMatch(value);
     final hasLower = RegExp(r'[a-z]').hasMatch(value);
     final hasDigit = RegExp(r'[0-9]').hasMatch(value);
-    final hasSpecial =
-        RegExp(r'[!@#$%^&*(),.?":{}|<>_\-+=\[\]~`/\\]').hasMatch(value);
+    final hasSpecial = RegExp(
+      r'[!@#$%^&*(),.?":{}|<>_\-+=\[\]~`/\\]',
+    ).hasMatch(value);
 
     int varietyCount = 0;
     if (hasUpper) varietyCount++;

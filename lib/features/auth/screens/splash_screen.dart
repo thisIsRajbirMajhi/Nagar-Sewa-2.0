@@ -32,26 +32,14 @@ class _SplashScreenState extends State<SplashScreen>
       message: 'Initializing NagarSewa…',
       icon: Icons.rocket_launch_rounded,
     ),
-    _LoadingPhase(
-      message: 'Checking permissions…',
-      icon: Icons.shield_rounded,
-    ),
+    _LoadingPhase(message: 'Checking permissions…', icon: Icons.shield_rounded),
     _LoadingPhase(
       message: 'Checking connectivity…',
       icon: Icons.wifi_find_rounded,
     ),
-    _LoadingPhase(
-      message: 'Loading your profile…',
-      icon: Icons.person_rounded,
-    ),
-    _LoadingPhase(
-      message: 'Syncing local data…',
-      icon: Icons.sync_rounded,
-    ),
-    _LoadingPhase(
-      message: 'Almost ready!',
-      icon: Icons.check_circle_rounded,
-    ),
+    _LoadingPhase(message: 'Loading your profile…', icon: Icons.person_rounded),
+    _LoadingPhase(message: 'Syncing local data…', icon: Icons.sync_rounded),
+    _LoadingPhase(message: 'Almost ready!', icon: Icons.check_circle_rounded),
   ];
 
   static const _tips = [
@@ -96,10 +84,7 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   Future<void> _requestPermissions() async {
-    await [
-      Permission.location,
-      Permission.camera,
-    ].request();
+    await [Permission.location, Permission.camera].request();
   }
 
   Future<void> _runLoadingSequence() async {
@@ -198,14 +183,15 @@ class _SplashScreenState extends State<SplashScreen>
           children: [
             // ── Connectivity Status Pill ──
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 48, vertical: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 48, vertical: 16),
               child: AnimatedSwitcher(
                 duration: const Duration(milliseconds: 400),
                 child: Container(
                   key: ValueKey(_isOnline),
                   padding: const EdgeInsets.symmetric(
-                      vertical: 12, horizontal: 24),
+                    vertical: 12,
+                    horizontal: 24,
+                  ),
                   decoration: BoxDecoration(
                     color: _isOnline
                         ? AppColors.greenAccent
@@ -213,10 +199,11 @@ class _SplashScreenState extends State<SplashScreen>
                     borderRadius: BorderRadius.circular(30),
                     boxShadow: [
                       BoxShadow(
-                        color: (_isOnline
-                                ? AppColors.greenAccent
-                                : const Color(0xFFFF6B35))
-                            .withValues(alpha: 0.3),
+                        color:
+                            (_isOnline
+                                    ? AppColors.greenAccent
+                                    : const Color(0xFFFF6B35))
+                                .withValues(alpha: 0.3),
                         blurRadius: 12,
                         offset: const Offset(0, 4),
                       ),
@@ -226,9 +213,7 @@ class _SplashScreenState extends State<SplashScreen>
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(
-                        _isOnline
-                            ? Icons.wifi_rounded
-                            : Icons.wifi_off_rounded,
+                        _isOnline ? Icons.wifi_rounded : Icons.wifi_off_rounded,
                         color: Colors.white,
                         size: 18,
                       ),
@@ -253,10 +238,7 @@ class _SplashScreenState extends State<SplashScreen>
                     ],
                   ),
                 ),
-              )
-                  .animate()
-                  .fadeIn(duration: 600.ms)
-                  .slideY(begin: -0.3, end: 0),
+              ).animate().fadeIn(duration: 600.ms).slideY(begin: -0.3, end: 0),
             ),
 
             const Spacer(flex: 2),
@@ -288,27 +270,27 @@ class _SplashScreenState extends State<SplashScreen>
                 const SizedBox(height: 4),
                 // App name
                 RichText(
-                  text: TextSpan(
-                    children: [
-                      TextSpan(
-                        text: 'Nagar ',
-                        style: GoogleFonts.inter(
-                          fontSize: 42,
-                          fontWeight: FontWeight.w800,
-                          color: AppColors.navyPrimary,
-                        ),
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                            text: 'Nagar ',
+                            style: GoogleFonts.inter(
+                              fontSize: 42,
+                              fontWeight: FontWeight.w800,
+                              color: AppColors.navyPrimary,
+                            ),
+                          ),
+                          TextSpan(
+                            text: 'Sewa',
+                            style: GoogleFonts.inter(
+                              fontSize: 42,
+                              fontWeight: FontWeight.w800,
+                              color: AppColors.greenAccent,
+                            ),
+                          ),
+                        ],
                       ),
-                      TextSpan(
-                        text: 'Sewa',
-                        style: GoogleFonts.inter(
-                          fontSize: 42,
-                          fontWeight: FontWeight.w800,
-                          color: AppColors.greenAccent,
-                        ),
-                      ),
-                    ],
-                  ),
-                )
+                    )
                     .animate()
                     .fadeIn(delay: 500.ms, duration: 800.ms)
                     .scale(
@@ -397,7 +379,9 @@ class _SplashScreenState extends State<SplashScreen>
                 child: Container(
                   key: ValueKey(_currentTipIndex),
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 20, vertical: 14),
+                    horizontal: 20,
+                    vertical: 14,
+                  ),
                   decoration: BoxDecoration(
                     color: AppColors.surface,
                     borderRadius: BorderRadius.circular(16),
@@ -428,9 +412,7 @@ class _SplashScreenState extends State<SplashScreen>
                   ),
                 ),
               ),
-            )
-                .animate()
-                .fadeIn(delay: 800.ms, duration: 600.ms),
+            ).animate().fadeIn(delay: 800.ms, duration: 600.ms),
 
             const SizedBox(height: 32),
 
@@ -449,8 +431,9 @@ class _SplashScreenState extends State<SplashScreen>
                         builder: (context, child) {
                           return LinearProgressIndicator(
                             value: _progressController.value,
-                            backgroundColor:
-                                AppColors.navyPrimary.withValues(alpha: 0.08),
+                            backgroundColor: AppColors.navyPrimary.withValues(
+                              alpha: 0.08,
+                            ),
                             valueColor: AlwaysStoppedAnimation(
                               ColorTween(
                                 begin: AppColors.navyPrimary,
@@ -478,8 +461,8 @@ class _SplashScreenState extends State<SplashScreen>
                           color: isDone
                               ? AppColors.greenAccent
                               : isActive
-                                  ? AppColors.navyPrimary
-                                  : AppColors.border,
+                              ? AppColors.navyPrimary
+                              : AppColors.border,
                           borderRadius: BorderRadius.circular(4),
                         ),
                       );
