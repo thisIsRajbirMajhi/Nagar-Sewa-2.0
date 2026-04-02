@@ -74,7 +74,7 @@ class VerificationResult {
     required this.failureReason,
   });
 
-  bool get hasIssues => confidence != ConfidenceLevel.high;
+  bool get hasIssues => confidence == ConfidenceLevel.low;
 
   String get confidenceLabel {
     switch (confidence) {

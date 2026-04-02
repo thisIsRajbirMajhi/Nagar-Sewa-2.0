@@ -21,15 +21,12 @@ class ChatbotNotifier extends AsyncNotifier<String> {
       final response = StringBuffer();
       await for (final chunk in aiService.chat(message, history, locale)) {
         response.write(chunk);
-        if (state.value != null) {
-          state = AsyncData(state.value! + chunk);
-        } else {
-          state = AsyncData(chunk);
-        }
+        state = AsyncData(response.toString());
       }
 
       final fullResponse = response.toString();
       ref.read(chatHistoryProvider.notifier).addAssistantMessage(fullResponse);
+      state = AsyncData('');
     } catch (e, st) {
       state = AsyncError(e, st);
       rethrow;

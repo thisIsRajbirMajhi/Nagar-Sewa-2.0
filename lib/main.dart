@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'app/app.dart';
 import 'services/cache_service.dart';
+import 'services/log_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,6 +33,8 @@ Future<void> main() async {
   ]);
 
   await CacheService.initialize();
+  await LogService.initialize();
+  LogService.setupErrorHandlers();
 
   const supabaseUrl = 'https://gipfcndtddodeyveexjx.supabase.co';
   const supabaseAnonKey =

@@ -51,7 +51,7 @@ Future<VerificationResult> verifyMediaIsolate(VerifyMediaParams params) async {
       ? params.submissionTime.difference(earliestCapture)
       : Duration.zero;
 
-  final failureReason = _generateFailureReason(finalConfidence);
+  final failureReason = _generateFailureReason(finalConfidence, flags);
 
   return VerificationResult(
     confidence: finalConfidence,
@@ -229,14 +229,26 @@ ConfidenceLevel _toConfidenceLevel(double score) {
   return ConfidenceLevel.low;
 }
 
-String _generateFailureReason(ConfidenceLevel level) {
+String _generateFailureReason(ConfidenceLevel level, List<String> flags) {
   switch (level) {
     case ConfidenceLevel.high:
       return '';
     case ConfidenceLevel.medium:
-      return 'Verification issues detected';
+      return '';
     case ConfidenceLevel.low:
-      return 'Verification issues detected - report flagged for review';
+      if (flags.contains('gps_mismatch')) {
+        return 'GPS location does not match photo metadata';
+      }
+      if (flags.contains('timestamp_suspicious')) {
+        return 'Photo timestamp appears modified';
+      }
+      if (flags.contains('ai_generated_detected')) {
+        return 'Image may be AI-generated';
+      }
+      if (flags.contains('authenticity_needs_review')) {
+        return 'Image authenticity needs review';
+      }
+      return 'Verification failed - report flagged for admin review';
   }
 }
 

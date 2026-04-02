@@ -4,6 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../services/sync_service.dart';
 import '../services/cache_service.dart';
 
+enum ConnectionQuality { good, fair, poor, offline }
+
 final connectivityStreamProvider = StreamProvider<List<ConnectivityResult>>((
   ref,
 ) {
@@ -51,6 +53,12 @@ final isOnlineProvider = NotifierProvider<OnlineNotifier, bool>(
 class OnlineNotifier extends Notifier<bool> {
   @override
   bool build() {
+    Timer.periodic(const Duration(minutes: 15), (_) {
+      if (state && CacheService.pendingCount > 0) {
+        _triggerSync();
+      }
+    });
+
     ref.listen(connectivityStreamProvider, (prev, next) {
       next.whenData((results) {
         final online = results.any((r) => r != ConnectivityResult.none);
@@ -105,5 +113,34 @@ class PendingSyncCountNotifier extends Notifier<int> {
 
   void update(int count) {
     state = count;
+  }
+}
+
+final connectionQualityProvider =
+    NotifierProvider<ConnectionQualityNotifier, ConnectionQuality>(
+      ConnectionQualityNotifier.new,
+    );
+
+class ConnectionQualityNotifier extends Notifier<ConnectionQuality> {
+  @override
+  ConnectionQuality build() {
+    ref.listen(connectivityStreamProvider, (prev, next) {
+      next.whenData((results) {
+        if (results.any((r) => r != ConnectivityResult.none)) {
+          final hasWifi = results.any((r) => r == ConnectivityResult.wifi);
+          final hasEthernet = results.any(
+            (r) => r == ConnectivityResult.ethernet,
+          );
+          if (hasWifi || hasEthernet) {
+            state = ConnectionQuality.good;
+          } else {
+            state = ConnectionQuality.fair;
+          }
+        } else {
+          state = ConnectionQuality.offline;
+        }
+      });
+    });
+    return ConnectionQuality.good;
   }
 }

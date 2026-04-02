@@ -6,11 +6,23 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../models/ai_models.dart';
+import 'log_service.dart';
 
 class AiService {
   final SupabaseClient _client;
 
   AiService(this._client);
+
+  Future<T> _withTimeout<T>(Future<T> future, Duration timeout) async {
+    return future.timeout(
+      timeout,
+      onTimeout: () => throw AiException(
+        message:
+            'Request timed out. Please check your connection and try again.',
+        statusCode: 408,
+      ),
+    );
+  }
 
   Future<Uint8List> _compressImage(Uint8List raw) async {
     return await FlutterImageCompress.compressWithList(
@@ -46,16 +58,29 @@ class AiService {
     Uint8List imageBytes,
     String locale,
   ) async {
+    LogService.log(
+      level: LogLevel.info,
+      category: 'ai',
+      message: 'Starting image analysis (${imageBytes.length} bytes)',
+    );
     return _withRetry(() async {
       final compressed = await _compressImage(imageBytes);
       final base64 = base64Encode(compressed);
 
-      final response = await _client.functions.invoke(
-        'analyze-image',
-        body: {'imageBase64': base64, 'locale': locale},
+      final response = await _withTimeout(
+        _client.functions.invoke(
+          'analyze-image',
+          body: {'imageBase64': base64, 'locale': locale},
+        ),
+        const Duration(seconds: 30),
       );
 
       if (response.status != 200) {
+        LogService.log(
+          level: LogLevel.error,
+          category: 'ai',
+          message: 'Image analysis failed with status ${response.status}',
+        );
         final data = response.data as Map<String, dynamic>?;
         final error = data?['error'];
 
@@ -91,6 +116,11 @@ class AiService {
       }
 
       final data = response.data as Map<String, dynamic>;
+      LogService.log(
+        level: LogLevel.info,
+        category: 'ai',
+        message: 'Image analysis completed (category: ${data['category']})',
+      );
       return ImageAnalysisResult.fromJson(data);
     });
   }
@@ -100,13 +130,22 @@ class AiService {
     List<ChatMessage> history,
     String locale,
   ) async* {
-    final response = await _client.functions.invoke(
-      'chatbot',
-      body: {
-        'message': message,
-        'history': history.map((m) => m.toJson()).toList(),
-        'locale': locale,
-      },
+    LogService.log(
+      level: LogLevel.info,
+      category: 'chat',
+      message:
+          'Chat message sent: ${message.substring(0, message.length.clamp(0, 50))}...',
+    );
+    final response = await _withTimeout(
+      _client.functions.invoke(
+        'chatbot',
+        body: {
+          'message': message,
+          'history': history.map((m) => m.toJson()).toList(),
+          'locale': locale,
+        },
+      ),
+      const Duration(seconds: 30),
     );
 
     if (response.status != 200) {
@@ -140,15 +179,23 @@ class AiService {
     String currentStatus,
     List<StatusLogEntry> lastTwoLogs,
   ) async {
+    LogService.log(
+      level: LogLevel.info,
+      category: 'draft',
+      message: 'Generating draft for: $issueTitle',
+    );
     return _withRetry(() async {
-      final response = await _client.functions.invoke(
-        'draft-response',
-        body: {
-          'issueTitle': issueTitle,
-          'category': category,
-          'currentStatus': currentStatus,
-          'lastTwoLogs': lastTwoLogs.map((e) => e.toJson()).toList(),
-        },
+      final response = await _withTimeout(
+        _client.functions.invoke(
+          'draft-response',
+          body: {
+            'issueTitle': issueTitle,
+            'category': category,
+            'currentStatus': currentStatus,
+            'lastTwoLogs': lastTwoLogs.map((e) => e.toJson()).toList(),
+          },
+        ),
+        const Duration(seconds: 15),
       );
 
       if (response.status != 200) {
@@ -175,9 +222,12 @@ class AiService {
 
   Future<ReportResult> generateReport(ReportFilters filters) async {
     return _withRetry(() async {
-      final response = await _client.functions.invoke(
-        'generate-report',
-        body: {'filters': filters.toJson()},
+      final response = await _withTimeout(
+        _client.functions.invoke(
+          'generate-report',
+          body: {'filters': filters.toJson()},
+        ),
+        const Duration(seconds: 30),
       );
 
       if (response.status != 200) {

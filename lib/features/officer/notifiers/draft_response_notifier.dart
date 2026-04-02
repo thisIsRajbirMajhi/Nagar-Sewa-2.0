@@ -2,6 +2,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../models/ai_models.dart';
 import '../../../providers/ai_service_provider.dart';
+import '../../../services/local_draft_service.dart';
 
 final draftResponseProvider =
     AsyncNotifierProvider<DraftResponseNotifier, String?>(
@@ -30,7 +31,17 @@ class DraftResponseNotifier extends AsyncNotifier<String?> {
       );
       state = AsyncData(draft);
     } catch (e, st) {
-      state = AsyncError(e, st);
+      try {
+        final localDraft = LocalDraftService.generateDraft(
+          issueTitle: issueTitle,
+          category: category,
+          currentStatus: currentStatus,
+          lastTwoLogs: lastTwoLogs,
+        );
+        state = AsyncData(localDraft);
+      } catch (localError) {
+        state = AsyncError(e, st);
+      }
     }
   }
 

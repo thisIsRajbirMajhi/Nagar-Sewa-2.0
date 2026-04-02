@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../core/constants/app_constants.dart';
+import '../services/log_service.dart';
 import 'cache_service.dart';
 import 'supabase_service.dart';
 
@@ -26,6 +27,12 @@ class SyncService {
         return SyncResult(synced: 0, failed: 0, remaining: 0);
       }
 
+      LogService.log(
+        level: LogLevel.info,
+        category: 'sync',
+        message: 'Starting sync: ${pending.length} pending items',
+      );
+
       for (final entry in pending) {
         final key = entry.key;
         final item = entry.value;
@@ -45,6 +52,11 @@ class SyncService {
               await SupabaseService.createIssue(data);
               await CacheService.removePendingItem(key);
               synced++;
+              LogService.log(
+                level: LogLevel.info,
+                category: 'sync',
+                message: 'Synced item: $type',
+              );
               break;
             default:
               failed++;
@@ -52,12 +64,23 @@ class SyncService {
         } catch (e) {
           await CacheService.updatePendingAttempts(key, attempts + 1);
           failed++;
+          final itemType = item['type'] as String? ?? 'unknown';
+          LogService.log(
+            level: LogLevel.warning,
+            category: 'sync',
+            message: 'Sync failed for $itemType: $e',
+          );
         }
       }
     } finally {
       _isSyncing = false;
     }
 
+    LogService.log(
+      level: synced > 0 ? LogLevel.info : LogLevel.warning,
+      category: 'sync',
+      message: 'Sync completed: $synced synced, $failed failed',
+    );
     return SyncResult(
       synced: synced,
       failed: failed,

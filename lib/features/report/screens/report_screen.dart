@@ -158,13 +158,17 @@ class _ReportScreenState extends ConsumerState<ReportScreen> {
         submissionTime: DateTime.now(),
       );
 
-      setState(() {
-        _showVerificationWarning = result.hasIssues;
-        _verificationWarningMessage = result.failureReason;
-        _verificationConfidence = result.confidence;
-      });
+      if (mounted) {
+        setState(() {
+          _showVerificationWarning = result.hasIssues;
+          _verificationWarningMessage = result.failureReason;
+          _verificationConfidence = result.confidence;
+        });
+      }
     } finally {
-      setState(() => _isVerifying = false);
+      if (mounted) {
+        setState(() => _isVerifying = false);
+      }
     }
   }
 
@@ -184,6 +188,7 @@ class _ReportScreenState extends ConsumerState<ReportScreen> {
           .read(aiImageAnalysisProvider.notifier)
           .analyzeImage(_photoBytes!, locale);
 
+      if (!mounted) return;
       final resultAsync = ref.read(aiImageAnalysisProvider);
       final result = resultAsync is AsyncData<ImageAnalysisResult?>
           ? resultAsync.value
@@ -224,15 +229,79 @@ class _ReportScreenState extends ConsumerState<ReportScreen> {
   }
 
   String _mapAiCategory(String aiCategory) {
-    final categoryMap = {
+    final normalized = aiCategory.toLowerCase().trim();
+
+    final exactMap = {
+      'pothole': 'pothole',
       'road': 'pothole',
-      'water': 'waterlogging',
+      'damaged_road': 'pothole',
+      'broken_streetlight': 'broken_streetlight',
+      'streetlight': 'broken_streetlight',
       'electricity': 'broken_streetlight',
-      'sanitation': 'sewage_leak',
+      'power': 'broken_streetlight',
+      'waterlogging': 'waterlogging',
+      'water': 'waterlogging',
+      'water_supply': 'waterlogging',
+      'flooding': 'waterlogging',
+      'sewage_leak': 'sewage_leak',
+      'sewage': 'sewage_leak',
+      'sanitation': 'sanitation',
+      'garbage_overflow': 'garbage_overflow',
       'garbage': 'garbage_overflow',
+      'waste': 'garbage_overflow',
+      'open_manhole': 'open_manhole',
+      'manhole': 'open_manhole',
+      'encroachment': 'encroachment',
+      'encroach': 'encroachment',
       'other': 'other',
     };
-    return categoryMap[aiCategory] ?? 'other';
+
+    if (exactMap.containsKey(normalized)) {
+      return exactMap[normalized]!;
+    }
+
+    if (normalized.contains('road') ||
+        normalized.contains('pothole') ||
+        normalized.contains('street') ||
+        normalized.contains('path')) {
+      return 'pothole';
+    }
+    if (normalized.contains('water') ||
+        normalized.contains('flood') ||
+        normalized.contains('drain')) {
+      return 'waterlogging';
+    }
+    if (normalized.contains('light') ||
+        normalized.contains('electric') ||
+        normalized.contains('power')) {
+      return 'broken_streetlight';
+    }
+    if (normalized.contains('sewage') ||
+        normalized.contains('sewer') ||
+        normalized.contains('drainage')) {
+      return 'sewage_leak';
+    }
+    if (normalized.contains('garbage') ||
+        normalized.contains('trash') ||
+        normalized.contains('waste') ||
+        normalized.contains('dump')) {
+      return 'garbage_overflow';
+    }
+    if (normalized.contains('manhole') || normalized.contains('drain cover')) {
+      return 'open_manhole';
+    }
+    if (normalized.contains('encroach') ||
+        normalized.contains('illegal') ||
+        normalized.contains('construction')) {
+      return 'encroachment';
+    }
+    if (normalized.contains('sanitation') ||
+        normalized.contains('clean') ||
+        normalized.contains('hygiene')) {
+      return 'sanitation';
+    }
+
+    return 'other';
   }
 
   Future<void> _submit({bool isDraft = false}) async {
@@ -294,7 +363,11 @@ class _ReportScreenState extends ConsumerState<ReportScreen> {
         ).showSnackBar(SnackBar(content: Text('Error: ${e.toString()}')));
       }
     } finally {
-      if (mounted) setState(() => _isSubmitting = false);
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) {
+          setState(() => _isSubmitting = false);
+        }
+      });
     }
   }
 
@@ -715,18 +788,21 @@ class _ReportScreenState extends ConsumerState<ReportScreen> {
                     rotateGesturesEnabled: false,
                     myLocationEnabled: false,
                     onStyleLoadedCallback: () async {
-                      if (_mapController != null) {
-                        await _mapController!.addCircle(
-                          CircleOptions(
-                            geometry: LatLng(_latitude!, _longitude!),
-                            circleColor: '#FF0000',
-                            circleRadius: 8,
-                            circleOpacity: 1.0,
-                            circleStrokeWidth: 2,
-                            circleStrokeColor: '#FFFFFF',
-                            circleStrokeOpacity: 1.0,
-                          ),
-                        );
+                      final controller = _mapController;
+                      if (controller != null && mounted && _latitude != null) {
+                        try {
+                          await controller.addCircle(
+                            CircleOptions(
+                              geometry: LatLng(_latitude!, _longitude!),
+                              circleColor: '#FF0000',
+                              circleRadius: 8,
+                              circleOpacity: 1.0,
+                              circleStrokeWidth: 2,
+                              circleStrokeColor: '#FFFFFF',
+                              circleStrokeOpacity: 1.0,
+                            ),
+                          );
+                        } catch (_) {}
                       }
                     },
                     onMapCreated: (controller) {

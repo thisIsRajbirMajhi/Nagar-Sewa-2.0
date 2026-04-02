@@ -16,7 +16,6 @@ import '../../../services/supabase_service.dart';
 import '../widgets/overview_card.dart';
 import '../widgets/activity_item.dart';
 
-
 class DashboardScreen extends ConsumerStatefulWidget {
   const DashboardScreen({super.key});
 
@@ -82,8 +81,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
       body: Column(
         children: [
           // Sync success banner
-          if (_showSyncBanner)
-            SyncSuccessBanner(syncedCount: _syncedCount),
+          if (_showSyncBanner) SyncSuccessBanner(syncedCount: _syncedCount),
 
           // Header
           AppHeader(
@@ -123,7 +121,8 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
 
                     // Overview cards
                     statsAsync.when(
-                      data: (stats) => _buildOverviewCards(stats, issuesAsync.value?.length),
+                      data: (stats) =>
+                          _buildOverviewCards(stats, issuesAsync.value?.length),
                       loading: () => _buildOverviewCards({
                         'resolved': 0,
                         'urgent': 0,
@@ -152,7 +151,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                           ),
                         ),
                         TextButton(
-                          onPressed: () {},
+                          onPressed: () => context.push('/history'),
                           child: Text(
                             'View All',
                             style: GoogleFonts.inter(
@@ -168,15 +167,18 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                     // Issues list
                     issuesAsync.when(
                       data: (issues) {
-                        if (issues.isEmpty) {
+                        final recentIssues = issues.take(5).toList();
+                        if (recentIssues.isEmpty) {
                           return Center(
                             child: Padding(
                               padding: const EdgeInsets.all(32),
                               child: Column(
                                 children: [
-                                  Icon(Icons.inbox_rounded,
-                                      size: 48,
-                                      color: AppColors.textLight),
+                                  Icon(
+                                    Icons.inbox_rounded,
+                                    size: 48,
+                                    color: AppColors.textLight,
+                                  ),
                                   const SizedBox(height: 12),
                                   Text(
                                     'No issues reported yet',
@@ -199,17 +201,19 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                           );
                         }
                         return Column(
-                          children: List.generate(issues.length, (i) {
+                          children: List.generate(recentIssues.length, (i) {
                             final widget = ActivityItem(
-                              issue: issues[i],
+                              issue: recentIssues[i],
                               onTap: () =>
-                                  context.push('/issue/${issues[i].id}'),
+                                  context.push('/issue/${recentIssues[i].id}'),
                             );
                             // Only animate the first 10 items to prevent 5s+ stagger
                             if (i < 10) {
                               return widget
                                   .animate()
-                                  .fadeIn(delay: Duration(milliseconds: 100 + i * 50))
+                                  .fadeIn(
+                                    delay: Duration(milliseconds: 100 + i * 50),
+                                  )
                                   .slideX(begin: 0.05);
                             }
                             return widget;
@@ -227,8 +231,11 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                           padding: const EdgeInsets.all(32),
                           child: Column(
                             children: [
-                              Icon(Icons.error_outline,
-                                  size: 48, color: AppColors.error),
+                              Icon(
+                                Icons.error_outline,
+                                size: 48,
+                                color: AppColors.error,
+                              ),
                               const SizedBox(height: 12),
                               Text(
                                 'Failed to load issues',
@@ -265,24 +272,20 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
             onPressed: () => context.push('/drafts'),
             backgroundColor: AppColors.communityOrange,
             mini: true,
-            child: const Icon(Icons.drafts_rounded,
-                color: Colors.white, size: 22),
-          )
-              .animate()
-              .fadeIn(delay: 700.ms)
-              .scale(begin: const Offset(0, 0)),
+            child: const Icon(
+              Icons.drafts_rounded,
+              color: Colors.white,
+              size: 22,
+            ),
+          ).animate().fadeIn(delay: 700.ms).scale(begin: const Offset(0, 0)),
           const SizedBox(height: 12),
           // New Report FAB
           FloatingActionButton(
             heroTag: 'report_fab',
             onPressed: () => context.push('/report'),
             backgroundColor: AppColors.greenAccent,
-            child: const Icon(Icons.add_rounded,
-                color: Colors.white, size: 28),
-          )
-              .animate()
-              .fadeIn(delay: 600.ms)
-              .scale(begin: const Offset(0, 0)),
+            child: const Icon(Icons.add_rounded, color: Colors.white, size: 28),
+          ).animate().fadeIn(delay: 600.ms).scale(begin: const Offset(0, 0)),
         ],
       ),
     );
@@ -303,8 +306,11 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
       ),
       child: Row(
         children: [
-          Icon(Icons.access_time_rounded,
-              size: 14, color: AppColors.textSecondary),
+          Icon(
+            Icons.access_time_rounded,
+            size: 14,
+            color: AppColors.textSecondary,
+          ),
           const SizedBox(width: 8),
           Text(
             'Last updated $timeAgo',
@@ -374,10 +380,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
               ),
             ),
           ],
-        )
-            .animate()
-            .fadeIn(delay: 200.ms, duration: 500.ms)
-            .slideY(begin: 0.1),
+        ).animate().fadeIn(delay: 200.ms, duration: 500.ms).slideY(begin: 0.1),
         const SizedBox(height: 12),
         Row(
           children: [
@@ -409,10 +412,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
               ),
             ),
           ],
-        )
-            .animate()
-            .fadeIn(delay: 300.ms, duration: 500.ms)
-            .slideY(begin: 0.1),
+        ).animate().fadeIn(delay: 300.ms, duration: 500.ms).slideY(begin: 0.1),
       ],
     );
   }
