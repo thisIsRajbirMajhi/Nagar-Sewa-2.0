@@ -1,13 +1,12 @@
-<<<<<<< HEAD
-// supabase/functions/generate-report/index.ts
+// @ts-ignore
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
-=======
-import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
+// @ts-ignore
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
->>>>>>> ai/edge-function-generate-report
 import { handleCors, jsonResponse, errorResponse } from '../_shared/cors.ts';
 import { verifyAuth } from '../_shared/auth.ts';
 import { checkRateLimit, recordRequest, rateLimitResponse } from '../_shared/rate_limit.ts';
+
+declare const Deno: any;
 
 const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
 const REPORT_MODEL = Deno.env.get('GROQ_MODEL_REPORT') ?? 'llama-3.3-70b-versatile';
@@ -50,18 +49,18 @@ Format your response as a clear, professional report with:
 Keep the analysis focused and avoid speculation beyond what the data shows.`;
 }
 
-serve(async (req) => {
+serve(async (req: Request) => {
   const corsResponse = handleCors(req);
   if (corsResponse) return corsResponse;
 
   try {
     const authResult = await verifyAuth(req);
     if ('error' in authResult) {
-      return errorResponse(authResult.error, authResult.status);
+      return errorResponse(authResult.error!, authResult.status!);
     }
     const { user, supabaseClient } = authResult;
 
-    const rateLimitResult = await checkRateLimit(user.id, 'generate_report', supabaseClient);
+    const rateLimitResult = await checkRateLimit(user.id!, 'generate_report', supabaseClient);
     if (!rateLimitResult.allowed) {
       return rateLimitResponse(rateLimitResult.remaining ?? 0);
     }
@@ -70,10 +69,6 @@ serve(async (req) => {
 
     await recordRequest(user.id, 'generate_report', supabaseClient);
 
-<<<<<<< HEAD
-    // Build aggregation query
-=======
->>>>>>> ai/edge-function-generate-report
     let query = supabaseClient
       .from('issues')
       .select('status, category, severity, department_id, created_at');
@@ -81,12 +76,9 @@ serve(async (req) => {
     if (filters.district) {
       query = query.eq('district', filters.district);
     }
-<<<<<<< HEAD
     if (filters.department) {
       query = query.eq('department_id', filters.department);
     }
-=======
->>>>>>> ai/edge-function-generate-report
     if (filters.category) {
       query = query.eq('category', filters.category);
     }
@@ -104,10 +96,6 @@ serve(async (req) => {
       return errorResponse('database_error', 500);
     }
 
-<<<<<<< HEAD
-    // Aggregate data
-=======
->>>>>>> ai/edge-function-generate-report
     const aggregated: AggregatedData = {
       totalIssues: issues?.length ?? 0,
       byStatus: {},
@@ -134,15 +122,8 @@ serve(async (req) => {
       }
     }
 
-<<<<<<< HEAD
-    // Sort trend by date
     aggregated.recentTrend.sort((a, b) => a.date.localeCompare(b.date));
 
-    // Generate report with LLM
-=======
-    aggregated.recentTrend.sort((a, b) => a.date.localeCompare(b.date));
-
->>>>>>> ai/edge-function-generate-report
     const systemPrompt = buildSystemPrompt();
     const userMessage = `Here is the aggregated issue data:
 
@@ -164,7 +145,7 @@ Please generate a summary report.`;
     const groqResponse = await fetch(GROQ_API_URL, {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${Deno.env.get('GROQ_API_KEY')}`,
+        'Authorization': `Bearer ${Deno.env.get('GROQ_API_KEY')!}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({

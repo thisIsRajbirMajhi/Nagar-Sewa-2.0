@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../providers/ai_service_provider.dart';
+import '../../../services/location_service.dart';
 import 'chat_history_notifier.dart';
 
 final chatbotProvider = AsyncNotifierProvider<ChatbotNotifier, String>(
@@ -18,8 +19,15 @@ class ChatbotNotifier extends AsyncNotifier<String> {
     state = const AsyncLoading();
 
     try {
+      final position = await LocationService.getCurrentPosition();
       final response = StringBuffer();
-      await for (final chunk in aiService.chat(message, history, locale)) {
+
+      await for (final chunk in aiService.chat(
+        message: message,
+        history: history.map((m) => m.toJson().cast<String, String>()).toList(),
+        latitude: position?.latitude,
+        longitude: position?.longitude,
+      )) {
         response.write(chunk);
         state = AsyncData(response.toString());
       }

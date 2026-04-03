@@ -1,7 +1,10 @@
+// @ts-ignore
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
 import { handleCors, jsonResponse, errorResponse } from '../_shared/cors.ts';
 import { verifyAuth } from '../_shared/auth.ts';
 import { checkRateLimit, recordRequest, rateLimitResponse } from '../_shared/rate_limit.ts';
+
+declare const Deno: any;
 
 const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
 const VISION_MODEL = Deno.env.get('GROQ_MODEL_VISION') ?? 'meta-llama/llama-4-scout-17b-16e-instruct';
@@ -50,18 +53,18 @@ If no text is detected, return empty array for extracted_text.
 If no issues are detected in the image, set category to 'other' and add 'no_civic_issue_detected' to warnings.`;
 }
 
-serve(async (req) => {
+serve(async (req: Request) => {
   const corsResponse = handleCors(req);
   if (corsResponse) return corsResponse;
 
   try {
     const authResult = await verifyAuth(req);
     if ('error' in authResult) {
-      return errorResponse(authResult.error, authResult.status);
+      return errorResponse(authResult.error!, authResult.status!);
     }
     const { user, supabaseClient } = authResult;
 
-    const rateLimitResult = await checkRateLimit(user.id, 'analyze_image', supabaseClient);
+    const rateLimitResult = await checkRateLimit(user.id!, 'analyze_image', supabaseClient);
     if (!rateLimitResult.allowed) {
       return rateLimitResponse(rateLimitResult.remaining ?? 0);
     }
@@ -85,7 +88,7 @@ serve(async (req) => {
     const groqResponse = await fetch(GROQ_API_URL, {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${Deno.env.get('GROQ_API_KEY')}`,
+        'Authorization': `Bearer ${Deno.env.get('GROQ_API_KEY')!}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({

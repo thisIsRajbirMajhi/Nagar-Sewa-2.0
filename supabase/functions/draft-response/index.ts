@@ -1,7 +1,10 @@
+// @ts-ignore
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
 import { handleCors, jsonResponse, errorResponse } from '../_shared/cors.ts';
 import { verifyAuth } from '../_shared/auth.ts';
 import { checkRateLimit, recordRequest, rateLimitResponse } from '../_shared/rate_limit.ts';
+
+declare const Deno: any;
 
 const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
 const DRAFT_MODEL = Deno.env.get('GROQ_MODEL_DRAFT') ?? 'llama-3.3-70b-versatile';
@@ -33,14 +36,14 @@ Given the issue details and status history, generate a professional resolution n
 Keep the tone professional and concise. Output only the draft resolution note text, no additional commentary.`;
 }
 
-serve(async (req) => {
+serve(async (req: Request) => {
   const corsResponse = handleCors(req);
   if (corsResponse) return corsResponse;
 
   try {
     const authResult = await verifyAuth(req);
     if ('error' in authResult) {
-      return errorResponse(authResult.error, authResult.status);
+      return errorResponse(authResult.error!, authResult.status!);
     }
     const { user, supabaseClient } = authResult;
 
@@ -77,7 +80,7 @@ Please draft a professional resolution note.`;
     const groqResponse = await fetch(GROQ_API_URL, {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${Deno.env.get('GROQ_API_KEY')}`,
+        'Authorization': `Bearer ${Deno.env.get('GROQ_API_KEY')!}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
