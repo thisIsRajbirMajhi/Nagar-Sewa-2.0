@@ -1,0 +1,51 @@
+<h2>Officer Dashboard Concept</h2>
+<p class="subtitle">Redirected view for civic officials</p>
+
+<div class="mockup">
+  <div class="mockup-header">Officer Dashboard</div>
+  <div class="mockup-body">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px;">
+      <div class="card" style="padding: 15px; background: #e8f5e9; border-radius: 12px; border: 1px solid #c8e6c9;">
+        <div class="label">Priority</div>
+        <div style="font-size: 24px; font-weight: 800; color: #2e7d32;">12</div>
+        <div style="font-size: 12px; color: #666;">New Issues</div>
+      </div>
+      <div class="card" style="padding: 15px; background: #fff3e0; border-radius: 12px; border: 1px solid #ffe0b2;">
+        <div class="label">Assigned</div>
+        <div style="font-size: 24px; font-weight: 800; color: #ef6c00;">5</div>
+        <div style="font-size: 12px; color: #666;">In Progress</div>
+      </div>
+    </div>
+    
+    <h3>Verification Queue</h3>
+    <div style="background: white; border-radius: 12px; padding: 10px; border: 1px solid #eee;">
+      <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #f5f5f5; padding-bottom: 8px; margin-bottom: 8px;">
+        <div style="font-size: 14px; font-weight: 600;">#432 - Pothole in Saheed Nagar</div>
+        <div class="label" style="background: #e3f2fd; color: #1976d2; padding: 2px 6px; border-radius: 4px;">AI Verified</div>
+      </div>
+      <div style="display: flex; gap: 8px;">
+        <button class="mock-button" style="flex: 1; font-size: 11px;">Update Status</button>
+        <button class="mock-button" style="flex: 1; font-size: 11px; background: #3ECF8E;">Draft AI Response</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p>How does this layout feel for an officer? Should we focus more on <b>Task Management</b> or <b>Analytical Views</b>?</p>
+
+<div class="options">
+  <div class="option" data-choice="task-focused" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Task-Focused</h3>
+      <p>Immediate list of actions, assignments, and verification queues. Clean and efficient.</p>
+    </div>
+  </div>
+  <div class="option" data-choice="analytical" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>Analytical</h3>
+      <p>Charts, heatmaps of issues, and performance metrics. Best for planning and oversight.</p>
+    </div>
+  </div>
+</div>

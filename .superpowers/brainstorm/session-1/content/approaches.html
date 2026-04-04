@@ -1,0 +1,29 @@
+<h2>Implementation Approaches</h2>
+<p class="subtitle">How we integrate the task-focused officer dashboard</p>
+
+<div class="options">
+  <div class="option" data-choice="router" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Router-Driven Redirection</h3>
+      <p><b>Approach:</b> Modify <code>appRouter</code> to redirect to <code>/officer/dashboard</code> if <code>user.role == 'officer'</code>.</p>
+      <div class="pros-cons">
+        <div class="pros"><ul><li>Cleanest code separation</li><li>Different navigation labels</li></ul></div>
+        <div class="cons"><ul><li>Requires auth refresh on login</li></ul></div>
+      </div>
+    </div>
+  </div>
+  <div class="option" data-choice="switcher" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>Dashboard Switcher</h3>
+      <p><b>Approach:</b> <code>DashboardScreen</code> becomes a wrapper that shows either <code>CitizenView</code> or <code>OfficerView</code>.</p>
+      <div class="pros-cons">
+        <div class="pros"><ul><li>Easiest to implement</li><li>Maintains same URL structure</li></ul></div>
+        <div class="cons"><ul><li>Navigation bar stays the same (User sees citizen tabs)</li></ul></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p>I recommend <b>Option A (Router-Driven)</b> because officers need a different mental model and navigation set (e.g., "Assigned", "Resolved" instead of "Map", "Chat").</p>

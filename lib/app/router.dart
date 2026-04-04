@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 import '../core/widgets/bottom_nav_bar.dart';
 import '../core/widgets/offline_banner.dart';
+import '../providers/auth_provider.dart';
+import '../services/supabase_service.dart';
 import '../features/auth/screens/splash_screen.dart';
 import '../features/auth/screens/login_screen.dart';
 import '../features/auth/screens/register_screen.dart';
@@ -22,6 +23,10 @@ import '../features/profile/screens/static_page_screen.dart';
 import '../features/notifications/screens/notifications_screen.dart';
 import '../features/drafts/screens/drafts_screen.dart';
 import '../features/admin/screens/verification_queue_screen.dart';
+import '../features/officer/screens/officer_dashboard_screen.dart';
+import '../features/officer/screens/officer_history_screen.dart';
+import '../features/officer/screens/officer_map_screen.dart';
+import '../features/officer/screens/officer_issue_detail_screen.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorKey = GlobalKey<NavigatorState>();
@@ -36,117 +41,170 @@ const _authRoutes = [
 ];
 
 /// Check if user has a valid, confirmed session.
-bool _isAuthenticated() {
-  final user = Supabase.instance.client.auth.currentUser;
-  return user != null && user.emailConfirmedAt != null;
-}
+final routerProvider = Provider<GoRouter>((ref) {
+  final userProfile = ref.watch(userProfileProvider).asData?.value;
 
-final GoRouter appRouter = GoRouter(
-  navigatorKey: _rootNavigatorKey,
-  initialLocation: '/',
-  redirect: (context, state) {
-    final isLoggedIn = _isAuthenticated();
-    final isAuthRoute = _authRoutes.contains(state.matchedLocation);
+  return GoRouter(
+    navigatorKey: _rootNavigatorKey,
+    initialLocation: '/',
+    redirect: (context, state) {
+      final isLoggedIn = SupabaseService.isAuthenticated;
+      final isAuthRoute = _authRoutes.contains(state.matchedLocation);
 
-    // If user is on splash, let it handle its own navigation
-    if (state.matchedLocation == '/') return null;
+      // If user is on splash, let it handle its own navigation
+      if (state.matchedLocation == '/') return null;
 
-    // If authenticated and trying to access auth routes, redirect to dashboard
-    if (isLoggedIn && isAuthRoute) return '/dashboard';
+      if (!isLoggedIn) {
+        if (!isAuthRoute) return '/login';
+        return null;
+      }
 
-    // If not authenticated and trying to access protected routes, redirect to login
-    if (!isLoggedIn && !isAuthRoute) return '/login';
+      // User is logged in
+      final role = userProfile?.role ?? 'citizen';
 
-    return null;
-  },
-  routes: [
-    // Auth routes (no bottom nav)
-    GoRoute(path: '/', builder: (context, state) => const SplashScreen()),
-    GoRoute(path: '/login', builder: (context, state) => const LoginScreen()),
-    GoRoute(
-      path: '/register',
-      builder: (context, state) => const RegisterScreen(),
-    ),
-    GoRoute(
-      path: '/forgot-password',
-      builder: (context, state) => const ForgotPasswordScreen(),
-    ),
-    GoRoute(
-      path: '/reset-sent',
-      builder: (context, state) =>
-          PasswordResetSentScreen(email: state.extra as String?),
-    ),
+      // Redirect based on role
+      if (role == 'officer') {
+        if (state.matchedLocation.startsWith('/officer')) return null;
+        if (isAuthRoute || state.matchedLocation == '/dashboard') {
+          return '/officer/dashboard';
+        }
+      } else {
+        // Citizen redirection
+        if (isAuthRoute) return '/dashboard';
+        if (state.matchedLocation.startsWith('/officer')) return '/dashboard';
+      }
 
-    // Main app with bottom nav
-    ShellRoute(
-      navigatorKey: _shellNavigatorKey,
-      builder: (context, state, child) => _AppShell(child: child),
-      routes: [
-        GoRoute(
-          path: '/dashboard',
-          pageBuilder: (context, state) =>
-              const NoTransitionPage(child: DashboardScreen()),
-        ),
-        GoRoute(
-          path: '/history',
-          pageBuilder: (context, state) =>
-              const NoTransitionPage(child: HistoryScreen()),
-        ),
-        GoRoute(
-          path: '/map',
-          pageBuilder: (context, state) =>
-              const NoTransitionPage(child: LiveMapScreen()),
-        ),
-        GoRoute(
-          path: '/chat',
-          pageBuilder: (context, state) =>
-              const NoTransitionPage(child: ChatScreen()),
-        ),
-      ],
-    ),
+      return null;
+    },
+    routes: [
+      // Auth routes (no bottom nav)
+      GoRoute(path: '/', builder: (context, state) => const SplashScreen()),
+      GoRoute(path: '/login', builder: (context, state) => const LoginScreen()),
+      GoRoute(
+        path: '/register',
+        builder: (context, state) => const RegisterScreen(),
+      ),
+      GoRoute(
+        path: '/forgot-password',
+        builder: (context, state) => const ForgotPasswordScreen(),
+      ),
+      GoRoute(
+        path: '/reset-sent',
+        builder: (context, state) =>
+            PasswordResetSentScreen(email: state.extra as String?),
+      ),
 
-    // Full-screen routes (no bottom nav)
-    GoRoute(path: '/report', builder: (context, state) => const ReportScreen()),
-    GoRoute(
-      path: '/issue/:id',
-      builder: (context, state) =>
-          IssueDetailScreen(issueId: state.pathParameters['id']!),
-    ),
-    GoRoute(path: '/drafts', builder: (context, state) => const DraftsScreen()),
-    GoRoute(
-      path: '/admin/verification-queue',
-      builder: (context, state) => const VerificationQueueScreen(),
-    ),
-    GoRoute(
-      path: '/profile',
-      builder: (context, state) => const ProfileScreen(),
-    ),
-    GoRoute(
-      path: '/edit-profile',
-      builder: (context, state) => const EditProfileScreen(),
-    ),
-    GoRoute(
-      path: '/notifications',
-      builder: (context, state) => const NotificationsScreen(),
-    ),
-    GoRoute(
-      path: '/issues/:filter',
-      builder: (context, state) =>
-          FilteredIssuesScreen(filterType: state.pathParameters['filter']!),
-    ),
-    GoRoute(
-      path: '/static',
-      builder: (context, state) {
-        final Map<String, dynamic> extra =
-            state.extra as Map<String, dynamic>? ?? {};
-        return StaticPageScreen(
-          title: extra['title'] ?? 'Information',
-          content: extra['content'] ?? 'Content coming soon.',
-        );
-      },
-    ),
-  ],
-);
+      // Citizen app with bottom nav
+      ShellRoute(
+        navigatorKey: _shellNavigatorKey,
+        builder: (context, state, child) => _AppShell(child: child),
+        routes: [
+          GoRoute(
+            path: '/dashboard',
+            pageBuilder: (context, state) =>
+                const NoTransitionPage(child: DashboardScreen()),
+          ),
+          GoRoute(
+            path: '/history',
+            pageBuilder: (context, state) =>
+                const NoTransitionPage(child: HistoryScreen()),
+          ),
+          GoRoute(
+            path: '/map',
+            pageBuilder: (context, state) =>
+                const NoTransitionPage(child: LiveMapScreen()),
+          ),
+          GoRoute(
+            path: '/chat',
+            pageBuilder: (context, state) =>
+                const NoTransitionPage(child: ChatScreen()),
+          ),
+        ],
+      ),
+
+      // Officer app with bottom nav
+      ShellRoute(
+        navigatorKey: GlobalKey<NavigatorState>(),
+        builder: (context, state, child) => _OfficerShell(child: child),
+        routes: [
+          GoRoute(
+            path: '/officer/dashboard',
+            pageBuilder: (context, state) => const NoTransitionPage(
+              child: OfficerDashboardScreen(),
+            ),
+          ),
+          GoRoute(
+            path: '/officer/history',
+            pageBuilder: (context, state) => const NoTransitionPage(
+              child: OfficerHistoryScreen(),
+            ),
+          ),
+          GoRoute(
+            path: '/officer/map',
+            pageBuilder: (context, state) => const NoTransitionPage(
+              child: OfficerMapScreen(),
+            ),
+          ),
+        ],
+      ),
+
+      // Full-screen routes (no bottom nav)
+      GoRoute(
+        path: '/report',
+        builder: (context, state) => const ReportScreen(),
+      ),
+      GoRoute(
+        path: '/issue/:id',
+        builder: (context, state) {
+          final userProfile = ref.watch(userProfileProvider).asData?.value;
+          final role = userProfile?.role ?? 'citizen';
+          final issueId = state.pathParameters['id']!;
+
+          if (role == 'officer') {
+            return OfficerIssueDetailScreen(issueId: issueId);
+          }
+          return IssueDetailScreen(issueId: issueId);
+        },
+      ),
+      GoRoute(
+        path: '/drafts',
+        builder: (context, state) => const DraftsScreen(),
+      ),
+      GoRoute(
+        path: '/admin/verification-queue',
+        builder: (context, state) => const VerificationQueueScreen(),
+      ),
+      GoRoute(
+        path: '/profile',
+        builder: (context, state) => const ProfileScreen(),
+      ),
+      GoRoute(
+        path: '/edit-profile',
+        builder: (context, state) => const EditProfileScreen(),
+      ),
+      GoRoute(
+        path: '/notifications',
+        builder: (context, state) => const NotificationsScreen(),
+      ),
+      GoRoute(
+        path: '/issues/:filter',
+        builder: (context, state) =>
+            FilteredIssuesScreen(filterType: state.pathParameters['filter']!),
+      ),
+      GoRoute(
+        path: '/static',
+        builder: (context, state) {
+          final Map<String, dynamic> extra =
+              state.extra as Map<String, dynamic>? ?? {};
+          return StaticPageScreen(
+            title: extra['title'] ?? 'Information',
+            content: extra['content'] ?? 'Content coming soon.',
+          );
+        },
+      ),
+    ],
+  );
+});
 
 class _AppShell extends ConsumerStatefulWidget {
   final Widget child;
@@ -193,6 +251,66 @@ class _AppShellState extends ConsumerState<_AppShell> {
           setState(() => _currentIndex = index);
           context.go(_routes[index]);
         },
+      ),
+    );
+  }
+}
+
+class _OfficerShell extends ConsumerStatefulWidget {
+  final Widget child;
+  const _OfficerShell({required this.child});
+
+  @override
+  ConsumerState<_OfficerShell> createState() => _OfficerShellState();
+}
+
+class _OfficerShellState extends ConsumerState<_OfficerShell> {
+  int _currentIndex = 0;
+
+  static const _routes = ['/officer/dashboard', '/officer/history', '/officer/map'];
+
+  @override
+  Widget build(BuildContext context) {
+    final location = GoRouterState.of(context).matchedLocation;
+    for (int i = 0; i < _routes.length; i++) {
+      if (location == _routes[i]) {
+        if (_currentIndex != i) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (mounted) setState(() => _currentIndex = i);
+          });
+        }
+        break;
+      }
+    }
+
+    return Scaffold(
+      body: Column(
+        children: [
+          const OfflineBanner(),
+          const BackOnlineBanner(),
+          Expanded(child: widget.child),
+        ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        onTap: (index) {
+          setState(() => _currentIndex = index);
+          context.go(_routes[index]);
+        },
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.assignment),
+            label: 'Tasks',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.history),
+            label: 'History',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.map),
+            label: 'Map',
+          ),
+        ],
       ),
     );
   }

@@ -1,0 +1,1 @@
+{"type":"click","text":"A\n    \n      Router-Driven Redirection\n      Approach: Modify appRouter to redirect to /officer/dashboard if user.role == 'officer'.\n      \n        Cleanest code separationDifferent navigation labels\n        Requires auth refresh on login","choice":"router","id":null,"timestamp":1775238043235}
