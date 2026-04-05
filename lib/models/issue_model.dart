@@ -1,3 +1,5 @@
+import 'orchestration_result.dart';
+
 class IssueModel {
   final String id;
   final String? reporterId;
@@ -33,6 +35,14 @@ class IssueModel {
   final bool isDelayedSubmission;
   final bool adminReviewed;
   final bool? adminApproved;
+  // AI Orchestration metadata fields
+  final double? aiConfidence;
+  final String? aiConfidenceTier;
+  final List<String> aiSecondaryIssues;
+  final String? aiLocationHint;
+  final String? aiVisionSummary;
+  final List<String> aiExtractedText;
+  final List<String> aiWarnings;
   // Joined fields
   final String? reporterName;
   final String? departmentName;
@@ -71,6 +81,13 @@ class IssueModel {
     this.isDelayedSubmission = false,
     this.adminReviewed = false,
     this.adminApproved,
+    this.aiConfidence,
+    this.aiConfidenceTier,
+    this.aiSecondaryIssues = const [],
+    this.aiLocationHint,
+    this.aiVisionSummary,
+    this.aiExtractedText = const [],
+    this.aiWarnings = const [],
     this.reporterName,
     this.departmentName,
   });
@@ -129,6 +146,25 @@ class IssueModel {
       isDelayedSubmission: json['is_delayed_submission'] as bool? ?? false,
       adminReviewed: json['admin_reviewed'] as bool? ?? false,
       adminApproved: json['admin_approved'] as bool?,
+      aiConfidence: (json['ai_confidence'] as num?)?.toDouble(),
+      aiConfidenceTier: json['ai_confidence_tier'] as String?,
+      aiSecondaryIssues:
+          (json['ai_secondary_issues'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          [],
+      aiLocationHint: json['ai_location_hint'] as String?,
+      aiVisionSummary: json['ai_vision_summary'] as String?,
+      aiExtractedText:
+          (json['ai_extracted_text'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          [],
+      aiWarnings:
+          (json['ai_warnings'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          [],
       reporterName: json['profiles'] != null
           ? (json['profiles'] as Map<String, dynamic>)['full_name'] as String?
           : null,
@@ -152,6 +188,40 @@ class IssueModel {
       'video_url': videoUrl,
       'is_draft': isDraft,
       'is_anonymous': isAnonymous,
+    };
+  }
+
+  Map<String, dynamic> toInsertJsonWithAiMetadata(
+    OrchestrationResult aiResult,
+  ) {
+    return {
+      'reporter_id': reporterId,
+      'title': aiResult.description.isNotEmpty
+          ? aiResult.description.split('.').first
+          : title,
+      'description': aiResult.description.isNotEmpty
+          ? aiResult.description
+          : description,
+      'category': aiResult.category.isNotEmpty ? aiResult.category : category,
+      'severity': aiResult.severity.isNotEmpty ? aiResult.severity : severity,
+      'latitude': latitude,
+      'longitude': longitude,
+      'address': address,
+      'photo_urls': photoUrls,
+      'video_url': videoUrl,
+      'is_draft': isDraft,
+      'is_anonymous': isAnonymous,
+      'ai_confidence': aiResult.confidence,
+      'ai_confidence_tier': aiResult.confidenceTier.value,
+      'ai_secondary_issues': aiResult.secondaryIssues,
+      'ai_location_hint': aiResult.locationHint.isNotEmpty
+          ? aiResult.locationHint
+          : null,
+      'ai_vision_summary': aiResult.visionSummary.isNotEmpty
+          ? aiResult.visionSummary
+          : null,
+      'ai_extracted_text': aiResult.extractedText,
+      'ai_warnings': aiResult.warnings,
     };
   }
 

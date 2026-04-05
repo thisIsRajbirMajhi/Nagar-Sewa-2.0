@@ -10,6 +10,11 @@ import 'package:http/http.dart' as http;
 import '../models/ai_models.dart';
 import 'log_service.dart';
 
+// Model assignments (configured via edge function env vars):
+// - chatbot: openai/gpt-oss-120b (was llama-3.3-70b-versatile)
+// - draft-response: openai/gpt-oss-20b (was llama-3.3-70b-versatile)
+// - analyze-image: meta-llama/llama-4-scout-17b-16e-instruct (unchanged)
+
 class AiService {
   final SupabaseClient _client;
 
@@ -142,9 +147,11 @@ class AiService {
 
     final session = _client.auth.currentSession;
     final jwt = session?.accessToken;
-    final supabaseUrl = (dotenv.isInitialized ? dotenv.env['SUPABASE_URL'] : null) ??
+    final supabaseUrl =
+        (dotenv.isInitialized ? dotenv.env['SUPABASE_URL'] : null) ??
         'https://gipfcndtddodeyveexjx.supabase.co';
-    final anonKey = (dotenv.isInitialized ? dotenv.env['SUPABASE_ANON_KEY'] : null) ??
+    final anonKey =
+        (dotenv.isInitialized ? dotenv.env['SUPABASE_ANON_KEY'] : null) ??
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdpcGZjbmR0ZGRvZGV5dmVleGp4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ2MzY4ODYsImV4cCI6MjA5MDIxMjg4Nn0.UrCE1v5sZH3rzF4XoptvQ8kqWFanJCz95aaX4LeQLeQ';
 
     final request = http.Request(
@@ -182,7 +189,8 @@ class AiService {
         if (response.statusCode == 401) {
           final serverMsg = data['error'] ?? 'Unauthorized';
           throw AiException(
-            message: '[v2] Auth Error (JWT Len: ${jwt?.length ?? 0}): $serverMsg',
+            message:
+                '[v2] Auth Error (JWT Len: ${jwt?.length ?? 0}): $serverMsg',
             statusCode: 401,
           );
         }
@@ -195,9 +203,10 @@ class AiService {
         throw AiException.fromResponse(response.statusCode, data);
       }
 
-      await for (final line in response.stream
-          .transform(utf8.decoder)
-          .transform(const LineSplitter())) {
+      await for (final line
+          in response.stream
+              .transform(utf8.decoder)
+              .transform(const LineSplitter())) {
         if (line.trim().isEmpty) continue;
         if (line.startsWith('data: ')) {
           final data = line.substring(6).trim();

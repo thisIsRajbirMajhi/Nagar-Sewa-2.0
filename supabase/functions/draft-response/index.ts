@@ -7,7 +7,7 @@ import { checkRateLimit, recordRequest, rateLimitResponse } from '../_shared/rat
 declare const Deno: any;
 
 const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
-const DRAFT_MODEL = Deno.env.get('GROQ_MODEL_DRAFT') ?? 'llama-3.3-70b-versatile';
+const DRAFT_MODEL = Deno.env.get('GROQ_MODEL_DRAFT') ?? 'openai/gpt-oss-20b';
 
 interface StatusLogEntry {
   changed_by_name: string;

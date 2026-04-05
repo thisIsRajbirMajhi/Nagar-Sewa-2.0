@@ -11,11 +11,15 @@ import '../../../core/constants/app_colors.dart';
 import '../../../core/widgets/app_button.dart';
 import '../../../core/widgets/app_header.dart';
 import '../../../models/verification_result.dart';
-import '../../../models/ai_models.dart';
+import '../../../models/orchestration_result.dart';
+import '../../../models/confidence_tier.dart';
 import '../../../services/location_service.dart';
 import '../../../services/supabase_service.dart';
 import '../../../services/verification_service.dart';
-import '../notifiers/ai_image_analysis_notifier.dart';
+import '../notifiers/orchestration_notifier.dart';
+import '../widgets/confidence_badge.dart';
+import '../widgets/voice_recorder_button.dart';
+import '../widgets/orchestration_result_sheet.dart';
 
 class ReportScreen extends ConsumerStatefulWidget {
   const ReportScreen({super.key});
@@ -44,6 +48,15 @@ class _ReportScreenState extends ConsumerState<ReportScreen> {
   ConfidenceLevel _verificationConfidence = ConfidenceLevel.high;
   bool _isVerifying = false;
   bool _isAnalyzing = false;
+  Uint8List? _audioBytes;
+  OrchestrationResult? _orchestrationResult;
+  ConfidenceTier? _aiConfidenceTier;
+  double? _aiConfidence;
+  String? _aiLocationHint;
+  // ignore: unused_field
+  List<String> _aiSecondaryIssues = [];
+  // ignore: unused_field
+  List<String> _aiTags = [];
 
   final List<Map<String, dynamic>> _categories = [
     {'value': 'pothole', 'label': 'Pothole', 'icon': Icons.warning_rounded},
@@ -65,19 +78,29 @@ class _ReportScreenState extends ConsumerState<ReportScreen> {
     },
     {'value': 'waterlogging', 'label': 'Waterlogging', 'icon': Icons.waves},
     {'value': 'encroachment', 'label': 'Encroachment', 'icon': Icons.fence},
-    {'value': 'road', 'label': 'Road', 'icon': Icons.add_road},
-    {'value': 'water', 'label': 'Water', 'icon': Icons.water},
     {
-      'value': 'electricity',
-      'label': 'Electricity',
-      'icon': Icons.electric_bolt,
+      'value': 'damaged_road_divider',
+      'label': 'Divider',
+      'icon': Icons.traffic,
     },
     {
-      'value': 'sanitation',
-      'label': 'Sanitation',
-      'icon': Icons.cleaning_services,
+      'value': 'broken_footpath',
+      'label': 'Footpath',
+      'icon': Icons.directions_walk,
     },
-    {'value': 'garbage', 'label': 'Garbage', 'icon': Icons.delete},
+    {
+      'value': 'construction_debris',
+      'label': 'Debris',
+      'icon': Icons.construction,
+    },
+    {'value': 'illegal_dumping', 'label': 'Dumping', 'icon': Icons.no_crash},
+    {
+      'value': 'traffic_signal_issue',
+      'label': 'Signal',
+      'icon': Icons.traffic_outlined,
+    },
+    {'value': 'road_crack', 'label': 'Road Crack', 'icon': Icons.add_road},
+    {'value': 'drainage_blockage', 'label': 'Drainage', 'icon': Icons.water},
     {'value': 'other', 'label': 'Other', 'icon': Icons.more_horiz},
   ];
 
@@ -124,6 +147,7 @@ class _ReportScreenState extends ConsumerState<ReportScreen> {
         _photoBytes = bytes;
       });
       await _verifyMedia();
+      await _runOrchestration();
     }
   }
 
@@ -172,34 +196,38 @@ class _ReportScreenState extends ConsumerState<ReportScreen> {
     }
   }
 
-  Future<void> _analyzeImage() async {
-    if (_photoBytes == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please take a photo first')),
-      );
-      return;
-    }
+  Future<void> _runOrchestration() async {
+    if (_photoBytes == null) return;
 
-    final locale = Platform.localeName;
     setState(() => _isAnalyzing = true);
 
     try {
       await ref
-          .read(aiImageAnalysisProvider.notifier)
-          .analyzeImage(_photoBytes!, locale);
+          .read(orchestrationProvider.notifier)
+          .analyzeReport(
+            imageBytes: _photoBytes!,
+            audioBytes: _audioBytes,
+            userText: _descriptionController.text.trim().isNotEmpty
+                ? _descriptionController.text.trim()
+                : null,
+            latitude: _latitude,
+            longitude: _longitude,
+            locale: Platform.localeName,
+          );
 
       if (!mounted) return;
-      final resultAsync = ref.read(aiImageAnalysisProvider);
-      final result = resultAsync is AsyncData<ImageAnalysisResult?>
+      final resultAsync = ref.read(orchestrationProvider);
+      final result = resultAsync is AsyncData<OrchestrationResult?>
           ? resultAsync.value
           : null;
+
       if (result != null && mounted) {
-        _applyAnalysisResult(result);
+        _showOrchestrationResult(result);
       }
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Analysis failed: ${e.toString()}')),
+          SnackBar(content: Text('AI analysis failed: ${e.toString()}')),
         );
       }
     } finally {
@@ -207,18 +235,23 @@ class _ReportScreenState extends ConsumerState<ReportScreen> {
     }
   }
 
-  void _applyAnalysisResult(ImageAnalysisResult result) {
+  void _showOrchestrationResult(OrchestrationResult result) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (context) => _AnalysisResultSheet(
+      builder: (context) => OrchestrationResultSheet(
         result: result,
         onApply: () {
           setState(() {
-            if (result.title.isNotEmpty) {
-              _descriptionController.text =
-                  '${result.title}\n\n${result.description}';
+            _orchestrationResult = result;
+            _aiConfidenceTier = result.confidenceTier;
+            _aiConfidence = result.confidence;
+            _aiLocationHint = result.locationHint;
+            _aiSecondaryIssues = result.secondaryIssues;
+            _aiTags = result.tags;
+            if (result.description.isNotEmpty) {
+              _descriptionController.text = result.description;
             }
             _selectedCategory = _mapAiCategory(result.category);
           });
@@ -228,11 +261,16 @@ class _ReportScreenState extends ConsumerState<ReportScreen> {
     );
   }
 
+  void _onRecordingComplete(Uint8List? audioBytes) {
+    setState(() => _audioBytes = audioBytes);
+  }
+
   String _mapAiCategory(String aiCategory) {
     final normalized = aiCategory.toLowerCase().trim();
 
     final exactMap = {
       'pothole': 'pothole',
+      'road_crack': 'road_crack',
       'road': 'pothole',
       'damaged_road': 'pothole',
       'broken_streetlight': 'broken_streetlight',
@@ -243,16 +281,26 @@ class _ReportScreenState extends ConsumerState<ReportScreen> {
       'water': 'waterlogging',
       'water_supply': 'waterlogging',
       'flooding': 'waterlogging',
+      'drainage_blockage': 'drainage_blockage',
       'sewage_leak': 'sewage_leak',
       'sewage': 'sewage_leak',
       'sanitation': 'sanitation',
       'garbage_overflow': 'garbage_overflow',
       'garbage': 'garbage_overflow',
       'waste': 'garbage_overflow',
+      'illegal_dumping': 'illegal_dumping',
+      'construction_debris': 'construction_debris',
       'open_manhole': 'open_manhole',
       'manhole': 'open_manhole',
       'encroachment': 'encroachment',
       'encroach': 'encroachment',
+      'damaged_road_divider': 'damaged_road_divider',
+      'broken_footpath': 'broken_footpath',
+      'footpath': 'broken_footpath',
+      'sidewalk': 'broken_footpath',
+      'traffic_signal_issue': 'traffic_signal_issue',
+      'traffic': 'traffic_signal_issue',
+      'signal': 'traffic_signal_issue',
       'other': 'other',
     };
 
@@ -260,45 +308,46 @@ class _ReportScreenState extends ConsumerState<ReportScreen> {
       return exactMap[normalized]!;
     }
 
-    if (normalized.contains('road') ||
-        normalized.contains('pothole') ||
-        normalized.contains('street') ||
-        normalized.contains('path')) {
-      return 'pothole';
+    if (normalized.contains('pothole') || normalized.contains('crack')) {
+      return normalized.contains('crack') ? 'road_crack' : 'pothole';
     }
-    if (normalized.contains('water') ||
-        normalized.contains('flood') ||
-        normalized.contains('drain')) {
-      return 'waterlogging';
+    if (normalized.contains('water') || normalized.contains('flood')) {
+      return normalized.contains('drain')
+          ? 'drainage_blockage'
+          : 'waterlogging';
     }
-    if (normalized.contains('light') ||
-        normalized.contains('electric') ||
-        normalized.contains('power')) {
+    if (normalized.contains('light') || normalized.contains('electric')) {
       return 'broken_streetlight';
     }
-    if (normalized.contains('sewage') ||
-        normalized.contains('sewer') ||
-        normalized.contains('drainage')) {
+    if (normalized.contains('sewage') || normalized.contains('sewer')) {
       return 'sewage_leak';
     }
     if (normalized.contains('garbage') ||
         normalized.contains('trash') ||
-        normalized.contains('waste') ||
         normalized.contains('dump')) {
-      return 'garbage_overflow';
+      return normalized.contains('illegal')
+          ? 'illegal_dumping'
+          : 'garbage_overflow';
     }
     if (normalized.contains('manhole') || normalized.contains('drain cover')) {
       return 'open_manhole';
     }
-    if (normalized.contains('encroach') ||
-        normalized.contains('illegal') ||
-        normalized.contains('construction')) {
-      return 'encroachment';
+    if (normalized.contains('divider') || normalized.contains('median')) {
+      return 'damaged_road_divider';
     }
-    if (normalized.contains('sanitation') ||
-        normalized.contains('clean') ||
-        normalized.contains('hygiene')) {
-      return 'sanitation';
+    if (normalized.contains('footpath') ||
+        normalized.contains('sidewalk') ||
+        normalized.contains('pavement')) {
+      return 'broken_footpath';
+    }
+    if (normalized.contains('traffic') || normalized.contains('signal')) {
+      return 'traffic_signal_issue';
+    }
+    if (normalized.contains('debris') || normalized.contains('construction')) {
+      return 'construction_debris';
+    }
+    if (normalized.contains('encroach')) {
+      return 'encroachment';
     }
 
     return 'other';
@@ -333,7 +382,7 @@ class _ReportScreenState extends ConsumerState<ReportScreen> {
           ? _descriptionController.text.trim().split('\n').first
           : '${_categories.firstWhere((c) => c['value'] == _selectedCategory)['label']} Issue';
 
-      await SupabaseService.createIssue({
+      final issueData = {
         'reporter_id': SupabaseService.userId,
         'title': title,
         'description': _descriptionController.text.trim(),
@@ -344,7 +393,25 @@ class _ReportScreenState extends ConsumerState<ReportScreen> {
         'photo_urls': photoUrls,
         'video_url': videoUrl,
         'is_draft': isDraft,
-      });
+      };
+
+      if (_orchestrationResult != null) {
+        issueData['ai_confidence'] = _orchestrationResult!.confidence;
+        issueData['ai_confidence_tier'] =
+            _orchestrationResult!.confidenceTier.value;
+        issueData['ai_secondary_issues'] =
+            _orchestrationResult!.secondaryIssues;
+        if (_orchestrationResult!.locationHint.isNotEmpty) {
+          issueData['ai_location_hint'] = _orchestrationResult!.locationHint;
+        }
+        if (_orchestrationResult!.visionSummary.isNotEmpty) {
+          issueData['ai_vision_summary'] = _orchestrationResult!.visionSummary;
+        }
+        issueData['ai_extracted_text'] = _orchestrationResult!.extractedText;
+        issueData['ai_warnings'] = _orchestrationResult!.warnings;
+      }
+
+      await SupabaseService.createIssue(issueData);
 
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -525,12 +592,17 @@ class _ReportScreenState extends ConsumerState<ReportScreen> {
                     ],
                   ).animate().fadeIn(delay: 200.ms),
 
+                  const SizedBox(height: 12),
+                  VoiceRecorderButton(
+                    onRecordingComplete: _onRecordingComplete,
+                  ),
+
                   if (_photo != null) ...[
                     const SizedBox(height: 12),
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton.icon(
-                        onPressed: _isAnalyzing ? null : _analyzeImage,
+                        onPressed: _isAnalyzing ? null : _runOrchestration,
                         icon: _isAnalyzing
                             ? const SizedBox(
                                 width: 16,
@@ -554,6 +626,66 @@ class _ReportScreenState extends ConsumerState<ReportScreen> {
                         ),
                       ),
                     ).animate().fadeIn(delay: 300.ms),
+                  ],
+
+                  if (_isAnalyzing) ...[
+                    const SizedBox(height: 12),
+                    const LinearProgressIndicator(),
+                    const SizedBox(height: 8),
+                    Center(
+                      child: Text(
+                        'AI is analyzing your report...',
+                        style: GoogleFonts.inter(
+                          fontSize: 13,
+                          color: AppColors.textSecondary,
+                        ),
+                      ),
+                    ),
+                  ],
+                  if (_aiConfidenceTier != null && _aiConfidence != null) ...[
+                    const SizedBox(height: 8),
+                    Row(
+                      children: [
+                        ConfidenceBadge(
+                          tier: _aiConfidenceTier!,
+                          confidence: _aiConfidence!,
+                        ),
+                        const SizedBox(width: 8),
+                        if (_orchestrationResult?.requiresImmediateAction ==
+                            true)
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 8,
+                              vertical: 4,
+                            ),
+                            decoration: BoxDecoration(
+                              color: AppColors.urgentRed.withValues(
+                                alpha: 0.12,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(
+                                  Icons.warning_rounded,
+                                  size: 14,
+                                  color: AppColors.urgentRed,
+                                ),
+                                const SizedBox(width: 4),
+                                Text(
+                                  'Urgent',
+                                  style: GoogleFonts.inter(
+                                    fontSize: 11,
+                                    fontWeight: FontWeight.w600,
+                                    color: AppColors.urgentRed,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                      ],
+                    ),
                   ],
 
                   const SizedBox(height: 8),
@@ -627,6 +759,39 @@ class _ReportScreenState extends ConsumerState<ReportScreen> {
 
                   const SizedBox(height: 20),
                   _buildLocationSection(),
+                  if (_aiLocationHint != null &&
+                      _aiLocationHint!.isNotEmpty) ...[
+                    const SizedBox(height: 8),
+                    Container(
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: AppColors.navyPrimary.withValues(alpha: 0.05),
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(
+                          color: AppColors.navyPrimary.withValues(alpha: 0.15),
+                        ),
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.location_on,
+                            size: 16,
+                            color: AppColors.navyPrimary,
+                          ),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: Text(
+                              'AI detected: $_aiLocationHint',
+                              style: GoogleFonts.inter(
+                                fontSize: 12,
+                                color: AppColors.textPrimary,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                   const SizedBox(height: 20),
                   _buildDescriptionSection(),
                   const SizedBox(height: 20),
@@ -842,180 +1007,5 @@ class _ReportScreenState extends ConsumerState<ReportScreen> {
         ),
       ],
     ).animate().fadeIn(delay: 500.ms);
-  }
-}
-
-class _AnalysisResultSheet extends StatelessWidget {
-  final ImageAnalysisResult result;
-  final VoidCallback onApply;
-
-  const _AnalysisResultSheet({required this.result, required this.onApply});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(24),
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Icon(Icons.auto_awesome, color: AppColors.navyPrimary),
-              const SizedBox(width: 8),
-              Text(
-                'AI Analysis Results',
-                style: GoogleFonts.inter(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.navyPrimary,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 16),
-          if (result.title.isNotEmpty) ...[
-            Text(
-              'Title',
-              style: GoogleFonts.inter(
-                fontSize: 12,
-                fontWeight: FontWeight.w500,
-                color: AppColors.textSecondary,
-              ),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              result.title,
-              style: GoogleFonts.inter(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            const SizedBox(height: 12),
-          ],
-          Text(
-            'Description',
-            style: GoogleFonts.inter(
-              fontSize: 12,
-              fontWeight: FontWeight.w500,
-              color: AppColors.textSecondary,
-            ),
-          ),
-          const SizedBox(height: 4),
-          Text(result.description, style: GoogleFonts.inter(fontSize: 14)),
-          const SizedBox(height: 12),
-          Row(
-            children: [
-              _buildChip('Category: ${result.category}', Icons.category),
-              const SizedBox(width: 8),
-              _buildChip('Severity: ${result.severity}', Icons.priority_high),
-            ],
-          ),
-          if (result.hasLowConfidence) ...[
-            const SizedBox(height: 12),
-            Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: Colors.orange.shade50,
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.warning_amber,
-                    color: Colors.orange.shade700,
-                    size: 18,
-                  ),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: Text(
-                      'AI confidence is low. Please verify the information before submitting.',
-                      style: GoogleFonts.inter(
-                        fontSize: 12,
-                        color: Colors.orange.shade900,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-          if (result.extractedText.isNotEmpty) ...[
-            const SizedBox(height: 12),
-            Text(
-              'Detected Text',
-              style: GoogleFonts.inter(
-                fontSize: 12,
-                fontWeight: FontWeight.w500,
-                color: AppColors.textSecondary,
-              ),
-            ),
-            const SizedBox(height: 4),
-            Wrap(
-              spacing: 4,
-              children: result.extractedText
-                  .map(
-                    (text) => Chip(
-                      label: Text(text, style: const TextStyle(fontSize: 11)),
-                      visualDensity: VisualDensity.compact,
-                    ),
-                  )
-                  .toList(),
-            ),
-          ],
-          const SizedBox(height: 24),
-          Row(
-            children: [
-              Expanded(
-                child: OutlinedButton(
-                  onPressed: () => Navigator.pop(context),
-                  child: const Text('Cancel'),
-                ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: ElevatedButton(
-                  onPressed: onApply,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.greenAccent,
-                    foregroundColor: Colors.white,
-                  ),
-                  child: const Text('Apply'),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildChip(String label, IconData icon) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-      decoration: BoxDecoration(
-        color: AppColors.navyPrimary.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, size: 14, color: AppColors.navyPrimary),
-          const SizedBox(width: 4),
-          Text(
-            label,
-            style: GoogleFonts.inter(
-              fontSize: 12,
-              fontWeight: FontWeight.w500,
-              color: AppColors.navyPrimary,
-            ),
-          ),
-        ],
-      ),
-    );
   }
 }

@@ -10,7 +10,7 @@ import { checkRateLimit, recordRequest, rateLimitResponse } from '../_shared/rat
 declare const Deno: any;
 
 const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
-const CHAT_MODEL = Deno.env.get('GROQ_MODEL_CHAT') ?? 'llama-3.3-70b-versatile';
+const CHAT_MODEL = Deno.env.get('GROQ_MODEL_CHAT') ?? 'openai/gpt-oss-120b';
 
 interface ChatMessage {
   role: 'user' | 'assistant' | 'system' | 'tool';
