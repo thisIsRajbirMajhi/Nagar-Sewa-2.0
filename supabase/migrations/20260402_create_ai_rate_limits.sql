@@ -16,8 +16,9 @@ create or replace policy "Service role can manage rate limits"
   using (auth.role() = 'service_role')
   with check (auth.role() = 'service_role');
 
+select cron.unschedule('cleanup-rate-limits');
 select cron.schedule(
   'cleanup-rate-limits',
   '* * * * *',
-  $$delete from ai_rate_limits where created_at < now() - interval '2 minutes'$$
+  $sql$delete from ai_rate_limits where created_at < now() - interval '2 minutes'$sql$
 );

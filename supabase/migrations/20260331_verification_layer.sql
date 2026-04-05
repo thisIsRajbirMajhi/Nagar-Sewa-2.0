@@ -31,6 +31,8 @@ ALTER TABLE verification_queue ENABLE ROW LEVEL SECURITY;
 DROP POLICY IF EXISTS "Users can view verification_queue" ON verification_queue;
 DROP POLICY IF EXISTS "Users can insert into verification_queue" ON verification_queue;
 DROP POLICY IF EXISTS "Users can update verification_queue" ON verification_queue;
+DROP POLICY IF EXISTS "Admins can manage verification_queue" ON verification_queue;
+DROP POLICY IF EXISTS "Users can view own verification_queue" ON verification_queue;
 
 CREATE POLICY "Admins can manage verification_queue" ON verification_queue
   FOR ALL USING (
