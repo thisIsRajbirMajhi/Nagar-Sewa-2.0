@@ -8,16 +8,14 @@ Database migrations stored in `supabase/migrations/` with timestamp-based naming
 
 Files named: `YYYYMMDD_description.sql`
 
-Example: `20260402_create_ai_rate_limits.sql`
+Example: `20260401_create_issues_table.sql`
 
 ## Migration History
 
 | Timestamp | File | Description |
 |-----------|------|-------------|
-| 20260331 | `20260331_verification_layer.sql` | Verification system: verification_queue, model_metrics, issue verification fields |
-| 20260401 | `20260401_create_ai_rate_limits.sql` | AI rate limits table and pg_cron cleanup job |
-| 20260401 | `20260401_model_metrics.sql` | Model metrics table for ML training results |
-| 20260402 | `20260402_create_ai_rate_limits.sql` | AI rate limits table (revised) with proper RLS policies |
+| 20260331 | `20260331_initial_schema.sql` | Initial schema: profiles, issues, departments, votes, notifications |
+| 20260331 | `20260331_issue_history.sql` | Issue status change audit trail |
 
 ## Running Migrations
 

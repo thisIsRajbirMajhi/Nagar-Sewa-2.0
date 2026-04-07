@@ -44,16 +44,6 @@ Core table for reported civic issues.
 | `upvote_count` | int | DEFAULT 0 | |
 | `downvote_count` | int | DEFAULT 0 | |
 | `is_draft` | bool | DEFAULT false | |
-| `verification_confidence` | text | DEFAULT 'high' | high, medium, low |
-| `verification_flags` | text[] | DEFAULT '{}' | Verification flags |
-| `exif_gps_lat` | double precision | | EXIF GPS latitude |
-| `exif_gps_lng` | double precision | | EXIF GPS longitude |
-| `exif_timestamp` | timestamptz | | EXIF capture time |
-| `capture_device` | text | | Device model |
-| `is_delayed_submission` | bool | DEFAULT false | |
-| `admin_reviewed` | bool | DEFAULT false | |
-| `admin_approved` | bool | | null = not reviewed |
-| `sla_deadline` | timestamptz | | SLA deadline |
 | `created_at` | timestamptz | DEFAULT now() | |
 | `updated_at` | timestamptz | DEFAULT now() | |
 
@@ -109,47 +99,6 @@ Status change audit trail.
 | `issue_id` | uuid | FK → issues(id) |
 | `created_at` | timestamptz | DEFAULT now() |
 
-### verification_queue
-
-Low-confidence issues for admin review.
-
-| Column | Type | Constraints |
-|--------|------|-------------|
-| `id` | uuid | PK |
-| `issue_id` | uuid | FK → issues(id) |
-| `confidence` | text | NOT NULL |
-| `flags` | text[] | DEFAULT '{}' |
-| `reviewed_at` | timestamptz | |
-| `reviewed_by` | uuid | FK → profiles(id) |
-| `created_at` | timestamptz | DEFAULT now() |
-
-### ai_rate_limits
-
-Rate limiting store for AI Edge Functions.
-
-| Column | Type | Constraints |
-|--------|------|-------------|
-| `id` | bigserial | PK |
-| `user_id` | uuid | FK → auth.users(id), ON DELETE CASCADE |
-| `feature` | text | NOT NULL |
-| `created_at` | timestamptz | DEFAULT now() |
-
-Index: `(user_id, feature, created_at DESC)`
-
-### model_metrics
-
-ML training results storage.
-
-| Column | Type | Constraints |
-|--------|------|-------------|
-| `id` | uuid | PK |
-| `model_name` | text | NOT NULL |
-| `accuracy` | double precision | |
-| `precision` | double precision | |
-| `recall` | double precision | |
-| `f1_score` | double precision | |
-| `trained_at` | timestamptz | DEFAULT now() |
-
 ## Row Level Security
 
 ### profiles
@@ -169,13 +118,6 @@ ML training results storage.
 
 ### notifications
 - Users view own notifications only
-
-### verification_queue
-- Admins have full access
-- Users can view their own flagged issues
-
-### ai_rate_limits
-- Only service_role can insert/select (Edge Functions only)
 
 ## RPC Functions
 

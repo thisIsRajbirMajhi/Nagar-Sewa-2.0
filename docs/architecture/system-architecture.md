@@ -2,7 +2,7 @@
 
 ## Overview
 
-NagarSewa is a civic accountability platform connecting citizens, government officers, and administrators through a unified Flutter application backed by Supabase infrastructure and AI-powered verification.
+NagarSewa is a civic accountability platform connecting citizens, government officers, and administrators through a unified Flutter application backed by Supabase infrastructure.
 
 ## Architecture Diagram
 
@@ -43,14 +43,10 @@ NagarSewa is a civic accountability platform connecting citizens, government off
 | Supabase Auth | JWT-based authentication with email verification |
 | PostgreSQL | Primary database with Row Level Security |
 | Supabase Storage | Photo/video uploads with size/type restrictions |
-| Edge Functions (Deno) | Server-side verification and AI proxy |
+| Edge Functions (Deno) | Server-side verification |
 | pg_cron | Scheduled cleanup jobs |
 
-### AI (Future Roadmap)
-| Feature | Potential Model | Purpose |
-|---------|-----------------|---------|
-| Analysis | Groq Llama-4 | Image classification and severity detection |
-| Assistant| Groq Llama-3 | Citizen chatbot and officer drafting |
+
 
 ## Architecture Pattern
 
@@ -82,7 +78,6 @@ NagarSewa is a civic accountability platform connecting citizens, government off
 │  Backend Layer                         │
 │  - Supabase (Auth + DB + Storage)      │
 │  - Edge Functions (Deno)               │
-│  - Groq API (AI inference)             │
 └────────────────────────────────────────┘
 ```
 
@@ -94,7 +89,7 @@ NagarSewa is a civic accountability platform connecting citizens, government off
 
 3. **Supabase as single backend** — No custom API server. Supabase handles auth, database, storage, and serverless functions.
 
-4. **AI through Edge Functions** — API keys never reach the client. All AI calls proxy through Supabase Edge Functions with JWT verification and rate limiting.
+
 
 5. **Offline-first with stale-while-revalidate** — Hive caches serve data immediately while background refreshes update from the network.
 

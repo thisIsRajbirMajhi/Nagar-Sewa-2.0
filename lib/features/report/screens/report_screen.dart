@@ -11,8 +11,6 @@ import '../../../core/widgets/app_button.dart';
 import '../../../core/widgets/app_header.dart';
 import '../../../services/location_service.dart';
 import '../../../services/supabase_service.dart';
-import 'package:speech_to_text/speech_to_text.dart' as stt;
-import 'package:permission_handler/permission_handler.dart';
 
 class ReportScreen extends ConsumerStatefulWidget {
   const ReportScreen({super.key});
@@ -35,9 +33,6 @@ class _ReportScreenState extends ConsumerState<ReportScreen> {
   bool _locationFetched = false;
   bool _isSubmitting = false;
   String _selectedCategory = 'pothole';
-
-  final stt.SpeechToText _speechToText = stt.SpeechToText();
-  bool _isListening = false;
 
   final List<Map<String, dynamic>> _categories = [
     {'value': 'pothole', 'label': 'Pothole', 'icon': Icons.warning_rounded},
@@ -89,7 +84,6 @@ class _ReportScreenState extends ConsumerState<ReportScreen> {
   void initState() {
     super.initState();
     _fetchLocation();
-    _initSpeech();
   }
 
   @override
@@ -112,41 +106,6 @@ class _ReportScreenState extends ConsumerState<ReportScreen> {
         _address = address ?? 'Location fetched';
         _locationFetched = true;
       });
-    }
-  }
-
-  Future<void> _initSpeech() async {
-    bool available = await _speechToText.initialize(
-      onStatus: (status) {
-        if (status == 'done') {
-          setState(() => _isListening = false);
-        }
-      },
-      onError: (val) => debugPrint('onError: $val'),
-    );
-    if (!available) {
-      debugPrint("Speech recognition not available");
-    }
-  }
-
-  Future<void> _toggleListening() async {
-    if (!_isListening) {
-      bool available = await _speechToText.initialize();
-      if (available) {
-        setState(() => _isListening = true);
-        _speechToText.listen(
-          onResult: (val) {
-            setState(() {
-              _descriptionController.text = val.recognizedWords;
-            });
-          },
-        );
-      } else {
-        await Permission.microphone.request();
-      }
-    } else {
-      setState(() => _isListening = false);
-      _speechToText.stop();
     }
   }
 
@@ -213,8 +172,6 @@ class _ReportScreenState extends ConsumerState<ReportScreen> {
         'is_draft': isDraft,
       };
 
-
-
       await SupabaseService.createIssue(issueData);
 
       if (mounted) {
@@ -241,8 +198,6 @@ class _ReportScreenState extends ConsumerState<ReportScreen> {
       });
     }
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -348,8 +303,6 @@ class _ReportScreenState extends ConsumerState<ReportScreen> {
                     ],
                   ).animate().fadeIn(delay: 200.ms),
 
-
-
                   const SizedBox(height: 20),
 
                   Text(
@@ -384,7 +337,11 @@ class _ReportScreenState extends ConsumerState<ReportScreen> {
                         value: cat['value'],
                         child: Row(
                           children: [
-                            Icon(cat['icon'] as IconData, size: 20, color: AppColors.textSecondary),
+                            Icon(
+                              cat['icon'] as IconData,
+                              size: 20,
+                              color: AppColors.textSecondary,
+                            ),
                             const SizedBox(width: 8),
                             Text(cat['label'] as String),
                           ],
@@ -498,26 +455,13 @@ class _ReportScreenState extends ConsumerState<ReportScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              'Description',
-              style: GoogleFonts.inter(
-                fontSize: 14,
-                fontWeight: FontWeight.w600,
-                color: AppColors.navyPrimary,
-              ),
-            ),
-            IconButton(
-              icon: Icon(
-                _isListening ? Icons.mic : Icons.mic_none,
-                color: _isListening ? Colors.red : AppColors.navyPrimary,
-              ),
-              onPressed: _toggleListening,
-              tooltip: 'Speech to Text',
-            ),
-          ],
+        Text(
+          'Description',
+          style: GoogleFonts.inter(
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+            color: AppColors.navyPrimary,
+          ),
         ),
         const SizedBox(height: 8),
         Container(

@@ -29,13 +29,13 @@ NagarSewa follows a pragmatic testing approach focused on critical paths and bus
 flutter test
 
 # Run specific test file
-flutter test test/services/ai_service_test.dart
+flutter test test/services/supabase_service_test.dart
 
 # Run with coverage
 flutter test --coverage
 
 # Run specific test by name
-flutter test --name "should compress image"
+flutter test --name "should fetch issues"
 ```
 
 ## Test File Location
@@ -51,36 +51,10 @@ test/
 
 Mirror the `lib/` structure.
 
-## Testing AI Features
-
-### Edge Functions
-Test Edge Functions locally before deploying:
-
-```bash
-# Serve functions locally
-supabase functions serve
-
-# Test with curl
-curl -X POST http://localhost:54321/functions/v1/analyze-image \
-  -H "Authorization: Bearer <jwt>" \
-  -H "Content-Type: application/json" \
-  -d '{"imageBase64": "...", "locale": "en"}'
-```
-
-### Flutter AI Service
-Mock the Supabase client for testing:
-- Test image compression logic
-- Test retry behavior
-- Test error message mapping
-- Test JSON parsing for analysis results
-
 ## Mocking
 
 ### Supabase
 Use `MockSupabaseClient` or stub `SupabaseService` methods for testing without network calls.
-
-### AI Service
-Create mock implementations of `AiService` that return predefined responses for testing UI integration.
 
 ## Continuous Integration
 

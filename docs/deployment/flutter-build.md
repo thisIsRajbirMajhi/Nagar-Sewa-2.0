@@ -81,24 +81,11 @@ flutter build web --release
 
 ## Environment Configuration
 
-### Mobile (Release)
-Supabase credentials hardcoded in `SupabaseService`:
-```dart
-const supabaseUrl = 'https://gipfcndtddodeyveexjx.supabase.co';
-const supabaseAnonKey = '...';
+### Configuration (.env)
+Create a `.env` file from the template:
 ```
-
-### Web
-Credentials via `fromEnvironment()` with defaults:
-```dart
-const supabaseUrl = String.fromEnvironment('SUPABASE_URL');
-const supabaseAnonKey = String.fromEnvironment('SUPABASE_ANON_KEY');
-```
-
-### Development (.env)
-```
-SUPABASE_URL=https://gipfcndtddodeyveexjx.supabase.co
-SUPABASE_ANON_KEY=...
+SUPABASE_URL=your-project-url.supabase.co
+SUPABASE_ANON_KEY=your-anon-key
 ```
 
 **Never commit `.env` to repository.**
@@ -129,4 +116,4 @@ dart run flutter_launcher_icons
 1. **Icon tree-shaking** — 99.2% reduction in icon bundle size
 2. **Image compression** — Client-side before upload
 3. **Lazy loading** — Maps load only visible markers
-4. **Compute isolates** — Heavy verification off main thread
+4. **Stale-while-revalidate** — Cached data served immediately, refreshed in background

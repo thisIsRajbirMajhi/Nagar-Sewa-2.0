@@ -67,7 +67,7 @@ lib/
 | `supabase_flutter` | Backend integration |
 | `hive_flutter` | Local storage |
 | `maplibre_gl` | [MapLibre GL](https://maplibre.org) with [OpenFreeMap](https://openfreemap.org) tiles (No API key required) |
-| `flutter_image_compress` | Image compression for AI |
+| `flutter_image_compress` | Image compression for uploads |
 | `google_fonts` | Typography |
 | `flutter_animate` | Animations |
 

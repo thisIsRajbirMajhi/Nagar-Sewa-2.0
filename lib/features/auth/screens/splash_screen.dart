@@ -47,7 +47,7 @@ class _SplashScreenState extends State<SplashScreen>
     'Did you know? You can report issues anonymously.',
     'Tip: Upload photos for faster issue resolution.',
     'Your civic score increases when issues get resolved!',
-    'NagarSewa uses AI to categorize and prioritize issues.',
+    'Report infrastructure issues and track resolution in real-time.',
     'Track your reported issues in real-time on the map.',
     'Upvote issues to help authorities prioritize them.',
   ];

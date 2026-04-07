@@ -186,14 +186,6 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                     ),
                   ]).animate().fadeIn(delay: 500.ms),
                   const SizedBox(height: 16),
-                  _buildSection('Admin', [
-                    _buildTile(
-                      Icons.verified_user_outlined,
-                      'Verification Queue',
-                      () => context.push('/admin/verification-queue'),
-                    ),
-                  ]).animate().fadeIn(delay: 550.ms),
-                  const SizedBox(height: 16),
                   _buildSection('About', [
                     _buildTile(Icons.help_outline, 'Help & Support', () {
                       context.push(
@@ -202,7 +194,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                           'title': 'Help & Support',
                           'content':
                               'Welcome to NagarSewa Support.\n\n'
-                              '1. Reporting Issues: Tap the plus icon in the bottom bar, take a photo, and submit. AI will automatically classify the issue.\n\n'
+                              '1. Reporting Issues: Tap the plus icon in the bottom bar, take a photo, select a category, and submit.\n\n'
                               '2. Tracking Progress: Check the "History" tab to see real-time updates on your submitted issues.\n\n'
                               '3. Civic Score: You earn 10 Civic Score points for every issue that gets resolved. Help your community to climb the ranks!\n\n'
                               'If you face technical difficulties, please contact our support desk at support@nagar-sewa.in.',
@@ -232,8 +224,8 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                           'content':
                               'NagarSewa - Empowering Citizens, Transforming Cities.\n\n'
                               'Version 1.0.0\n\n'
-                              'NagarSewa is an AI-powered civic issue reporting and resolution platform. Our mission is to bridge the gap between citizens and municipal authorities by providing a transparent, real-time, and efficient digital infrastructure.\n\n'
-                              'With integrated features like AI auto-classification, location tracking, and an automated civic rewarding system, NagarSewa brings power back to the people.',
+                              'NagarSewa is a civic issue reporting and resolution platform. Our mission is to bridge the gap between citizens and municipal authorities by providing a transparent, real-time, and efficient digital infrastructure.\n\n'
+                              'With integrated features like issue categorization, location tracking, and an automated civic rewarding system, NagarSewa brings power back to the people.',
                         },
                       );
                     }),

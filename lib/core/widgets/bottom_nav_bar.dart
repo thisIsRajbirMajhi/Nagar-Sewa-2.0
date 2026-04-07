@@ -42,11 +42,6 @@ class BottomNavBar extends StatelessWidget {
                 label: 'History',
               ),
               _buildNavItem(index: 2, icon: Icons.map_outlined, label: 'Map'),
-              _buildNavItem(
-                index: 3,
-                icon: Icons.chat_bubble_outline_rounded,
-                label: 'Chat',
-              ),
             ],
           ),
         ),

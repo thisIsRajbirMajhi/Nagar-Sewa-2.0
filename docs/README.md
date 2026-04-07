@@ -2,7 +2,7 @@
 
 > **Tagline:** *"Small reports. Big change."*
 >
-> A civic accountability platform for Odisha, India. Citizens report infrastructure issues, track resolutions, and hold government accountable — powered by AI verification and real-time tracking.
+> A civic accountability platform for Odisha, India. Citizens report infrastructure issues, track resolutions, and hold government accountable through live mapping and officer verification.
 
 For a project overview, quick start, and screenshots, see the [root README](../README.md).
 
@@ -21,8 +21,6 @@ For a project overview, quick start, and screenshots, see the [root README](../R
 |----------|-------------|
 | [Authentication](features/authentication.md) | Auth flow, guards, deep linking, email verification |
 | [Issue Reporting](features/issue-reporting.md) | Report flow, media capture, category selection, submission |
-| [Media Verification](features/media-verification.md) | EXIF extraction, GPS validation, timestamp analysis, server verification |
-| [AI Integration](features/ai-integration.md) | Edge Functions, Groq models, image analysis, chatbot, officer drafting, admin reports |
 | [Offline & Sync](features/offline-sync.md) | Hive caching, connectivity monitoring, sync queue |
 
 ### Database
@@ -34,7 +32,6 @@ For a project overview, quick start, and screenshots, see the [root README](../R
 ### Deployment
 | Document | Description |
 |----------|-------------|
-| [Supabase Setup](deployment/supabase-setup.md) | Project configuration, secrets, Edge Functions deployment |
 | [Flutter Build](deployment/flutter-build.md) | Build configurations, release process, platform-specific setup |
 
 ### Development
@@ -44,15 +41,10 @@ For a project overview, quick start, and screenshots, see the [root README](../R
 | [Coding Standards](development/coding-standards.md) | Conventions, patterns, best practices |
 | [Testing](development/testing.md) | Test strategy, how to run tests, coverage |
 
-### API Reference
-| Document | Description |
-|----------|-------------|
-| [Edge Functions API](api/edge-functions.md) | Request/response specs for all Edge Functions |
-
 ---
 
 ## Quick Links
 
 - **Repository:** https://github.com/thisIsRajbirMajhi/Nagar-Sewa-2.0
-- **Tech Stack:** Flutter 3.x, Riverpod, Supabase, Groq AI, MapLibre GL
+- **Tech Stack:** Flutter 3.x, Riverpod, Supabase, MapLibre GL
 - **Target Platform:** Android (primary), iOS, Web

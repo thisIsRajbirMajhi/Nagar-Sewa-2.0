@@ -8,7 +8,7 @@
 [![Supabase](https://img.shields.io/badge/Supabase-Backend-3ECF8E?logo=supabase)](https://supabase.com)
 [![CI](https://github.com/thisIsRajbirMajhi/Nagar-Sewa-2.0/actions/workflows/ci.yml/badge.svg)](https://github.com/thisIsRajbirMajhi/Nagar-Sewa-2.0/actions/workflows/ci.yml)
 
-A civic accountability platform for **Odisha, India**. Citizens report infrastructure issues, track resolutions in real-time, and hold government accountable — powered by **AI verification** and **live mapping**.
+A civic accountability platform for **Odisha, India**. Citizens report infrastructure issues, track resolutions in real-time, and hold government accountable through **live mapping** and **officer verification**.
 
 ---
 
@@ -77,7 +77,7 @@ For detailed setup instructions, see [Getting Started](docs/development/getting-
 | | |
 |---|---|
 | [Architecture](docs/architecture/system-architecture.md) | System design, data flow, and patterns |
-| [Features](docs/README.md) | Authentication, reporting, AI, offline sync |
+| [Features](docs/README.md) | Authentication, reporting, offline sync |
 | [Database](docs/database/schema.md) | Schema, migrations, RLS policies |
 | [API Reference](docs/api/edge-functions.md) | Edge Function request/response specs |
 | [Deployment](docs/deployment/flutter-build.md) | Build and release instructions |
@@ -117,6 +117,6 @@ You may obtain a copy of the License at
 ## Acknowledgments
 
 - [Supabase](https://supabase.com) for the backend infrastructure
-- [Groq](https://groq.com) for fast AI inference
+- [OpenStreetMap contributors](https://www.openstreetmap.org) for mapping data
 - [MapLibre](https://maplibre.org) for open-source mapping
 - The Flutter and Dart community

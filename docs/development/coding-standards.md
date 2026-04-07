@@ -14,7 +14,7 @@
 - Feature files grouped under `lib/features/<feature_name>/`
 
 ### Classes
-- `PascalCase` for classes: `IssueModel`, `VerificationService`
+- `PascalCase` for classes: `IssueModel`, `SupabaseService`
 - Notifiers: `FeatureNameNotifier` or `AsyncFeatureNameNotifier`
 
 ### Variables & Functions
@@ -57,7 +57,7 @@ Code grouped by feature, not by technical layer. Each feature owns its screens, 
 ## Error Handling
 
 ### Service Layer
-- Throw typed exceptions: `AiException`, custom error classes
+- Throw typed exceptions: custom error classes
 - Include contextual messages for user display
 - Never swallow errors silently
 
@@ -91,15 +91,14 @@ type is one of:
   docs:     Documentation
   refactor: Code restructuring
   chore:    Maintenance tasks
-  fix:      Lint/analyze fixes
 ```
 
 ### Examples
 ```
-feat(ai): add image analysis Edge Function
+feat: add offline sync support
 fix: resolve unused import warnings
 docs: update architecture documentation
-refactor: extract verification service into isolate
+refactor: extract service layer into separate module
 chore: bump version to 1.1.0+2
 ```
 

@@ -12,7 +12,6 @@ import '../../../models/issue_model.dart';
 import '../../../services/location_service.dart';
 import '../providers/officer_provider.dart';
 
-
 class OfficerMapScreen extends ConsumerStatefulWidget {
   const OfficerMapScreen({super.key});
 
@@ -501,7 +500,7 @@ class _OfficerMapScreenState extends ConsumerState<OfficerMapScreen> {
           ),
           const SizedBox(height: 6),
           Text(
-            'Opacity = AI Confidence',
+            'Opacity = Issue Priority',
             style: GoogleFonts.inter(
               fontSize: 9,
               fontWeight: FontWeight.w600,
@@ -605,7 +604,7 @@ class _OfficerMapScreenState extends ConsumerState<OfficerMapScreen> {
             ),
             const SizedBox(height: 12),
 
-            // Meta row: severity + AI confidence + upvotes + date
+            // Meta row: severity + upvotes + date
             Row(
               children: [
                 Container(

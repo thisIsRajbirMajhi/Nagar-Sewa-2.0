@@ -5,7 +5,6 @@ import 'package:go_router/go_router.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../models/issue_model.dart';
 
-
 class OfficerIssueCard extends StatelessWidget {
   final IssueModel issue;
   final int index;
@@ -57,7 +56,7 @@ class OfficerIssueCard extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // Row 1: Status + AI Confidence + Time
+                          // Row 1: Status + Priority + Time
                           Row(
                             children: [
                               _StatusBadge(
@@ -155,8 +154,6 @@ class OfficerIssueCard extends StatelessWidget {
                                 _SlaCountdown(deadline: issue.slaDeadline!),
                             ],
                           ),
-
-
                         ],
                       ),
                     ),
@@ -173,8 +170,6 @@ class OfficerIssueCard extends StatelessWidget {
         )
         .slideX(begin: 0.03);
   }
-
-
 
   Color _getSeverityColor(String severity) {
     switch (severity.toLowerCase()) {
