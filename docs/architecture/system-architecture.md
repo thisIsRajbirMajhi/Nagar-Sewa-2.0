@@ -21,11 +21,6 @@ NagarSewa is a civic accountability platform connecting citizens, government off
 │  │ Auth     │  │ Database │  │ Storage  │  │ Edge Functions│   │
 │  │ (JWT)    │  │ (Postgres)│  │ (Buckets)│  │ (Deno)       │   │
 │  └──────────┘  └──────────┘  └──────────┘  └──────────────┘   │
-└──────────────────────────┬──────────────────────────────────────┘
-                           │
-┌──────────────────────────▼──────────────────────────────────────┐
-│                         Groq AI                                 │
-│  Llama 4 Scout (Vision) | Llama 3.1 8B (Chat) | Llama 3.3 70B │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
@@ -51,12 +46,11 @@ NagarSewa is a civic accountability platform connecting citizens, government off
 | Edge Functions (Deno) | Server-side verification and AI proxy |
 | pg_cron | Scheduled cleanup jobs |
 
-### AI/ML
-| Model | Provider | Purpose |
-|-------|----------|---------|
-| Llama 4 Scout 17B | Groq | Image analysis, OCR, auto-categorization |
-| Llama 3.1 8B Instant | Groq | Citizen chatbot |
-| Llama 3.3 70B Versatile | Groq | Officer drafting, admin reports |
+### AI (Future Roadmap)
+| Feature | Potential Model | Purpose |
+|---------|-----------------|---------|
+| Analysis | Groq Llama-4 | Image classification and severity detection |
+| Assistant| Groq Llama-3 | Citizen chatbot and officer drafting |
 
 ## Architecture Pattern
 
@@ -76,10 +70,10 @@ NagarSewa is a civic accountability platform connecting citizens, government off
 ├────────────────────────────────────────┤
 │  Service Layer                         │
 │  - SupabaseService (API client)        │
-│  - VerificationService (media checks)  │
+│  - LocationService (GPS utilities)     │
 │  - CacheService (Hive caching)         │
 │  - SyncService (offline sync)          │
-│  - AiService (AI feature integration)  │
+│  - LogService (diagnostics)            │
 ├────────────────────────────────────────┤
 │  Data Layer                            │
 │  - Data Models (immutable classes)     │
@@ -111,49 +105,19 @@ NagarSewa is a civic accountability platform connecting citizens, government off
 User captures photo/video
     │
     ▼
-EXIF extraction (GPS, timestamp, device)
+Location auto-fetch (LocationService)
     │
     ▼
-Location verification (user GPS vs EXIF GPS)
+Manual category/description entry
     │
     ▼
-Verification confidence calculated
+Upload media to Supabase Storage
     │
     ▼
-Upload to Supabase Storage
+Create database record (SupabaseService)
     │
     ▼
-Create issue record in PostgreSQL
-    │
-    ▼
-Server-side verification via Edge Function
-    │
-    ├── High confidence → Auto-verified
-    ├── Medium confidence → Auto-verified, flagged
-    └── Low confidence → Added to admin review queue
-```
-
-### AI Image Analysis Flow
-```
-User takes photo
-    │
-    ▼
-Client compresses image (<800KB)
-    │
-    ▼
-AiService sends to Edge Function (with JWT)
-    │
-    ▼
-Edge Function: verify JWT → check rate limit → call Groq
-    │
-    ▼
-Groq returns structured JSON (title, category, severity, department)
-    │
-    ▼
-Edge Function validates enums → adds timestamp → returns to client
-    │
-    ▼
-Flutter shows analysis result → user confirms or edits → submits
+Notify relevant departments (Planned)
 ```
 
 ## Security Model

@@ -5,7 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.2.0] - 2026-04-07
+
+### Added
+- **Developer Extension**: Integrated `superpowers` extension for advanced development capabilities.
+- **Environment Template**: Standardized `.env.example` with modern project requirements.
+
+### Changed
+- **Architectural Shift**: Simplified the issue reporting pipeline by removing the experimental AI orchestration layer (Groq-based vision/chat) for better reliability.
+- **Maps**: Finalized the transition from Google Maps to **MapLibre GL** with OpenFreeMap tiles.
+- **Repository Cleanup**: Removed redundant `requirements.txt` and hardcoded local secrets.
+- **Project Structure**: Consolidated documentation into a central `/docs` directory and removed legacy root-level spec files.
+
+### Fixed
+- **Dependencies**: Resolved critical version conflicts with `record` and `record_linux` packages.
+- **Env Config**: Corrected major typos in the `.env` configuration that prevented Supabase initialization.
 
 ## [1.1.0] - 2026-04-02
 

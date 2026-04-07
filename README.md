@@ -15,13 +15,11 @@ A civic accountability platform for **Odisha, India**. Citizens report infrastru
 ## Features
 
 - **Report Issues** — Capture photos/videos of potholes, broken streetlights, water leaks, and more
-- **AI Verification** — Groq-powered image analysis detects AI-generated or manipulated media
-- **Live Map** — See all reported issues on an interactive map with real-time updates
+- **Live Map** — See all reported issues on an interactive map with real-time updates using **MapLibre GL**
 - **Track Resolution** — Follow each issue from report to resolution with status tracking
 - **Offline Support** — Report issues without internet; sync automatically when reconnected
 - **Multilingual** — Supports English, Hindi, and Odia
-- **AI Chatbot** — Get help and guidance through the reporting process
-- **Officer Dashboard** — Draft responses and generate AI-powered reports for administrators
+- **Officer Dashboard** — Specialized interface for government officials to manage and resolve issues
 
 ## Screenshots
 
@@ -39,8 +37,8 @@ A civic accountability platform for **Odisha, India**. Citizens report infrastru
 |-------|-----------|
 | **Frontend** | [Flutter 3.x](https://flutter.dev) with [Riverpod](https://riverpod.dev) |
 | **Routing** | [go_router](https://pub.dev/packages/go_router) |
-| **Backend** | [Supabase](https://supabase.com) (PostgreSQL, Auth, Storage, Edge Functions) |
-| **AI** | [Groq](https://groq.com) (Llama, Mixtral, LLaVA) via Supabase Edge Functions |
+| **Backend** | [Supabase](https://supabase.com) (PostgreSQL, Auth, Storage) |
+| **Logic** | Server-side validation and manual officer verification |
 | **Maps** | [MapLibre GL](https://maplibre.org) with [OpenFreeMap](https://openfreemap.org) tiles (No API key required) |
 | **Local Storage** | [Hive](https://pub.dev/packages/hive) + [SQLite](https://pub.dev/packages/sqflite) |
 | **State Management** | [Riverpod 3.x](https://riverpod.dev) |

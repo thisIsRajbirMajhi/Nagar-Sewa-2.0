@@ -1,0 +1,162 @@
+[
+  {
+    "error": null,
+    "event_message": "{\"action\":\"login\",\"instance_id\":\"00000000-0000-0000-0000-000000000000\",\"level\":\"info\",\"login_method\":\"token\",\"metering\":true,\"msg\":\"Login\",\"time\":\"2026-04-07T10:22:30Z\",\"user_id\":\"41dfe42b-4550-44d1-b287-645961fa80d4\"}",
+    "id": "05bf799f-3c78-46e8-9d5b-83f3648d50a3",
+    "level": "info",
+    "msg": "Login",
+    "path": null,
+    "status": null,
+    "timestamp": 1775557350000000
+  },
+  {
+    "error": null,
+    "event_message": "{\"auth_event\":{\"action\":\"token_revoked\",\"actor_id\":\"41dfe42b-4550-44d1-b287-645961fa80d4\",\"actor_name\":\"Shaikh Mustafa Ali\",\"actor_username\":\"shaikhmustafaali142@gmail.com\",\"actor_via_sso\":false,\"log_type\":\"token\"},\"component\":\"api\",\"duration\":250685942,\"grant_type\":\"refresh_token\",\"level\":\"info\",\"method\":\"POST\",\"msg\":\"request completed\",\"path\":\"/token\",\"referer\":\"io.supabase.nagarsewa://login-callback/\",\"remote_addr\":\"27.60.189.191\",\"request_id\":\"9e884fba500df655-CCU\",\"status\":200,\"time\":\"2026-04-07T10:22:30Z\"}",
+    "id": "5c5c33bb-ce95-4092-a6d0-fb054d72491e",
+    "level": "info",
+    "msg": "request completed",
+    "path": "/token",
+    "status": "200",
+    "timestamp": 1775557350000000
+  },
+  {
+    "error": null,
+    "event_message": "{\"auth_event\":{\"action\":\"token_revoked\",\"actor_id\":\"0d993af8-172c-425b-bada-c2ccb6a500b7\",\"actor_name\":\"TestSubject\",\"actor_username\":\"mrajbir98@gmail.com\",\"actor_via_sso\":false,\"log_type\":\"token\"},\"component\":\"api\",\"duration\":239697567,\"grant_type\":\"refresh_token\",\"level\":\"info\",\"method\":\"POST\",\"msg\":\"request completed\",\"path\":\"/token\",\"referer\":\"io.supabase.nagarsewa://login-callback/\",\"remote_addr\":\"152.58.162.123\",\"request_id\":\"9e877891f77e93c2-CCU\",\"status\":200,\"time\":\"2026-04-07T07:55:37Z\"}",
+    "id": "3aa62710-5fca-45d5-a02b-7cd5093c6dc5",
+    "level": "info",
+    "msg": "request completed",
+    "path": "/token",
+    "status": "200",
+    "timestamp": 1775548537000000
+  },
+  {
+    "error": null,
+    "event_message": "{\"action\":\"login\",\"instance_id\":\"00000000-0000-0000-0000-000000000000\",\"level\":\"info\",\"login_method\":\"token\",\"metering\":true,\"msg\":\"Login\",\"time\":\"2026-04-07T07:55:37Z\",\"user_id\":\"0d993af8-172c-425b-bada-c2ccb6a500b7\"}",
+    "id": "a0aaeece-b1c5-4195-869f-13f1ecfa9fc6",
+    "level": "info",
+    "msg": "Login",
+    "path": null,
+    "status": null,
+    "timestamp": 1775548537000000
+  },
+  {
+    "error": null,
+    "event_message": "{\"auth_event\":{\"action\":\"token_revoked\",\"actor_id\":\"0d993af8-172c-425b-bada-c2ccb6a500b7\",\"actor_name\":\"TestSubject\",\"actor_username\":\"mrajbir98@gmail.com\",\"actor_via_sso\":false,\"log_type\":\"token\"},\"component\":\"api\",\"duration\":150048990,\"grant_type\":\"refresh_token\",\"level\":\"info\",\"method\":\"POST\",\"msg\":\"request completed\",\"path\":\"/token\",\"referer\":\"io.supabase.nagarsewa://login-callback/\",\"remote_addr\":\"152.58.162.215\",\"request_id\":\"9e861574c49294be-CCU\",\"status\":200,\"time\":\"2026-04-07T03:53:11Z\"}",
+    "id": "b1bafc85-cd0f-4ec9-b568-d9f244113c89",
+    "level": "info",
+    "msg": "request completed",
+    "path": "/token",
+    "status": "200",
+    "timestamp": 1775533991000000
+  },
+  {
+    "error": null,
+    "event_message": "{\"action\":\"login\",\"instance_id\":\"00000000-0000-0000-0000-000000000000\",\"level\":\"info\",\"login_method\":\"token\",\"metering\":true,\"msg\":\"Login\",\"time\":\"2026-04-07T03:53:11Z\",\"user_id\":\"0d993af8-172c-425b-bada-c2ccb6a500b7\"}",
+    "id": "ff97cc6a-5e19-4f9e-b044-ac8987058f55",
+    "level": "info",
+    "msg": "Login",
+    "path": null,
+    "status": null,
+    "timestamp": 1775533991000000
+  },
+  {
+    "error": null,
+    "event_message": "{\"auth_event\":{\"action\":\"token_revoked\",\"actor_id\":\"0d993af8-172c-425b-bada-c2ccb6a500b7\",\"actor_name\":\"TestSubject\",\"actor_username\":\"mrajbir98@gmail.com\",\"actor_via_sso\":false,\"log_type\":\"token\"},\"component\":\"api\",\"duration\":157118916,\"grant_type\":\"refresh_token\",\"level\":\"info\",\"method\":\"POST\",\"msg\":\"request completed\",\"path\":\"/token\",\"referer\":\"io.supabase.nagarsewa://login-callback/\",\"remote_addr\":\"152.58.162.43\",\"request_id\":\"9e859f8b04e494d0-CCU\",\"status\":200,\"time\":\"2026-04-07T02:32:42Z\"}",
+    "id": "4071fced-ec1b-4d55-941c-33887ca0e962",
+    "level": "info",
+    "msg": "request completed",
+    "path": "/token",
+    "status": "200",
+    "timestamp": 1775529162000000
+  },
+  {
+    "error": null,
+    "event_message": "{\"action\":\"login\",\"instance_id\":\"00000000-0000-0000-0000-000000000000\",\"level\":\"info\",\"login_method\":\"token\",\"metering\":true,\"msg\":\"Login\",\"time\":\"2026-04-07T02:32:42Z\",\"user_id\":\"0d993af8-172c-425b-bada-c2ccb6a500b7\"}",
+    "id": "3ef5af05-3d0b-44c2-89b6-ed1d2a76fb0d",
+    "level": "info",
+    "msg": "Login",
+    "path": null,
+    "status": null,
+    "timestamp": 1775529162000000
+  },
+  {
+    "error": null,
+    "event_message": "{\"auth_event\":{\"action\":\"login\",\"actor_id\":\"0d993af8-172c-425b-bada-c2ccb6a500b7\",\"actor_name\":\"TestSubject\",\"actor_username\":\"mrajbir98@gmail.com\",\"actor_via_sso\":false,\"log_type\":\"account\",\"traits\":{\"provider\":\"email\"}},\"component\":\"api\",\"duration\":178326307,\"grant_type\":\"password\",\"level\":\"info\",\"method\":\"POST\",\"msg\":\"request completed\",\"path\":\"/token\",\"referer\":\"io.supabase.nagarsewa://login-callback/\",\"remote_addr\":\"152.58.162.208\",\"request_id\":\"9e825ce8d1bd869e-NAG\",\"status\":200,\"time\":\"2026-04-06T17:02:55Z\"}",
+    "id": "ae4711bb-c13a-4a10-8b56-b424da5ce215",
+    "level": "info",
+    "msg": "request completed",
+    "path": "/token",
+    "status": "200",
+    "timestamp": 1775494975000000
+  },
+  {
+    "error": null,
+    "event_message": "{\"action\":\"login\",\"instance_id\":\"00000000-0000-0000-0000-000000000000\",\"level\":\"info\",\"login_method\":\"password\",\"metering\":true,\"msg\":\"Login\",\"provider\":\"email\",\"time\":\"2026-04-06T17:02:55Z\",\"user_id\":\"0d993af8-172c-425b-bada-c2ccb6a500b7\"}",
+    "id": "5a7eea14-b862-4dde-a466-63e555b74ec3",
+    "level": "info",
+    "msg": "Login",
+    "path": null,
+    "status": null,
+    "timestamp": 1775494975000000
+  },
+  {
+    "error": null,
+    "event_message": "{\"auth_event\":{\"action\":\"logout\",\"actor_id\":\"c08fe4ec-393d-4983-96c3-46d25f6cd220\",\"actor_name\":\"Rajbir Majhi\",\"actor_username\":\"mrajbir96@gmail.com\",\"actor_via_sso\":false,\"log_type\":\"account\"},\"component\":\"api\",\"duration\":105103617,\"level\":\"info\",\"method\":\"POST\",\"msg\":\"request completed\",\"path\":\"/logout\",\"referer\":\"io.supabase.nagarsewa://login-callback/\",\"remote_addr\":\"152.58.162.208\",\"request_id\":\"9e825cb2a69a0c17-NAG\",\"status\":204,\"time\":\"2026-04-06T17:02:46Z\"}",
+    "id": "74dacdd7-486b-475b-a5e2-beef3d287fff",
+    "level": "info",
+    "msg": "request completed",
+    "path": "/logout",
+    "status": "204",
+    "timestamp": 1775494966000000
+  },
+  {
+    "error": null,
+    "event_message": "{\"action\":\"login\",\"instance_id\":\"00000000-0000-0000-0000-000000000000\",\"level\":\"info\",\"login_method\":\"password\",\"metering\":true,\"msg\":\"Login\",\"provider\":\"email\",\"time\":\"2026-04-06T16:35:23Z\",\"user_id\":\"c08fe4ec-393d-4983-96c3-46d25f6cd220\"}",
+    "id": "1f739382-f0a7-494f-8efd-606c017a5904",
+    "level": "info",
+    "msg": "Login",
+    "path": null,
+    "status": null,
+    "timestamp": 1775493323000000
+  },
+  {
+    "error": null,
+    "event_message": "{\"auth_event\":{\"action\":\"login\",\"actor_id\":\"c08fe4ec-393d-4983-96c3-46d25f6cd220\",\"actor_name\":\"Rajbir Majhi\",\"actor_username\":\"mrajbir96@gmail.com\",\"actor_via_sso\":false,\"log_type\":\"account\",\"traits\":{\"provider\":\"email\"}},\"component\":\"api\",\"duration\":203205461,\"grant_type\":\"password\",\"level\":\"info\",\"method\":\"POST\",\"msg\":\"request completed\",\"path\":\"/token\",\"referer\":\"io.supabase.nagarsewa://login-callback/\",\"remote_addr\":\"152.58.162.208\",\"request_id\":\"9e823494d6269a9b-NAG\",\"status\":200,\"time\":\"2026-04-06T16:35:23Z\"}",
+    "id": "fade12c7-ea88-40e5-b033-5c3578a17c65",
+    "level": "info",
+    "msg": "request completed",
+    "path": "/token",
+    "status": "200",
+    "timestamp": 1775493323000000
+  },
+  {
+    "error": null,
+    "event_message": "{\"auth_event\":{\"action\":\"logout\",\"actor_id\":\"0d993af8-172c-425b-bada-c2ccb6a500b7\",\"actor_name\":\"TestSubject\",\"actor_username\":\"mrajbir98@gmail.com\",\"actor_via_sso\":false,\"log_type\":\"account\"},\"component\":\"api\",\"duration\":94578474,\"level\":\"info\",\"method\":\"POST\",\"msg\":\"request completed\",\"path\":\"/logout\",\"referer\":\"io.supabase.nagarsewa://login-callback/\",\"remote_addr\":\"152.58.162.208\",\"request_id\":\"9e823448e4839a96-NAG\",\"status\":204,\"time\":\"2026-04-06T16:35:11Z\"}",
+    "id": "ce74dfa1-f320-4c1b-855f-0f348362b787",
+    "level": "info",
+    "msg": "request completed",
+    "path": "/logout",
+    "status": "204",
+    "timestamp": 1775493311000000
+  },
+  {
+    "error": null,
+    "event_message": "{\"auth_event\":{\"action\":\"login\",\"actor_id\":\"0d993af8-172c-425b-bada-c2ccb6a500b7\",\"actor_name\":\"TestSubject\",\"actor_username\":\"mrajbir98@gmail.com\",\"actor_via_sso\":false,\"log_type\":\"account\",\"traits\":{\"provider\":\"email\"}},\"component\":\"api\",\"duration\":221146805,\"grant_type\":\"password\",\"level\":\"info\",\"method\":\"POST\",\"msg\":\"request completed\",\"path\":\"/token\",\"referer\":\"io.supabase.nagarsewa://login-callback/\",\"remote_addr\":\"152.58.162.208\",\"request_id\":\"9e822ec222fa9a9b-NAG\",\"status\":200,\"time\":\"2026-04-06T16:31:25Z\"}",
+    "id": "19edd5d1-140a-431d-9381-f1228e708146",
+    "level": "info",
+    "msg": "request completed",
+    "path": "/token",
+    "status": "200",
+    "timestamp": 1775493085000000
+  },
+  {
+    "error": null,
+    "event_message": "{\"action\":\"login\",\"instance_id\":\"00000000-0000-0000-0000-000000000000\",\"level\":\"info\",\"login_method\":\"password\",\"metering\":true,\"msg\":\"Login\",\"provider\":\"email\",\"time\":\"2026-04-06T16:31:25Z\",\"user_id\":\"0d993af8-172c-425b-bada-c2ccb6a500b7\"}",
+    "id": "954e2ae8-940f-43c8-9c32-f86c774ac01c",
+    "level": "info",
+    "msg": "Login",
+    "path": null,
+    "status": null,
+    "timestamp": 1775493085000000
+  }
+]

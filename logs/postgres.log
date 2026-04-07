@@ -1,0 +1,902 @@
+[
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection received: host=::1 port=9229",
+    "hint": null,
+    "id": "ad34e2da-416f-48d6-b704-c30152caff2c",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576776080000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authorized: user=supabase_admin database=postgres application_name=postgres_exporter",
+    "hint": null,
+    "id": "80323536-5a46-4004-a9e8-d15285855be6",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576776080000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authenticated: user=\"supabase_admin\" method=trust (/etc/postgresql/pg_hba.conf:85)",
+    "hint": null,
+    "id": "aa5faf6f-17d9-41df-b8f5-efbd1531bf50",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576776080000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authenticated: user=\"postgres\" method=trust (/etc/postgresql/pg_hba.conf:85)",
+    "hint": null,
+    "id": "4ecf5916-5174-4e14-ac8a-b4cf4e062fc3",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576760018000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authorized: user=postgres database=postgres application_name=pg_cron SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256)",
+    "hint": null,
+    "id": "f068dfb1-a63d-4715-989d-65a433b06627",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576760018000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection received: host=::1 port=6959",
+    "hint": null,
+    "id": "59b1def0-3cc4-4642-9e61-5b63b0499ed3",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576760006000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "cron job 3 starting: delete from ai_rate_limits where created_at < now() - interval '2 minutes'",
+    "hint": null,
+    "id": "3d46ecce-ff60-4699-9801-bb3ff887704d",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576760001000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "checkpoint complete: wrote 170 buffers (0.6%); 0 WAL file(s) added, 0 removed, 3 recycled; write=17.017 s, sync=0.002 s, total=17.033 s; sync files=26, longest=0.001 s, average=0.001 s; distance=49150 kB, estimate=49150 kB; lsn=C/7B0000B8, redo lsn=C/7B000028",
+    "hint": null,
+    "id": "910f059a-6ea0-42f4-93d9-5c118d1bc040",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576753753000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "checkpoint starting: time",
+    "hint": null,
+    "id": "2cbe94cf-5599-44ef-815c-1780c37261fe",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576736720000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authorized: user=supabase_admin database=postgres application_name=postgres_exporter",
+    "hint": null,
+    "id": "7dc49852-426f-4157-8dfe-4b1fb952705b",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576716081000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authenticated: user=\"supabase_admin\" method=trust (/etc/postgresql/pg_hba.conf:85)",
+    "hint": null,
+    "id": "632fd95b-5927-4fe5-99e1-fb2b69745d3b",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576716081000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection received: host=::1 port=42247",
+    "hint": null,
+    "id": "f5bfe6d6-7459-4885-b438-a38b9f6c3d2e",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576716080000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authorized: user=postgres database=postgres application_name=pg_cron SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256)",
+    "hint": null,
+    "id": "99f0b62a-02af-4c63-84a7-9010710a758a",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576700031000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authenticated: user=\"postgres\" method=trust (/etc/postgresql/pg_hba.conf:85)",
+    "hint": null,
+    "id": "0a5a7248-283b-4068-ad0d-0701fbd7a51c",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576700031000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authenticated: identity=\"postgres\" method=scram-sha-256 (/etc/postgresql/pg_hba.conf:94)",
+    "hint": null,
+    "id": "8f0af383-09e9-4f7c-83e5-e524b2355233",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576697048000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authorized: user=postgres database=postgres application_name=supabase/dashboard SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256)",
+    "hint": null,
+    "id": "fbd3e439-4220-4271-ace2-59c150f94e34",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576697048000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authenticated: identity=\"postgres\" method=scram-sha-256 (/etc/postgresql/pg_hba.conf:94)",
+    "hint": null,
+    "id": "f2e8d4b1-3bdc-4380-9397-a98aa54f39e3",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576697030000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authorized: user=postgres database=postgres application_name=supabase/dashboard SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256)",
+    "hint": null,
+    "id": "987b4ab4-cfdf-4be4-8249-c6195c957a58",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576697030000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authorized: user=postgres database=postgres application_name=supabase/dashboard SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256)",
+    "hint": null,
+    "id": "2a9ff3a8-4823-4d36-9929-ce7ab396f882",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576697012000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authenticated: identity=\"postgres\" method=scram-sha-256 (/etc/postgresql/pg_hba.conf:94)",
+    "hint": null,
+    "id": "16a0dec5-73c5-4c29-8054-55d93cb9dcdd",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576697012000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authorized: user=supabase_admin database=postgres application_name=mgmt-api SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256)",
+    "hint": null,
+    "id": "60b335ce-ad09-4486-a529-aa9d6f36de13",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576696980000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authenticated: identity=\"supabase_admin\" method=scram-sha-256 (/etc/postgresql/pg_hba.conf:94)",
+    "hint": null,
+    "id": "05a2f0b8-6159-45a5-af03-213e8734498e",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576696980000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authorized: user=supabase_admin database=postgres application_name=mgmt-api SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256)",
+    "hint": null,
+    "id": "7de9ebca-f243-4a7b-8bad-c67c49c0b02c",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576696971000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authenticated: identity=\"supabase_admin\" method=scram-sha-256 (/etc/postgresql/pg_hba.conf:94)",
+    "hint": null,
+    "id": "6cff2dc5-0a6a-407a-b974-a596fd3c1a8a",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576696971000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection received: host=2406:da18:96a:8200:21bd:16ba:baa2:644c port=40942",
+    "hint": null,
+    "id": "d5adc800-91f4-499c-a377-7073614cfb7f",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576696728000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection received: host=2406:da18:96a:8201:3cc:f3f5:60db:2d5 port=50696",
+    "hint": null,
+    "id": "3a00d700-68b3-452a-96a2-71f62d0a0b09",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576696721000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection received: host=2406:da18:96a:8200:dc6c:15da:5fea:fb5 port=37730",
+    "hint": null,
+    "id": "93d8b45e-41ea-4de0-a37d-358616b3e90a",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576696701000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection received: host=2406:da18:96a:8201:1620:5056:639:bc19 port=34214",
+    "hint": null,
+    "id": "22e3ac7f-ba71-4ee3-a869-62b037507ee6",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576696662000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection received: host=2406:da18:96a:8201:8c77:e488:b43b:68e2 port=38076",
+    "hint": null,
+    "id": "d61d090a-c8ab-4509-94c1-c2637c13ad6b",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576696660000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authenticated: identity=\"postgres\" method=scram-sha-256 (/etc/postgresql/pg_hba.conf:94)",
+    "hint": null,
+    "id": "c95f5d45-51e8-400f-ad5f-54bc90ae723d",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576663582000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authorized: user=postgres database=postgres application_name=supabase/dashboard SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256)",
+    "hint": null,
+    "id": "444f670c-b3e1-4fb6-9d89-3e405263cb04",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576663582000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authorized: user=postgres database=postgres application_name=supabase/dashboard SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256)",
+    "hint": null,
+    "id": "add9a8bf-837e-4851-b815-9c343c9ca382",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576662776000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authenticated: identity=\"postgres\" method=scram-sha-256 (/etc/postgresql/pg_hba.conf:94)",
+    "hint": null,
+    "id": "e285118e-86dd-4d16-a433-51be77335ab3",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576662776000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authenticated: identity=\"postgres\" method=scram-sha-256 (/etc/postgresql/pg_hba.conf:94)",
+    "hint": null,
+    "id": "0f6f59c8-02ea-4950-a0c9-749998dd6732",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576662470000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authorized: user=postgres database=postgres application_name=supabase/dashboard SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256)",
+    "hint": null,
+    "id": "84be1489-2956-4260-84c1-8438233c869e",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576662470000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authorized: user=supabase_admin database=postgres application_name=postgres_exporter",
+    "hint": null,
+    "id": "58703956-f70b-4106-a65e-7b383927bda7",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576656132000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authenticated: user=\"supabase_admin\" method=trust (/etc/postgresql/pg_hba.conf:85)",
+    "hint": null,
+    "id": "d5298cad-25cc-4c11-8959-31b52feb5a69",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576656132000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection received: host=::1 port=58969",
+    "hint": null,
+    "id": "b15f9e05-7fc0-403e-8131-5dfbd8494c91",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576656131000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authenticated: identity=\"postgres\" method=scram-sha-256 (/etc/postgresql/pg_hba.conf:94)",
+    "hint": null,
+    "id": "9a020935-15f4-4aff-83f5-126133e41acf",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576647535000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authorized: user=postgres database=postgres application_name=supabase/dashboard SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256)",
+    "hint": null,
+    "id": "11c42c84-1b6d-41a2-ac25-4af210ffc0be",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576647535000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection received: host=2406:da18:96a:8201:a007:32f7:c08a:aea0 port=40762",
+    "hint": null,
+    "id": "6c75c33a-359d-4413-ae2f-3fb2b7687977",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576647226000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authenticated: user=\"postgres\" method=trust (/etc/postgresql/pg_hba.conf:85)",
+    "hint": null,
+    "id": "ef80799b-08e8-47e4-b39f-fca219112a5b",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576640026000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authorized: user=postgres database=postgres application_name=pg_cron SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256)",
+    "hint": null,
+    "id": "57502b87-5818-4ebd-bc83-a97144ffef41",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576640026000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection received: host=::1 port=17117",
+    "hint": null,
+    "id": "0a14f609-9138-4057-b4e5-d21c7df8234a",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576640010000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "cron job 3 starting: delete from ai_rate_limits where created_at < now() - interval '2 minutes'",
+    "hint": null,
+    "id": "6b5433d6-73ee-425c-b00b-ae7c32109a07",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576640007000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authenticated: identity=\"postgres\" method=scram-sha-256 (/etc/postgresql/pg_hba.conf:94)",
+    "hint": null,
+    "id": "a6ba76d8-8d68-4047-a5d2-7756b39b6f02",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576621681000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authorized: user=postgres database=postgres application_name=supabase/dashboard SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256)",
+    "hint": null,
+    "id": "e34f9a71-ea42-43a9-834b-679d5bf27d28",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576621681000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authenticated: identity=\"postgres\" method=scram-sha-256 (/etc/postgresql/pg_hba.conf:94)",
+    "hint": null,
+    "id": "d9dc849f-fc86-4b09-b632-799e144d9012",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576621669000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authorized: user=postgres database=postgres application_name=supabase/dashboard SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256)",
+    "hint": null,
+    "id": "c0dbe337-d523-4b4f-ab63-4f167f32775f",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576621669000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authenticated: identity=\"postgres\" method=scram-sha-256 (/etc/postgresql/pg_hba.conf:94)",
+    "hint": null,
+    "id": "81d07d58-d993-4604-984b-17e0223b48dd",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576621664000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authorized: user=postgres database=postgres application_name=supabase/dashboard SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256)",
+    "hint": null,
+    "id": "c4a6636f-83a6-4017-8ccf-12d9c3f1c32b",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576621664000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection received: host=2406:da18:96a:8200:d49e:9801:c992:5316 port=48026",
+    "hint": null,
+    "id": "9e083b42-19c8-405e-9117-f1f5e28c26eb",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576621356000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection received: host=2406:da18:96a:8200:d49e:9801:c992:5316 port=48018",
+    "hint": null,
+    "id": "c6767315-dc13-4539-b47c-bae3efa4a31b",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576621346000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection received: host=2406:da18:96a:8201:ca08:ee6e:df3f:d9ee port=59848",
+    "hint": null,
+    "id": "06aa68af-cb2b-4209-b36c-712bdffc3cdf",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576621346000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authenticated: identity=\"supabase_admin\" method=scram-sha-256 (/etc/postgresql/pg_hba.conf:94)",
+    "hint": null,
+    "id": "2c712e37-e3de-41ed-9238-601505286efe",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576618470000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authorized: user=supabase_admin database=postgres application_name=mgmt-api SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256)",
+    "hint": null,
+    "id": "d2bc4625-b345-4289-9fc0-2180eea8a169",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576618470000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authorized: user=supabase_admin database=postgres application_name=mgmt-api SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256)",
+    "hint": null,
+    "id": "58a60bfc-0973-4de6-ae80-989554a029e3",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576618119000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authenticated: identity=\"supabase_admin\" method=scram-sha-256 (/etc/postgresql/pg_hba.conf:94)",
+    "hint": null,
+    "id": "c3480e34-037b-45bc-b632-d479fa1b3f9c",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576618119000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authorized: user=supabase_admin database=postgres application_name=mgmt-api SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256)",
+    "hint": null,
+    "id": "289144cf-dc3c-46b3-91e3-63f4a7caa1a8",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576618061000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authenticated: identity=\"supabase_admin\" method=scram-sha-256 (/etc/postgresql/pg_hba.conf:94)",
+    "hint": null,
+    "id": "4fb43a3e-cbf1-46b9-aae2-309e7944a1aa",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576618061000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authenticated: identity=\"supabase_admin\" method=scram-sha-256 (/etc/postgresql/pg_hba.conf:94)",
+    "hint": null,
+    "id": "11faad14-8982-4f54-b60d-11831221b9e1",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576618046000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authorized: user=supabase_admin database=postgres application_name=mgmt-api SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256)",
+    "hint": null,
+    "id": "6790a263-096f-4b6a-bc04-bffba058b41b",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576618046000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authenticated: identity=\"supabase_admin\" method=scram-sha-256 (/etc/postgresql/pg_hba.conf:94)",
+    "hint": null,
+    "id": "5a34b6d0-f95d-45b4-b10f-add4d66afeb3",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576618036000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authorized: user=supabase_admin database=postgres application_name=mgmt-api SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256)",
+    "hint": null,
+    "id": "28cb47dd-7879-4584-b076-57a730168668",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576618036000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authenticated: identity=\"supabase_admin\" method=scram-sha-256 (/etc/postgresql/pg_hba.conf:94)",
+    "hint": null,
+    "id": "bd9d038f-ad0c-45db-8a5e-e59efca81aae",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576617699000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authorized: user=supabase_admin database=postgres application_name=mgmt-api SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256)",
+    "hint": null,
+    "id": "ca395721-61c3-41f3-a853-571a26bdbcd3",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576617699000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection received: host=2406:da18:96a:8200:5dc2:b697:68a0:8772 port=42976",
+    "hint": null,
+    "id": "ed1af58f-7466-4417-b783-8b62f934b04c",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576617384000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authenticated: identity=\"supabase_admin\" method=scram-sha-256 (/etc/postgresql/pg_hba.conf:94)",
+    "hint": null,
+    "id": "b672bb08-aab9-429b-a274-26f4d45a9ea5",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576611157000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authorized: user=supabase_admin database=postgres application_name=mgmt-api SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256)",
+    "hint": null,
+    "id": "8abdc8d5-24e2-461a-a373-85ee0be1933d",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576611157000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authorized: user=supabase_admin database=postgres application_name=mgmt-api SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256)",
+    "hint": null,
+    "id": "a014af54-469d-430c-8618-63c2c95cefe6",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576610841000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authenticated: identity=\"supabase_admin\" method=scram-sha-256 (/etc/postgresql/pg_hba.conf:94)",
+    "hint": null,
+    "id": "cd076e42-4913-4dcc-acd8-3f48920e09bf",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576610841000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authenticated: identity=\"supabase_admin\" method=scram-sha-256 (/etc/postgresql/pg_hba.conf:94)",
+    "hint": null,
+    "id": "4db2aa0d-6020-4663-87a3-009fcf28b10c",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576610266000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authorized: user=supabase_admin database=postgres application_name=mgmt-api SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256)",
+    "hint": null,
+    "id": "8b1eb20c-9209-48a2-84b4-8acc3ff8095b",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576610266000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authorized: user=supabase_admin database=postgres application_name=mgmt-api SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256)",
+    "hint": null,
+    "id": "ff22b641-bada-4070-b587-f6c24fb4feb3",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576610251000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authenticated: identity=\"supabase_admin\" method=scram-sha-256 (/etc/postgresql/pg_hba.conf:94)",
+    "hint": null,
+    "id": "88f7f5da-2a86-407d-99d1-67e410ec6d68",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576610251000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authenticated: identity=\"supabase_admin\" method=scram-sha-256 (/etc/postgresql/pg_hba.conf:94)",
+    "hint": null,
+    "id": "11217289-cd29-43f5-9b4a-4ce800b8e4e4",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576610245000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authorized: user=supabase_admin database=postgres application_name=mgmt-api SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256)",
+    "hint": null,
+    "id": "8d063666-1720-4ebf-9bec-603678d2b400",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576610245000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authorized: user=supabase_admin database=postgres application_name=mgmt-api SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256)",
+    "hint": null,
+    "id": "5fe66b62-eade-494b-b4ea-779091dfcef8",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576609664000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authenticated: identity=\"supabase_admin\" method=scram-sha-256 (/etc/postgresql/pg_hba.conf:94)",
+    "hint": null,
+    "id": "509ee366-222a-4148-86eb-56865c3ac59b",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576609664000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection received: host=2406:da18:96a:8200:dc6c:15da:5fea:fb5 port=35420",
+    "hint": null,
+    "id": "89f2dfef-b718-4014-9e2f-63e0f47de871",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576609334000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authenticated: user=\"supabase_admin\" method=trust (/etc/postgresql/pg_hba.conf:85)",
+    "hint": null,
+    "id": "9b93abc2-1234-4416-be33-9620a7545f6f",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576603627000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authorized: user=supabase_admin database=postgres application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256)",
+    "hint": null,
+    "id": "f4647e25-058b-43a2-85bc-e4fa71a9b32e",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576603627000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authenticated: user=\"supabase_admin\" method=trust (/etc/postgresql/pg_hba.conf:85)",
+    "hint": null,
+    "id": "5fc4d919-3498-4433-8ec7-9f9a67e16a56",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576603501000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authorized: user=supabase_admin database=postgres application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256)",
+    "hint": null,
+    "id": "d2907ffb-74b9-41b7-9137-3b76b84dea55",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576603501000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authenticated: user=\"supabase_admin\" method=trust (/etc/postgresql/pg_hba.conf:85)",
+    "hint": null,
+    "id": "4c9ad6b4-acbe-43e1-9a14-0793deb16930",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576603420000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authorized: user=supabase_admin database=postgres application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256)",
+    "hint": null,
+    "id": "1f0cf6f8-a6a4-45ee-9dbb-233abc4b39ea",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576603420000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authenticated: user=\"supabase_admin\" method=trust (/etc/postgresql/pg_hba.conf:85)",
+    "hint": null,
+    "id": "c725cc11-22e6-4bb2-a93f-f2e8ec5cd221",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576602998000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authorized: user=supabase_admin database=postgres application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256)",
+    "hint": null,
+    "id": "7437232e-dd40-4aa3-b79d-5881dc3aafaa",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576602998000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection received: host=::1 port=44307",
+    "hint": null,
+    "id": "30254d7c-5de3-465b-af30-50c8ae68ed0c",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576602960000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authorized: user=postgres database=postgres application_name=supabase/dashboard SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256)",
+    "hint": null,
+    "id": "8d391cdb-83ff-4843-b723-968eff1cfffa",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576597550000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authenticated: identity=\"postgres\" method=scram-sha-256 (/etc/postgresql/pg_hba.conf:94)",
+    "hint": null,
+    "id": "d8637916-abd6-469d-afd2-289056488da0",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576597550000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authorized: user=postgres database=postgres application_name=supabase/dashboard SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256)",
+    "hint": null,
+    "id": "2aad20ff-9d61-41fa-831d-f3425fe4aaf2",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576597524000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authenticated: identity=\"postgres\" method=scram-sha-256 (/etc/postgresql/pg_hba.conf:94)",
+    "hint": null,
+    "id": "892c53f8-0fcf-4e4b-a80e-ff782b191931",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576597524000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authenticated: identity=\"postgres\" method=scram-sha-256 (/etc/postgresql/pg_hba.conf:94)",
+    "hint": null,
+    "id": "6d128762-5b90-4a1a-8e0a-0d4429c29810",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576597521000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authorized: user=postgres database=postgres application_name=supabase/dashboard SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256)",
+    "hint": null,
+    "id": "9d632aae-4890-493a-a3be-83358fbc6886",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576597521000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authenticated: identity=\"supabase_admin\" method=scram-sha-256 (/etc/postgresql/pg_hba.conf:94)",
+    "hint": null,
+    "id": "364d5449-8f37-4312-9ce9-10561a783235",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576597467000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authorized: user=supabase_admin database=postgres application_name=mgmt-api SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256)",
+    "hint": null,
+    "id": "d4aa7763-f59e-45c8-9cd0-3080aae5bd34",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576597467000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authorized: user=supabase_admin database=postgres application_name=mgmt-api SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256)",
+    "hint": null,
+    "id": "031f6423-50d4-4307-8306-516f4fd905c6",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576597466000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authenticated: identity=\"supabase_admin\" method=scram-sha-256 (/etc/postgresql/pg_hba.conf:94)",
+    "hint": null,
+    "id": "da90c8f3-a96e-44c3-b21b-513ebf7394a3",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576597466000
+  },
+  {
+    "detail": null,
+    "error_severity": "LOG",
+    "event_message": "connection authorized: user=supabase_admin database=postgres application_name=postgres_exporter",
+    "hint": null,
+    "id": "b6e6d29f-0a79-4f6b-8ad8-88813004689c",
+    "identifier": "gipfcndtddodeyveexjx",
+    "timestamp": 1775576596078000
+  }
+]

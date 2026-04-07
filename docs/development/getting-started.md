@@ -27,8 +27,8 @@ flutter pub get
 Create `.env` file in project root (copy from `.env.example`):
 
 ```
-SUPABASE_URL=https://gipfcndtddodeyveexjx.supabase.co
-SUPABASE_ANON_KEY=<your-anon-key>
+SUPABASE_URL=https://your-project-url.supabase.co
+SUPABASE_ANON_KEY=your-anon-key
 ```
 
 **Note:** Never commit `.env` to version control. For production builds, configure credentials through platform-specific mechanisms (see [Deployment](../deployment/flutter-build.md)).
@@ -102,9 +102,6 @@ For database and Edge Function management:
 # Apply migrations
 supabase db push
 
-# Deploy Edge Functions
+# Deploy Edge Functions (if using custom logic)
 supabase functions deploy
-
-# Set secrets
-supabase secrets set GROQ_API_KEY=your_key
 ```

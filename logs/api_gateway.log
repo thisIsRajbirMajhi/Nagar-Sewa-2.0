@@ -1,0 +1,2002 @@
+[
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/auth/v1/health | @supabase-infra/mgmt-api/68b0dd1",
+    "id": "f3ae0bf0-abae-4dce-a783-9f2c01256948",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/auth/v1/health",
+    "search": null,
+    "status_code": 200,
+    "timestamp": 1775576507006000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/ | @supabase-infra/mgmt-api/68b0dd1",
+    "id": "fef9a66d-2a1a-4d1b-b14f-e01c1e0238e5",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/",
+    "search": null,
+    "status_code": 200,
+    "timestamp": 1775576506998000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/storage/v1/bucket?limit=100&offset=0&sortColumn=created_at&sortOrder=desc | @supabase-infra/mgmt-api/68b0dd1",
+    "id": "9ea94833-f992-4240-93af-2bfbd0767add",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/storage/v1/bucket",
+    "search": "?limit=100&offset=0&sortColumn=created_at&sortOrder=desc",
+    "status_code": 200,
+    "timestamp": 1775575420510000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/auth/v1/health | @supabase-infra/mgmt-api/68b0dd1",
+    "id": "5fd910e7-daec-4781-90c7-88047f422502",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/auth/v1/health",
+    "search": null,
+    "status_code": 200,
+    "timestamp": 1775575324337000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&order=created_at.desc.nullslast&offset=0&limit=50 | Dart/3.11 (dart:io)",
+    "id": "731b2900-61ef-472e-82dd-698235f22ce6",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&order=created_at.desc.nullslast&offset=0&limit=50",
+    "status_code": 200,
+    "timestamp": 1775557591589000
+  },
+  {
+    "event_message": "POST | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/rpc/get_dashboard_stats | Dart/3.11 (dart:io)",
+    "id": "082efe8b-6e5a-49c1-93b2-75a10edf3278",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "POST",
+    "path": "/rest/v1/rpc/get_dashboard_stats",
+    "search": null,
+    "status_code": 200,
+    "timestamp": 1775557591528000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&order=created_at.desc.nullslast&offset=0&limit=10 | Dart/3.11 (dart:io)",
+    "id": "1accfff4-9af7-4e00-ac99-5428adb69da5",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&order=created_at.desc.nullslast&offset=0&limit=10",
+    "status_code": 200,
+    "timestamp": 1775557586682000
+  },
+  {
+    "event_message": "POST | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/rpc/get_dashboard_stats | Dart/3.11 (dart:io)",
+    "id": "d6b24353-3d98-42fa-9d11-2940565700cf",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "POST",
+    "path": "/rest/v1/rpc/get_dashboard_stats",
+    "search": null,
+    "status_code": 200,
+    "timestamp": 1775557585854000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/profiles?select=*&id=eq.41dfe42b-4550-44d1-b287-645961fa80d4 | Dart/3.11 (dart:io)",
+    "id": "f8756f02-1bc2-46ed-b058-1135b9b20039",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/profiles",
+    "search": "?select=*&id=eq.41dfe42b-4550-44d1-b287-645961fa80d4",
+    "status_code": 200,
+    "timestamp": 1775557583206000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&order=created_at.desc.nullslast&offset=0&limit=50 | Dart/3.11 (dart:io)",
+    "id": "d2a3b940-fc88-46b8-b553-5e31d8128b0c",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&order=created_at.desc.nullslast&offset=0&limit=50",
+    "status_code": 200,
+    "timestamp": 1775557453644000
+  },
+  {
+    "event_message": "POST | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/rpc/get_dashboard_stats | Dart/3.11 (dart:io)",
+    "id": "00c5391a-83ec-40fd-9481-ce26beedcb9c",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "POST",
+    "path": "/rest/v1/rpc/get_dashboard_stats",
+    "search": null,
+    "status_code": 200,
+    "timestamp": 1775557453642000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&order=created_at.desc.nullslast&offset=0&limit=10 | Dart/3.11 (dart:io)",
+    "id": "7b1f2b99-0664-40f5-b3c9-1082a53b5717",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&order=created_at.desc.nullslast&offset=0&limit=10",
+    "status_code": 200,
+    "timestamp": 1775557440086000
+  },
+  {
+    "event_message": "POST | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/rpc/get_dashboard_stats | Dart/3.11 (dart:io)",
+    "id": "c4c634d7-ec49-42a3-95bc-4f3f6cc720f7",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "POST",
+    "path": "/rest/v1/rpc/get_dashboard_stats",
+    "search": null,
+    "status_code": 200,
+    "timestamp": 1775557438755000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/profiles?select=*&id=eq.41dfe42b-4550-44d1-b287-645961fa80d4 | Dart/3.11 (dart:io)",
+    "id": "b6b90989-d979-4e60-833c-eea7e0c0186c",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/profiles",
+    "search": "?select=*&id=eq.41dfe42b-4550-44d1-b287-645961fa80d4",
+    "status_code": 200,
+    "timestamp": 1775557437017000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&order=created_at.desc.nullslast&offset=0&limit=50 | Dart/3.11 (dart:io)",
+    "id": "9729c8ad-9e61-4daf-ac4e-efff2e5fffd3",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&order=created_at.desc.nullslast&offset=0&limit=50",
+    "status_code": 200,
+    "timestamp": 1775557426482000
+  },
+  {
+    "event_message": "POST | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/rpc/get_dashboard_stats | Dart/3.11 (dart:io)",
+    "id": "b207866c-ac07-49ac-8bde-01a5f59495a7",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "POST",
+    "path": "/rest/v1/rpc/get_dashboard_stats",
+    "search": null,
+    "status_code": 200,
+    "timestamp": 1775557426366000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&order=created_at.desc.nullslast&offset=0&limit=10 | Dart/3.11 (dart:io)",
+    "id": "7f0de8b8-2d31-495e-b3e7-a17280b5c5f6",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&order=created_at.desc.nullslast&offset=0&limit=10",
+    "status_code": 200,
+    "timestamp": 1775557423466000
+  },
+  {
+    "event_message": "POST | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/rpc/get_dashboard_stats | Dart/3.11 (dart:io)",
+    "id": "74e046d9-9483-4786-8812-ffe8479f8a29",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "POST",
+    "path": "/rest/v1/rpc/get_dashboard_stats",
+    "search": null,
+    "status_code": 200,
+    "timestamp": 1775557422929000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/profiles?select=*&id=eq.41dfe42b-4550-44d1-b287-645961fa80d4 | Dart/3.11 (dart:io)",
+    "id": "c493b5db-14c1-4b83-a966-8147badc5af9",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/profiles",
+    "search": "?select=*&id=eq.41dfe42b-4550-44d1-b287-645961fa80d4",
+    "status_code": 200,
+    "timestamp": 1775557421092000
+  },
+  {
+    "event_message": "GET | 206 | https://gipfcndtddodeyveexjx.supabase.co/storage/v1/object/public/issues/41dfe42b-4550-44d1-b287-645961fa80d4/1774954778181_v.mp4 | ExoPlayer",
+    "id": "932c1085-5593-4cf6-a70b-c87a417e1b2c",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/storage/v1/object/public/issues/41dfe42b-4550-44d1-b287-645961fa80d4/1774954778181_v.mp4",
+    "search": null,
+    "status_code": 206,
+    "timestamp": 1775557411179000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/storage/v1/object/public/issues/41dfe42b-4550-44d1-b287-645961fa80d4/1774954778181_v.mp4 | ExoPlayer",
+    "id": "975db8fa-bee8-40c3-8be8-a4517e294bff",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/storage/v1/object/public/issues/41dfe42b-4550-44d1-b287-645961fa80d4/1774954778181_v.mp4",
+    "search": null,
+    "status_code": 200,
+    "timestamp": 1775557401914000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/storage/v1/object/public/issues/41dfe42b-4550-44d1-b287-645961fa80d4/1774954778181.jpg | Dart/3.11 (dart:io)",
+    "id": "e3356e9e-2c44-4490-8c64-dcea0099ca06",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/storage/v1/object/public/issues/41dfe42b-4550-44d1-b287-645961fa80d4/1774954778181.jpg",
+    "search": null,
+    "status_code": 200,
+    "timestamp": 1775557401693000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issue_history?select=id%2Cissue_id%2Cto_status%2Cnote%2Ccreated_at&issue_id=eq.fe9b5783-86bf-4a24-a6d1-b7cf7088b50c&order=created_at.asc.nullslast | Dart/3.11 (dart:io)",
+    "id": "de6b92b4-3432-4369-90d8-ff54aadf28e9",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issue_history",
+    "search": "?select=id%2Cissue_id%2Cto_status%2Cnote%2Ccreated_at&issue_id=eq.fe9b5783-86bf-4a24-a6d1-b7cf7088b50c&order=created_at.asc.nullslast",
+    "status_code": 200,
+    "timestamp": 1775557400917000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/upvotes?select=id&issue_id=eq.fe9b5783-86bf-4a24-a6d1-b7cf7088b50c&user_id=eq.41dfe42b-4550-44d1-b287-645961fa80d4 | Dart/3.11 (dart:io)",
+    "id": "9cdd4255-b3fa-414b-a36f-fbd9b1ddb6a6",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/upvotes",
+    "search": "?select=id&issue_id=eq.fe9b5783-86bf-4a24-a6d1-b7cf7088b50c&user_id=eq.41dfe42b-4550-44d1-b287-645961fa80d4",
+    "status_code": 200,
+    "timestamp": 1775557400906000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=*%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&id=eq.fe9b5783-86bf-4a24-a6d1-b7cf7088b50c | Dart/3.11 (dart:io)",
+    "id": "cb48678c-4e51-48ad-b732-c58c35b0eb7d",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=*%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&id=eq.fe9b5783-86bf-4a24-a6d1-b7cf7088b50c",
+    "status_code": 200,
+    "timestamp": 1775557400647000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&reporter_id=eq.41dfe42b-4550-44d1-b287-645961fa80d4&order=created_at.desc.nullslast&offset=0&limit=50 | Dart/3.11 (dart:io)",
+    "id": "337336a2-1a23-43da-8fb7-4af063109544",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&reporter_id=eq.41dfe42b-4550-44d1-b287-645961fa80d4&order=created_at.desc.nullslast&offset=0&limit=50",
+    "status_code": 200,
+    "timestamp": 1775557397648000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&reporter_id=eq.41dfe42b-4550-44d1-b287-645961fa80d4&order=created_at.desc.nullslast&offset=0&limit=50 | Dart/3.11 (dart:io)",
+    "id": "c0329771-1331-4bc2-904e-12bed95e0b05",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&reporter_id=eq.41dfe42b-4550-44d1-b287-645961fa80d4&order=created_at.desc.nullslast&offset=0&limit=50",
+    "status_code": 200,
+    "timestamp": 1775557394064000
+  },
+  {
+    "event_message": "GET | 206 | https://gipfcndtddodeyveexjx.supabase.co/storage/v1/object/public/issues/c08fe4ec-393d-4983-96c3-46d25f6cd220/1775227707605_v.mp4 | ExoPlayer",
+    "id": "e7209d10-12a0-47dc-9bea-1d23657111ac",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/storage/v1/object/public/issues/c08fe4ec-393d-4983-96c3-46d25f6cd220/1775227707605_v.mp4",
+    "search": null,
+    "status_code": 206,
+    "timestamp": 1775557389849000
+  },
+  {
+    "event_message": "GET | 206 | https://gipfcndtddodeyveexjx.supabase.co/storage/v1/object/public/issues/c08fe4ec-393d-4983-96c3-46d25f6cd220/1775227707605_v.mp4 | ExoPlayer",
+    "id": "59873ac5-4e6d-402f-a376-cac0be613114",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/storage/v1/object/public/issues/c08fe4ec-393d-4983-96c3-46d25f6cd220/1775227707605_v.mp4",
+    "search": null,
+    "status_code": 206,
+    "timestamp": 1775557384636000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/storage/v1/object/public/issues/c08fe4ec-393d-4983-96c3-46d25f6cd220/1775227707605.jpg | Dart/3.11 (dart:io)",
+    "id": "ec44a754-17ff-493e-ab26-98777650b40b",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/storage/v1/object/public/issues/c08fe4ec-393d-4983-96c3-46d25f6cd220/1775227707605.jpg",
+    "search": null,
+    "status_code": 200,
+    "timestamp": 1775557382990000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/storage/v1/object/public/issues/c08fe4ec-393d-4983-96c3-46d25f6cd220/1775227707605_v.mp4 | ExoPlayer",
+    "id": "59c01595-f206-46db-8b35-094b8c694f08",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/storage/v1/object/public/issues/c08fe4ec-393d-4983-96c3-46d25f6cd220/1775227707605_v.mp4",
+    "search": null,
+    "status_code": 200,
+    "timestamp": 1775557382958000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issue_history?select=id%2Cissue_id%2Cto_status%2Cnote%2Ccreated_at&issue_id=eq.074706f4-49fb-4f57-a430-e43629196883&order=created_at.asc.nullslast | Dart/3.11 (dart:io)",
+    "id": "c19b0761-fb12-4d0f-a568-1e9e985c791b",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issue_history",
+    "search": "?select=id%2Cissue_id%2Cto_status%2Cnote%2Ccreated_at&issue_id=eq.074706f4-49fb-4f57-a430-e43629196883&order=created_at.asc.nullslast",
+    "status_code": 200,
+    "timestamp": 1775557382437000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/upvotes?select=id&issue_id=eq.074706f4-49fb-4f57-a430-e43629196883&user_id=eq.41dfe42b-4550-44d1-b287-645961fa80d4 | Dart/3.11 (dart:io)",
+    "id": "8f59f732-808b-4c36-8ed9-cef41591d4a2",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/upvotes",
+    "search": "?select=id&issue_id=eq.074706f4-49fb-4f57-a430-e43629196883&user_id=eq.41dfe42b-4550-44d1-b287-645961fa80d4",
+    "status_code": 200,
+    "timestamp": 1775557382426000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=*%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&id=eq.074706f4-49fb-4f57-a430-e43629196883 | Dart/3.11 (dart:io)",
+    "id": "201788e8-966a-44c8-a1dd-6306c36f67fa",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=*%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&id=eq.074706f4-49fb-4f57-a430-e43629196883",
+    "status_code": 200,
+    "timestamp": 1775557382370000
+  },
+  {
+    "event_message": "GET | 206 | https://gipfcndtddodeyveexjx.supabase.co/storage/v1/object/public/issues/0d993af8-172c-425b-bada-c2ccb6a500b7/1775529193466_v.mp4 | ExoPlayer",
+    "id": "ad3506d8-47a9-477e-ba2d-3128189b1363",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/storage/v1/object/public/issues/0d993af8-172c-425b-bada-c2ccb6a500b7/1775529193466_v.mp4",
+    "search": null,
+    "status_code": 206,
+    "timestamp": 1775557368221000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/storage/v1/object/public/issues/0d993af8-172c-425b-bada-c2ccb6a500b7/1775529193466.jpg | Dart/3.11 (dart:io)",
+    "id": "c158f96f-8395-48ed-89f7-871df0ab81d0",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/storage/v1/object/public/issues/0d993af8-172c-425b-bada-c2ccb6a500b7/1775529193466.jpg",
+    "search": null,
+    "status_code": 200,
+    "timestamp": 1775557368200000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/storage/v1/object/public/issues/0d993af8-172c-425b-bada-c2ccb6a500b7/1775529193466_v.mp4 | ExoPlayer",
+    "id": "343d19d6-e0b1-413c-977c-d559840c63b0",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/storage/v1/object/public/issues/0d993af8-172c-425b-bada-c2ccb6a500b7/1775529193466_v.mp4",
+    "search": null,
+    "status_code": 200,
+    "timestamp": 1775557367075000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/upvotes?select=id&issue_id=eq.64971f72-9f17-45bd-ae0d-b172c4487d47&user_id=eq.41dfe42b-4550-44d1-b287-645961fa80d4 | Dart/3.11 (dart:io)",
+    "id": "e23e3358-3ec5-480c-a6f1-9cc11a090573",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/upvotes",
+    "search": "?select=id&issue_id=eq.64971f72-9f17-45bd-ae0d-b172c4487d47&user_id=eq.41dfe42b-4550-44d1-b287-645961fa80d4",
+    "status_code": 200,
+    "timestamp": 1775557365500000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issue_history?select=id%2Cissue_id%2Cto_status%2Cnote%2Ccreated_at&issue_id=eq.64971f72-9f17-45bd-ae0d-b172c4487d47&order=created_at.asc.nullslast | Dart/3.11 (dart:io)",
+    "id": "b1e87cb5-aff6-49d6-8ca2-e50d11afd2d1",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issue_history",
+    "search": "?select=id%2Cissue_id%2Cto_status%2Cnote%2Ccreated_at&issue_id=eq.64971f72-9f17-45bd-ae0d-b172c4487d47&order=created_at.asc.nullslast",
+    "status_code": 200,
+    "timestamp": 1775557365389000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=*%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&id=eq.64971f72-9f17-45bd-ae0d-b172c4487d47 | Dart/3.11 (dart:io)",
+    "id": "1ded0d90-cad4-4766-8915-a21fe0c6372f",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=*%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&id=eq.64971f72-9f17-45bd-ae0d-b172c4487d47",
+    "status_code": 200,
+    "timestamp": 1775557365368000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&order=created_at.desc.nullslast&offset=0&limit=50 | Dart/3.11 (dart:io)",
+    "id": "b7a6594e-cfc4-4630-82ea-262b0159caf2",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&order=created_at.desc.nullslast&offset=0&limit=50",
+    "status_code": 200,
+    "timestamp": 1775557357531000
+  },
+  {
+    "event_message": "POST | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/rpc/get_dashboard_stats | Dart/3.11 (dart:io)",
+    "id": "2bfa2640-8bc1-4e4d-aab0-51e2b7de9cc5",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "POST",
+    "path": "/rest/v1/rpc/get_dashboard_stats",
+    "search": null,
+    "status_code": 200,
+    "timestamp": 1775557357214000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&order=created_at.desc.nullslast&offset=0&limit=10 | Dart/3.11 (dart:io)",
+    "id": "eafec585-b70f-4870-9e18-e9c1d80da79b",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&order=created_at.desc.nullslast&offset=0&limit=10",
+    "status_code": 200,
+    "timestamp": 1775557354701000
+  },
+  {
+    "event_message": "POST | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/rpc/get_dashboard_stats | Dart/3.11 (dart:io)",
+    "id": "ea8a8cd0-5415-4c43-a825-4360ce16b485",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "POST",
+    "path": "/rest/v1/rpc/get_dashboard_stats",
+    "search": null,
+    "status_code": 200,
+    "timestamp": 1775557353886000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/profiles?select=*&id=eq.41dfe42b-4550-44d1-b287-645961fa80d4 | Dart/3.11 (dart:io)",
+    "id": "9235d59b-bd9a-4c82-971c-e03e0245e644",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/profiles",
+    "search": "?select=*&id=eq.41dfe42b-4550-44d1-b287-645961fa80d4",
+    "status_code": 200,
+    "timestamp": 1775557351359000
+  },
+  {
+    "event_message": "POST | 200 | https://gipfcndtddodeyveexjx.supabase.co/auth/v1/token?grant_type=refresh_token | Dart/3.11 (dart:io)",
+    "id": "4e9bd502-f0c6-4db3-83fd-06ab7fdbf6cd",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "POST",
+    "path": "/auth/v1/token",
+    "search": "?grant_type=refresh_token",
+    "status_code": 200,
+    "timestamp": 1775557349188000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&reporter_id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7&order=created_at.desc.nullslast&offset=0&limit=50 | Dart/3.11 (dart:io)",
+    "id": "e45d1fe1-747a-4682-a749-b4bd583e9903",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&reporter_id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7&order=created_at.desc.nullslast&offset=0&limit=50",
+    "status_code": 200,
+    "timestamp": 1775548556404000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&reporter_id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7&order=created_at.desc.nullslast&offset=0&limit=50 | Dart/3.11 (dart:io)",
+    "id": "107e9952-d1f2-48c9-b9d7-d3a430875ce3",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&reporter_id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7&order=created_at.desc.nullslast&offset=0&limit=50",
+    "status_code": 200,
+    "timestamp": 1775548554057000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&latitude=gte.23.500128854954955&latitude=lte.23.59021894504505&longitude=gte.87.29446426402438&longitude=lte.87.39033613597562&order=created_at.desc.nullslast&limit=100 | Dart/3.11 (dart:io)",
+    "id": "3d038757-e9d5-44a2-a24a-3e183b5de3c8",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&latitude=gte.23.500128854954955&latitude=lte.23.59021894504505&longitude=gte.87.29446426402438&longitude=lte.87.39033613597562&order=created_at.desc.nullslast&limit=100",
+    "status_code": 200,
+    "timestamp": 1775548550384000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&latitude=gte.23.499201754954953&latitude=lte.23.589291845045047&longitude=gte.87.29466676402438&longitude=lte.87.39053863597562&order=created_at.desc.nullslast&limit=100 | Dart/3.11 (dart:io)",
+    "id": "effdd2e0-7429-43fc-8c49-7a782f043444",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&latitude=gte.23.499201754954953&latitude=lte.23.589291845045047&longitude=gte.87.29466676402438&longitude=lte.87.39053863597562&order=created_at.desc.nullslast&limit=100",
+    "status_code": 200,
+    "timestamp": 1775548543992000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&latitude=gte.23.499201754954953&latitude=lte.23.589291845045047&longitude=gte.87.29466676402438&longitude=lte.87.39053863597562&order=created_at.desc.nullslast&limit=100 | Dart/3.11 (dart:io)",
+    "id": "ae0dc672-4e35-45d4-9fd1-694dc3743505",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&latitude=gte.23.499201754954953&latitude=lte.23.589291845045047&longitude=gte.87.29466676402438&longitude=lte.87.39053863597562&order=created_at.desc.nullslast&limit=100",
+    "status_code": 200,
+    "timestamp": 1775548543983000
+  },
+  {
+    "event_message": "POST | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/rpc/get_dashboard_stats | Dart/3.11 (dart:io)",
+    "id": "178fa509-8997-43f3-a804-94d025c13c88",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "POST",
+    "path": "/rest/v1/rpc/get_dashboard_stats",
+    "search": null,
+    "status_code": 200,
+    "timestamp": 1775548542947000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&order=created_at.desc.nullslast&offset=0&limit=10 | Dart/3.11 (dart:io)",
+    "id": "d5af257a-f929-4c71-bf57-70ded52e670c",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&order=created_at.desc.nullslast&offset=0&limit=10",
+    "status_code": 200,
+    "timestamp": 1775548540458000
+  },
+  {
+    "event_message": "POST | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/rpc/get_dashboard_stats | Dart/3.11 (dart:io)",
+    "id": "96ff96a2-d921-4e0d-a169-987d44ec24a0",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "POST",
+    "path": "/rest/v1/rpc/get_dashboard_stats",
+    "search": null,
+    "status_code": 200,
+    "timestamp": 1775548540057000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/profiles?select=*&id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7 | Dart/3.11 (dart:io)",
+    "id": "b8ecf5a7-c791-4385-ac3f-cf26ebb7bc0c",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/profiles",
+    "search": "?select=*&id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7",
+    "status_code": 200,
+    "timestamp": 1775548538468000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/profiles?select=*&id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7 | Dart/3.11 (dart:io)",
+    "id": "136823b0-c28d-4cc6-894d-217ddd4750d2",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/profiles",
+    "search": "?select=*&id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7",
+    "status_code": 200,
+    "timestamp": 1775548537710000
+  },
+  {
+    "event_message": "POST | 200 | https://gipfcndtddodeyveexjx.supabase.co/auth/v1/token?grant_type=refresh_token | Dart/3.11 (dart:io)",
+    "id": "98e907bf-1e31-4227-8db8-505c4c6ea32a",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "POST",
+    "path": "/auth/v1/token",
+    "search": "?grant_type=refresh_token",
+    "status_code": 200,
+    "timestamp": 1775548536429000
+  },
+  {
+    "event_message": "GET | 206 | https://gipfcndtddodeyveexjx.supabase.co/storage/v1/object/public/issues/0d993af8-172c-425b-bada-c2ccb6a500b7/1775529193466_v.mp4 | ExoPlayer",
+    "id": "91f1d686-e96d-4b83-9f3a-6f89b0c7c287",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/storage/v1/object/public/issues/0d993af8-172c-425b-bada-c2ccb6a500b7/1775529193466_v.mp4",
+    "search": null,
+    "status_code": 206,
+    "timestamp": 1775534036085000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/storage/v1/object/public/issues/0d993af8-172c-425b-bada-c2ccb6a500b7/1775529193466_v.mp4 | ExoPlayer",
+    "id": "c40232f9-8af9-4da7-9cb1-ad7c3f29846e",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/storage/v1/object/public/issues/0d993af8-172c-425b-bada-c2ccb6a500b7/1775529193466_v.mp4",
+    "search": null,
+    "status_code": 200,
+    "timestamp": 1775534035418000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/upvotes?select=id&issue_id=eq.64971f72-9f17-45bd-ae0d-b172c4487d47&user_id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7 | Dart/3.11 (dart:io)",
+    "id": "54c68317-2346-4e99-ad1f-2a346d394221",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/upvotes",
+    "search": "?select=id&issue_id=eq.64971f72-9f17-45bd-ae0d-b172c4487d47&user_id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7",
+    "status_code": 200,
+    "timestamp": 1775534034659000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/downvotes?select=id&issue_id=eq.64971f72-9f17-45bd-ae0d-b172c4487d47&user_id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7 | Dart/3.11 (dart:io)",
+    "id": "94240158-b8c4-4e63-9d65-6898c714a536",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/downvotes",
+    "search": "?select=id&issue_id=eq.64971f72-9f17-45bd-ae0d-b172c4487d47&user_id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7",
+    "status_code": 200,
+    "timestamp": 1775534034651000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=*%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&id=eq.64971f72-9f17-45bd-ae0d-b172c4487d47 | Dart/3.11 (dart:io)",
+    "id": "7959fb99-c12e-405d-b22c-369f9bc304e0",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=*%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&id=eq.64971f72-9f17-45bd-ae0d-b172c4487d47",
+    "status_code": 200,
+    "timestamp": 1775534034539000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issue_history?select=id%2Cissue_id%2Cto_status%2Cnote%2Ccreated_at&issue_id=eq.64971f72-9f17-45bd-ae0d-b172c4487d47&order=created_at.asc.nullslast | Dart/3.11 (dart:io)",
+    "id": "2672b677-c1a2-494e-ac59-0f64b2640d98",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issue_history",
+    "search": "?select=id%2Cissue_id%2Cto_status%2Cnote%2Ccreated_at&issue_id=eq.64971f72-9f17-45bd-ae0d-b172c4487d47&order=created_at.asc.nullslast",
+    "status_code": 200,
+    "timestamp": 1775534034531000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&reporter_id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7&order=created_at.desc.nullslast&offset=0&limit=50 | Dart/3.11 (dart:io)",
+    "id": "f6a6022b-ec40-4fd1-850a-65cfbc42d34c",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&reporter_id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7&order=created_at.desc.nullslast&offset=0&limit=50",
+    "status_code": 200,
+    "timestamp": 1775534033430000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&latitude=gte.23.498993254954954&latitude=lte.23.589083345045047&longitude=gte.87.29483736402436&longitude=lte.87.39070923597559&order=created_at.desc.nullslast&limit=100 | Dart/3.11 (dart:io)",
+    "id": "21fcd10d-22b9-48e9-802c-d6494c2750cc",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&latitude=gte.23.498993254954954&latitude=lte.23.589083345045047&longitude=gte.87.29483736402436&longitude=lte.87.39070923597559&order=created_at.desc.nullslast&limit=100",
+    "status_code": 200,
+    "timestamp": 1775534026651000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&reporter_id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7&order=created_at.desc.nullslast&offset=0&limit=50 | Dart/3.11 (dart:io)",
+    "id": "08eb4c32-96f4-45b8-ac77-5b08382b4862",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&reporter_id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7&order=created_at.desc.nullslast&offset=0&limit=50",
+    "status_code": 200,
+    "timestamp": 1775534025875000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&latitude=gte.23.49904325495495&latitude=lte.23.589133345045045&longitude=gte.87.29473736402439&longitude=lte.87.39060923597562&order=created_at.desc.nullslast&limit=100 | Dart/3.11 (dart:io)",
+    "id": "94227afa-91fa-4797-9b14-27adc7e33737",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&latitude=gte.23.49904325495495&latitude=lte.23.589133345045045&longitude=gte.87.29473736402439&longitude=lte.87.39060923597562&order=created_at.desc.nullslast&limit=100",
+    "status_code": 200,
+    "timestamp": 1775534006434000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&latitude=gte.23.49943815495495&latitude=lte.23.589528245045045&longitude=gte.87.29448136402438&longitude=lte.87.39035323597561&order=created_at.desc.nullslast&limit=100 | Dart/3.11 (dart:io)",
+    "id": "fa08697d-cc7b-4495-bcbe-39758e931a61",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&latitude=gte.23.49943815495495&latitude=lte.23.589528245045045&longitude=gte.87.29448136402438&longitude=lte.87.39035323597561&order=created_at.desc.nullslast&limit=100",
+    "status_code": 200,
+    "timestamp": 1775534000768000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&latitude=gte.23.49943815495495&latitude=lte.23.589528245045045&longitude=gte.87.29448136402438&longitude=lte.87.39035323597561&order=created_at.desc.nullslast&limit=100 | Dart/3.11 (dart:io)",
+    "id": "8c73fe31-d660-4961-9278-2ce0b5e7f92c",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&latitude=gte.23.49943815495495&latitude=lte.23.589528245045045&longitude=gte.87.29448136402438&longitude=lte.87.39035323597561&order=created_at.desc.nullslast&limit=100",
+    "status_code": 200,
+    "timestamp": 1775534000697000
+  },
+  {
+    "event_message": "POST | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/rpc/get_dashboard_stats | Dart/3.11 (dart:io)",
+    "id": "d214fb31-5e2b-45a2-bbf3-b07f8108f79a",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "POST",
+    "path": "/rest/v1/rpc/get_dashboard_stats",
+    "search": null,
+    "status_code": 200,
+    "timestamp": 1775533997418000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&order=created_at.desc.nullslast&offset=0&limit=10 | Dart/3.11 (dart:io)",
+    "id": "78976e0d-20cc-4533-80d5-6ed0e2606cd5",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&order=created_at.desc.nullslast&offset=0&limit=10",
+    "status_code": 200,
+    "timestamp": 1775533994872000
+  },
+  {
+    "event_message": "POST | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/rpc/get_dashboard_stats | Dart/3.11 (dart:io)",
+    "id": "41976c8a-6788-4396-b1bb-2399c689176d",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "POST",
+    "path": "/rest/v1/rpc/get_dashboard_stats",
+    "search": null,
+    "status_code": 200,
+    "timestamp": 1775533994460000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/profiles?select=*&id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7 | Dart/3.11 (dart:io)",
+    "id": "11171137-b833-4c45-aef1-a5e5292c18b8",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/profiles",
+    "search": "?select=*&id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7",
+    "status_code": 200,
+    "timestamp": 1775533993010000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/profiles?select=*&id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7 | Dart/3.11 (dart:io)",
+    "id": "29ecea23-f0e1-4deb-acf6-afadddcc2098",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/profiles",
+    "search": "?select=*&id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7",
+    "status_code": 200,
+    "timestamp": 1775533991991000
+  },
+  {
+    "event_message": "POST | 200 | https://gipfcndtddodeyveexjx.supabase.co/auth/v1/token?grant_type=refresh_token | Dart/3.11 (dart:io)",
+    "id": "f7537642-7042-42c2-8540-49a8511381cb",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "POST",
+    "path": "/auth/v1/token",
+    "search": "?grant_type=refresh_token",
+    "status_code": 200,
+    "timestamp": 1775533990971000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&latitude=gte.23.497957654954952&latitude=lte.23.588047745045046&longitude=gte.87.29592606402439&longitude=lte.87.39179793597562&order=created_at.desc.nullslast&limit=100 | Dart/3.11 (dart:io)",
+    "id": "355590f0-f858-4c67-9487-701997924fe7",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&latitude=gte.23.497957654954952&latitude=lte.23.588047745045046&longitude=gte.87.29592606402439&longitude=lte.87.39179793597562&order=created_at.desc.nullslast&limit=100",
+    "status_code": 200,
+    "timestamp": 1775529230350000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/downvotes?select=id&issue_id=eq.64971f72-9f17-45bd-ae0d-b172c4487d47&user_id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7 | Dart/3.11 (dart:io)",
+    "id": "5b635473-cadd-49eb-9e47-8bde4a455870",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/downvotes",
+    "search": "?select=id&issue_id=eq.64971f72-9f17-45bd-ae0d-b172c4487d47&user_id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7",
+    "status_code": 200,
+    "timestamp": 1775529228054000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/upvotes?select=id&issue_id=eq.64971f72-9f17-45bd-ae0d-b172c4487d47&user_id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7 | Dart/3.11 (dart:io)",
+    "id": "01c3e850-0e58-49b5-8d7a-8cf70da114d4",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/upvotes",
+    "search": "?select=id&issue_id=eq.64971f72-9f17-45bd-ae0d-b172c4487d47&user_id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7",
+    "status_code": 200,
+    "timestamp": 1775529227980000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issue_history?select=id%2Cissue_id%2Cto_status%2Cnote%2Ccreated_at&issue_id=eq.64971f72-9f17-45bd-ae0d-b172c4487d47&order=created_at.asc.nullslast | Dart/3.11 (dart:io)",
+    "id": "9ee523b8-c2ea-4731-833b-ef0b1137446a",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issue_history",
+    "search": "?select=id%2Cissue_id%2Cto_status%2Cnote%2Ccreated_at&issue_id=eq.64971f72-9f17-45bd-ae0d-b172c4487d47&order=created_at.asc.nullslast",
+    "status_code": 200,
+    "timestamp": 1775529227962000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=*%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&id=eq.64971f72-9f17-45bd-ae0d-b172c4487d47 | Dart/3.11 (dart:io)",
+    "id": "9b5c89f9-6b43-45dc-a7ee-9298286adaf9",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=*%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&id=eq.64971f72-9f17-45bd-ae0d-b172c4487d47",
+    "status_code": 200,
+    "timestamp": 1775529227961000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&reporter_id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7&order=created_at.desc.nullslast&offset=0&limit=50 | Dart/3.11 (dart:io)",
+    "id": "fb7d9089-2a71-4af4-bea9-25891611192c",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&reporter_id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7&order=created_at.desc.nullslast&offset=0&limit=50",
+    "status_code": 200,
+    "timestamp": 1775529224751000
+  },
+  {
+    "event_message": "GET | 206 | https://gipfcndtddodeyveexjx.supabase.co/storage/v1/object/public/issues/0d993af8-172c-425b-bada-c2ccb6a500b7/1775529193466_v.mp4 | ExoPlayer",
+    "id": "ce015040-ae03-44f4-9ede-fc7306ceea1b",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/storage/v1/object/public/issues/0d993af8-172c-425b-bada-c2ccb6a500b7/1775529193466_v.mp4",
+    "search": null,
+    "status_code": 206,
+    "timestamp": 1775529217695000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/storage/v1/object/public/issues/0d993af8-172c-425b-bada-c2ccb6a500b7/1775529193466.jpg | Dart/3.11 (dart:io)",
+    "id": "779c418e-6fb5-4d44-b500-7586cd9ecb07",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/storage/v1/object/public/issues/0d993af8-172c-425b-bada-c2ccb6a500b7/1775529193466.jpg",
+    "search": null,
+    "status_code": 200,
+    "timestamp": 1775529216388000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/storage/v1/object/public/issues/0d993af8-172c-425b-bada-c2ccb6a500b7/1775529193466_v.mp4 | ExoPlayer",
+    "id": "e7ee92b7-087e-48dd-82ae-3d7bee7d0d3c",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/storage/v1/object/public/issues/0d993af8-172c-425b-bada-c2ccb6a500b7/1775529193466_v.mp4",
+    "search": null,
+    "status_code": 200,
+    "timestamp": 1775529215980000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/upvotes?select=id&issue_id=eq.64971f72-9f17-45bd-ae0d-b172c4487d47&user_id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7 | Dart/3.11 (dart:io)",
+    "id": "cc2d141a-b88c-4c02-b92b-ef29faa29ef0",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/upvotes",
+    "search": "?select=id&issue_id=eq.64971f72-9f17-45bd-ae0d-b172c4487d47&user_id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7",
+    "status_code": 200,
+    "timestamp": 1775529214267000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/downvotes?select=id&issue_id=eq.64971f72-9f17-45bd-ae0d-b172c4487d47&user_id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7 | Dart/3.11 (dart:io)",
+    "id": "2be24bce-2de2-423a-960e-e20889307f67",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/downvotes",
+    "search": "?select=id&issue_id=eq.64971f72-9f17-45bd-ae0d-b172c4487d47&user_id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7",
+    "status_code": 200,
+    "timestamp": 1775529214263000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issue_history?select=id%2Cissue_id%2Cto_status%2Cnote%2Ccreated_at&issue_id=eq.64971f72-9f17-45bd-ae0d-b172c4487d47&order=created_at.asc.nullslast | Dart/3.11 (dart:io)",
+    "id": "7817b1d2-4017-4a04-9aba-84bbd42db4d5",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issue_history",
+    "search": "?select=id%2Cissue_id%2Cto_status%2Cnote%2Ccreated_at&issue_id=eq.64971f72-9f17-45bd-ae0d-b172c4487d47&order=created_at.asc.nullslast",
+    "status_code": 200,
+    "timestamp": 1775529214213000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=*%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&id=eq.64971f72-9f17-45bd-ae0d-b172c4487d47 | Dart/3.11 (dart:io)",
+    "id": "5dde30ff-858f-407f-bfed-6e5db131e5f1",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=*%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&id=eq.64971f72-9f17-45bd-ae0d-b172c4487d47",
+    "status_code": 200,
+    "timestamp": 1775529214170000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&latitude=gte.23.497944954954953&latitude=lte.23.588035045045046&longitude=gte.87.29594576402438&longitude=lte.87.39181763597561&order=created_at.desc.nullslast&limit=100 | Dart/3.11 (dart:io)",
+    "id": "ac961586-181c-435a-bfcd-fc3df6bc334c",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&latitude=gte.23.497944954954953&latitude=lte.23.588035045045046&longitude=gte.87.29594576402438&longitude=lte.87.39181763597561&order=created_at.desc.nullslast&limit=100",
+    "status_code": 200,
+    "timestamp": 1775529211877000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&latitude=gte.23.497944954954953&latitude=lte.23.588035045045046&longitude=gte.87.29594576402438&longitude=lte.87.39181763597561&order=created_at.desc.nullslast&limit=100 | Dart/3.11 (dart:io)",
+    "id": "578741fa-6f6d-48eb-afc1-e8bc769778c0",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&latitude=gte.23.497944954954953&latitude=lte.23.588035045045046&longitude=gte.87.29594576402438&longitude=lte.87.39181763597561&order=created_at.desc.nullslast&limit=100",
+    "status_code": 200,
+    "timestamp": 1775529211843000
+  },
+  {
+    "event_message": "POST | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/rpc/get_dashboard_stats | Dart/3.11 (dart:io)",
+    "id": "68224c3d-ac80-4baa-a825-388d48001da8",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "POST",
+    "path": "/rest/v1/rpc/get_dashboard_stats",
+    "search": null,
+    "status_code": 200,
+    "timestamp": 1775529210018000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&order=created_at.desc.nullslast&offset=0&limit=10 | Dart/3.11 (dart:io)",
+    "id": "dac277a6-5ce8-4d06-aa8b-faf62f00290d",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&order=created_at.desc.nullslast&offset=0&limit=10",
+    "status_code": 200,
+    "timestamp": 1775529207560000
+  },
+  {
+    "event_message": "POST | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/rpc/get_dashboard_stats | Dart/3.11 (dart:io)",
+    "id": "3cf4418e-fec1-4537-9c55-56e14c9b74cd",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "POST",
+    "path": "/rest/v1/rpc/get_dashboard_stats",
+    "search": null,
+    "status_code": 200,
+    "timestamp": 1775529206643000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/profiles?select=*&id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7 | Dart/3.11 (dart:io)",
+    "id": "d99090da-4a1d-475a-90b2-23aa743cb158",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/profiles",
+    "search": "?select=*&id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7",
+    "status_code": 200,
+    "timestamp": 1775529204633000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/profiles?select=*&id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7 | Dart/3.11 (dart:io)",
+    "id": "3f9e9d26-b8c6-4311-89a3-0d3a5daeee95",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/profiles",
+    "search": "?select=*&id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7",
+    "status_code": 200,
+    "timestamp": 1775529202230000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&latitude=gte.23.498069754954955&latitude=lte.23.58815984504505&longitude=gte.87.29592926402438&longitude=lte.87.39180113597561&order=created_at.desc.nullslast&limit=100 | Dart/3.11 (dart:io)",
+    "id": "2b7182be-7a2c-41c2-9703-345c0dfaeca7",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&latitude=gte.23.498069754954955&latitude=lte.23.58815984504505&longitude=gte.87.29592926402438&longitude=lte.87.39180113597561&order=created_at.desc.nullslast&limit=100",
+    "status_code": 200,
+    "timestamp": 1775529198637000
+  },
+  {
+    "event_message": "POST | 201 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issue_history | Dart/3.11 (dart:io)",
+    "id": "164d23d4-8c12-4cc3-8f87-81dcfdc88745",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "POST",
+    "path": "/rest/v1/issue_history",
+    "search": null,
+    "status_code": 201,
+    "timestamp": 1775529198175000
+  },
+  {
+    "event_message": "POST | 201 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=*%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29 | Dart/3.11 (dart:io)",
+    "id": "40298fca-8348-43fb-a0d4-f993bc7107dd",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "POST",
+    "path": "/rest/v1/issues",
+    "search": "?select=*%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29",
+    "status_code": 201,
+    "timestamp": 1775529196840000
+  },
+  {
+    "event_message": "POST | 200 | https://gipfcndtddodeyveexjx.supabase.co/storage/v1/object/issues/0d993af8-172c-425b-bada-c2ccb6a500b7/1775529193466_v.mp4 | Dart/3.11 (dart:io)",
+    "id": "88d760c2-3d50-409c-a459-f85c7cc84802",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "POST",
+    "path": "/storage/v1/object/issues/0d993af8-172c-425b-bada-c2ccb6a500b7/1775529193466_v.mp4",
+    "search": null,
+    "status_code": 200,
+    "timestamp": 1775529195883000
+  },
+  {
+    "event_message": "POST | 200 | https://gipfcndtddodeyveexjx.supabase.co/storage/v1/object/issues/0d993af8-172c-425b-bada-c2ccb6a500b7/1775529193466.jpg | Dart/3.11 (dart:io)",
+    "id": "3b123445-698f-4771-9520-ba27c1ee0206",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "POST",
+    "path": "/storage/v1/object/issues/0d993af8-172c-425b-bada-c2ccb6a500b7/1775529193466.jpg",
+    "search": null,
+    "status_code": 200,
+    "timestamp": 1775529194115000
+  },
+  {
+    "event_message": "POST | 200 | https://gipfcndtddodeyveexjx.supabase.co/storage/v1/object/issues/0d993af8-172c-425b-bada-c2ccb6a500b7/1775529193466.jpg | Dart/3.11 (dart:io)",
+    "id": "3b123445-698f-4771-9520-ba27c1ee0206",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "POST",
+    "path": "/storage/v1/object/issues/0d993af8-172c-425b-bada-c2ccb6a500b7/1775529193466.jpg",
+    "search": null,
+    "status_code": 200,
+    "timestamp": 1775529194115000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&latitude=gte.23.497918054954955&latitude=lte.23.58800814504505&longitude=gte.87.29602096402438&longitude=lte.87.39189283597561&order=created_at.desc.nullslast&limit=100 | Dart/3.11 (dart:io)",
+    "id": "4fed8b92-4ab3-4d2a-b782-2dbf27c431fc",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&latitude=gte.23.497918054954955&latitude=lte.23.58800814504505&longitude=gte.87.29602096402438&longitude=lte.87.39189283597561&order=created_at.desc.nullslast&limit=100",
+    "status_code": 200,
+    "timestamp": 1775529171453000
+  },
+  {
+    "event_message": "POST | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/rpc/get_dashboard_stats | Dart/3.11 (dart:io)",
+    "id": "81f452db-5120-4a00-b1a0-407847cdd67c",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "POST",
+    "path": "/rest/v1/rpc/get_dashboard_stats",
+    "search": null,
+    "status_code": 200,
+    "timestamp": 1775529168426000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&order=created_at.desc.nullslast&offset=0&limit=10 | Dart/3.11 (dart:io)",
+    "id": "2708c455-e2ed-4572-9fdb-d22a60df125a",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&order=created_at.desc.nullslast&offset=0&limit=10",
+    "status_code": 200,
+    "timestamp": 1775529165880000
+  },
+  {
+    "event_message": "POST | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/rpc/get_dashboard_stats | Dart/3.11 (dart:io)",
+    "id": "0425924b-774f-4d13-8926-288d085daeb3",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "POST",
+    "path": "/rest/v1/rpc/get_dashboard_stats",
+    "search": null,
+    "status_code": 200,
+    "timestamp": 1775529165492000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/profiles?select=*&id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7 | Dart/3.11 (dart:io)",
+    "id": "b72785e0-f3fa-42e9-9625-8d0f215a20f3",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/profiles",
+    "search": "?select=*&id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7",
+    "status_code": 200,
+    "timestamp": 1775529163783000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/profiles?select=*&id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7 | Dart/3.11 (dart:io)",
+    "id": "fe64441b-578c-4dd6-8cd9-520bf73e9a99",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/profiles",
+    "search": "?select=*&id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7",
+    "status_code": 200,
+    "timestamp": 1775529162501000
+  },
+  {
+    "event_message": "POST | 200 | https://gipfcndtddodeyveexjx.supabase.co/auth/v1/token?grant_type=refresh_token | Dart/3.11 (dart:io)",
+    "id": "b39cff64-01f8-4fb2-bc27-66c7e96d831d",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "POST",
+    "path": "/auth/v1/token",
+    "search": "?grant_type=refresh_token",
+    "status_code": 200,
+    "timestamp": 1775529161259000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/auth/v1/health | @supabase-infra/mgmt-api/8f7fcb6",
+    "id": "c03bbfc0-b6a8-47ca-a6f3-f344f2033791",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/auth/v1/health",
+    "search": null,
+    "status_code": 200,
+    "timestamp": 1775498397964000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/auth/v1/health | @supabase-infra/mgmt-api/8f7fcb6",
+    "id": "ebddd245-33e6-4da8-b2cf-d81fb1c8b456",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/auth/v1/health",
+    "search": null,
+    "status_code": 200,
+    "timestamp": 1775497653092000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/storage/v1/bucket?limit=100&offset=0&sortColumn=created_at&sortOrder=desc | @supabase-infra/mgmt-api/8f7fcb6",
+    "id": "1982ca40-e405-496b-aaf6-fded7db614f4",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/storage/v1/bucket",
+    "search": "?limit=100&offset=0&sortColumn=created_at&sortOrder=desc",
+    "status_code": 200,
+    "timestamp": 1775497620907000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/storage/v1/bucket?limit=100&offset=0&sortColumn=created_at&sortOrder=desc | @supabase-infra/mgmt-api/8f7fcb6",
+    "id": "251bbba9-157b-4c45-a0f6-59ce19b8429d",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/storage/v1/bucket",
+    "search": "?limit=100&offset=0&sortColumn=created_at&sortOrder=desc",
+    "status_code": 200,
+    "timestamp": 1775496879066000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&latitude=gte.23.498147754954953&latitude=lte.23.588237845045047&longitude=gte.87.29590156402439&longitude=lte.87.39177343597562&order=created_at.desc.nullslast&limit=100 | Dart/3.11 (dart:io)",
+    "id": "c775948f-5b00-4d09-a327-61ec1381ae82",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&latitude=gte.23.498147754954953&latitude=lte.23.588237845045047&longitude=gte.87.29590156402439&longitude=lte.87.39177343597562&order=created_at.desc.nullslast&limit=100",
+    "status_code": 200,
+    "timestamp": 1775495491362000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&reporter_id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7&order=created_at.desc.nullslast&offset=0&limit=50 | Dart/3.11 (dart:io)",
+    "id": "59ea620b-33f4-4037-ac92-e1dde20aab6c",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&reporter_id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7&order=created_at.desc.nullslast&offset=0&limit=50",
+    "status_code": 200,
+    "timestamp": 1775495489694000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/profiles?select=*&id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7 | Dart/3.11 (dart:io)",
+    "id": "c35789fb-2484-474f-9fcd-e04dd1fa5aea",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/profiles",
+    "search": "?select=*&id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7",
+    "status_code": 200,
+    "timestamp": 1775495468884000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/downvotes?select=id&issue_id=eq.ae6cafb6-dadd-422f-b83c-f9717faaf714&user_id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7 | Dart/3.11 (dart:io)",
+    "id": "2720d35e-8ef0-478e-a02d-afcb6324ffb0",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/downvotes",
+    "search": "?select=id&issue_id=eq.ae6cafb6-dadd-422f-b83c-f9717faaf714&user_id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7",
+    "status_code": 200,
+    "timestamp": 1775495439544000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issue_history?select=id%2Cissue_id%2Cto_status%2Cnote%2Ccreated_at&issue_id=eq.ae6cafb6-dadd-422f-b83c-f9717faaf714&order=created_at.asc.nullslast | Dart/3.11 (dart:io)",
+    "id": "36045f84-324b-417d-8481-cbecb4ee7cad",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issue_history",
+    "search": "?select=id%2Cissue_id%2Cto_status%2Cnote%2Ccreated_at&issue_id=eq.ae6cafb6-dadd-422f-b83c-f9717faaf714&order=created_at.asc.nullslast",
+    "status_code": 200,
+    "timestamp": 1775495439525000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/upvotes?select=id&issue_id=eq.ae6cafb6-dadd-422f-b83c-f9717faaf714&user_id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7 | Dart/3.11 (dart:io)",
+    "id": "6a5dd2d4-39fa-4e46-adc5-4de6d86bffff",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/upvotes",
+    "search": "?select=id&issue_id=eq.ae6cafb6-dadd-422f-b83c-f9717faaf714&user_id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7",
+    "status_code": 200,
+    "timestamp": 1775495439523000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=*%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&id=eq.ae6cafb6-dadd-422f-b83c-f9717faaf714 | Dart/3.11 (dart:io)",
+    "id": "0f0b8ba4-49a1-481a-ab8c-5bc96bc01ba8",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=*%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&id=eq.ae6cafb6-dadd-422f-b83c-f9717faaf714",
+    "status_code": 200,
+    "timestamp": 1775495439513000
+  },
+  {
+    "event_message": "POST | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/rpc/toggle_upvote | Dart/3.11 (dart:io)",
+    "id": "fafa96a9-26b9-4f74-9f90-ea601196671d",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "POST",
+    "path": "/rest/v1/rpc/toggle_upvote",
+    "search": null,
+    "status_code": 200,
+    "timestamp": 1775495439307000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/downvotes?select=id&issue_id=eq.ae6cafb6-dadd-422f-b83c-f9717faaf714&user_id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7 | Dart/3.11 (dart:io)",
+    "id": "c724111f-ce37-45b4-b9e2-a1eabcc4c3ca",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/downvotes",
+    "search": "?select=id&issue_id=eq.ae6cafb6-dadd-422f-b83c-f9717faaf714&user_id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7",
+    "status_code": 200,
+    "timestamp": 1775495439065000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=*%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&id=eq.ae6cafb6-dadd-422f-b83c-f9717faaf714 | Dart/3.11 (dart:io)",
+    "id": "88bb036e-0fc4-4f1a-b0bf-c3ccf11fe778",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=*%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&id=eq.ae6cafb6-dadd-422f-b83c-f9717faaf714",
+    "status_code": 200,
+    "timestamp": 1775495439060000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/upvotes?select=id&issue_id=eq.ae6cafb6-dadd-422f-b83c-f9717faaf714&user_id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7 | Dart/3.11 (dart:io)",
+    "id": "77d6b5c6-446e-4e4e-9290-f6c6b1b1476a",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/upvotes",
+    "search": "?select=id&issue_id=eq.ae6cafb6-dadd-422f-b83c-f9717faaf714&user_id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7",
+    "status_code": 200,
+    "timestamp": 1775495439053000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issue_history?select=id%2Cissue_id%2Cto_status%2Cnote%2Ccreated_at&issue_id=eq.ae6cafb6-dadd-422f-b83c-f9717faaf714&order=created_at.asc.nullslast | Dart/3.11 (dart:io)",
+    "id": "cff35b51-b834-4786-9ac1-0704068faffa",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issue_history",
+    "search": "?select=id%2Cissue_id%2Cto_status%2Cnote%2Ccreated_at&issue_id=eq.ae6cafb6-dadd-422f-b83c-f9717faaf714&order=created_at.asc.nullslast",
+    "status_code": 200,
+    "timestamp": 1775495439041000
+  },
+  {
+    "event_message": "POST | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/rpc/toggle_upvote | Dart/3.11 (dart:io)",
+    "id": "ad98ff71-98ba-40e6-a68f-9671cd21f360",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "POST",
+    "path": "/rest/v1/rpc/toggle_upvote",
+    "search": null,
+    "status_code": 200,
+    "timestamp": 1775495438553000
+  },
+  {
+    "event_message": "GET | 206 | https://gipfcndtddodeyveexjx.supabase.co/storage/v1/object/public/issues/0d993af8-172c-425b-bada-c2ccb6a500b7/1775493291553_v.mp4 | ExoPlayer",
+    "id": "3ca7593a-eb91-4cc6-8902-5eeebcd84602",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/storage/v1/object/public/issues/0d993af8-172c-425b-bada-c2ccb6a500b7/1775493291553_v.mp4",
+    "search": null,
+    "status_code": 206,
+    "timestamp": 1775495438177000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/storage/v1/object/public/issues/0d993af8-172c-425b-bada-c2ccb6a500b7/1775493291553_v.mp4 | ExoPlayer",
+    "id": "ff73c6ea-15ac-4a8c-a3cb-c202d2b31f47",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/storage/v1/object/public/issues/0d993af8-172c-425b-bada-c2ccb6a500b7/1775493291553_v.mp4",
+    "search": null,
+    "status_code": 200,
+    "timestamp": 1775495437194000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issue_history?select=id%2Cissue_id%2Cto_status%2Cnote%2Ccreated_at&issue_id=eq.ae6cafb6-dadd-422f-b83c-f9717faaf714&order=created_at.asc.nullslast | Dart/3.11 (dart:io)",
+    "id": "5c200d26-e63c-44a5-8427-ed9b97a8401c",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issue_history",
+    "search": "?select=id%2Cissue_id%2Cto_status%2Cnote%2Ccreated_at&issue_id=eq.ae6cafb6-dadd-422f-b83c-f9717faaf714&order=created_at.asc.nullslast",
+    "status_code": 200,
+    "timestamp": 1775495436522000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/upvotes?select=id&issue_id=eq.ae6cafb6-dadd-422f-b83c-f9717faaf714&user_id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7 | Dart/3.11 (dart:io)",
+    "id": "bfb64ee5-19ed-4a17-994b-d5101b709b40",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/upvotes",
+    "search": "?select=id&issue_id=eq.ae6cafb6-dadd-422f-b83c-f9717faaf714&user_id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7",
+    "status_code": 200,
+    "timestamp": 1775495436515000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/downvotes?select=id&issue_id=eq.ae6cafb6-dadd-422f-b83c-f9717faaf714&user_id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7 | Dart/3.11 (dart:io)",
+    "id": "ef0af07e-1bce-4977-b687-3ca263293a1c",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/downvotes",
+    "search": "?select=id&issue_id=eq.ae6cafb6-dadd-422f-b83c-f9717faaf714&user_id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7",
+    "status_code": 200,
+    "timestamp": 1775495436509000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=*%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&id=eq.ae6cafb6-dadd-422f-b83c-f9717faaf714 | Dart/3.11 (dart:io)",
+    "id": "997364d5-a3bb-44b4-9edc-65576e42f12f",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=*%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&id=eq.ae6cafb6-dadd-422f-b83c-f9717faaf714",
+    "status_code": 200,
+    "timestamp": 1775495436502000
+  },
+  {
+    "event_message": "GET | 206 | https://gipfcndtddodeyveexjx.supabase.co/storage/v1/object/public/issues/0d993af8-172c-425b-bada-c2ccb6a500b7/1775493291553_v.mp4 | ExoPlayer",
+    "id": "5c1ce0f0-a054-478f-9c70-643c3e941af1",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/storage/v1/object/public/issues/0d993af8-172c-425b-bada-c2ccb6a500b7/1775493291553_v.mp4",
+    "search": null,
+    "status_code": 206,
+    "timestamp": 1775495324814000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/storage/v1/object/public/issues/0d993af8-172c-425b-bada-c2ccb6a500b7/1775493291553_v.mp4 | ExoPlayer",
+    "id": "f5d13bef-6f57-4633-ba8d-bec810097d26",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/storage/v1/object/public/issues/0d993af8-172c-425b-bada-c2ccb6a500b7/1775493291553_v.mp4",
+    "search": null,
+    "status_code": 200,
+    "timestamp": 1775495323711000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/upvotes?select=id&issue_id=eq.ae6cafb6-dadd-422f-b83c-f9717faaf714&user_id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7 | Dart/3.11 (dart:io)",
+    "id": "34b1cff4-1d66-4d29-b3f7-90051407ba87",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/upvotes",
+    "search": "?select=id&issue_id=eq.ae6cafb6-dadd-422f-b83c-f9717faaf714&user_id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7",
+    "status_code": 200,
+    "timestamp": 1775495323409000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issue_history?select=id%2Cissue_id%2Cto_status%2Cnote%2Ccreated_at&issue_id=eq.ae6cafb6-dadd-422f-b83c-f9717faaf714&order=created_at.asc.nullslast | Dart/3.11 (dart:io)",
+    "id": "abc36c38-b184-4204-ae0c-9f7498b9b73b",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issue_history",
+    "search": "?select=id%2Cissue_id%2Cto_status%2Cnote%2Ccreated_at&issue_id=eq.ae6cafb6-dadd-422f-b83c-f9717faaf714&order=created_at.asc.nullslast",
+    "status_code": 200,
+    "timestamp": 1775495323388000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/downvotes?select=id&issue_id=eq.ae6cafb6-dadd-422f-b83c-f9717faaf714&user_id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7 | Dart/3.11 (dart:io)",
+    "id": "0cc70c3c-56a9-40f2-b0d8-c31f21fb37fc",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/downvotes",
+    "search": "?select=id&issue_id=eq.ae6cafb6-dadd-422f-b83c-f9717faaf714&user_id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7",
+    "status_code": 200,
+    "timestamp": 1775495323385000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=*%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&id=eq.ae6cafb6-dadd-422f-b83c-f9717faaf714 | Dart/3.11 (dart:io)",
+    "id": "d9d6c259-f7a2-455c-a13d-ad6d6e31c725",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=*%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&id=eq.ae6cafb6-dadd-422f-b83c-f9717faaf714",
+    "status_code": 200,
+    "timestamp": 1775495323251000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&latitude=gte.23.498146054954955&latitude=lte.23.588236145045048&longitude=gte.87.29590116402436&longitude=lte.87.39177303597559&order=created_at.desc.nullslast&limit=100 | Dart/3.11 (dart:io)",
+    "id": "57b6d1fc-3d16-4aa3-b9d7-b650abbc7746",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&latitude=gte.23.498146054954955&latitude=lte.23.588236145045048&longitude=gte.87.29590116402436&longitude=lte.87.39177303597559&order=created_at.desc.nullslast&limit=100",
+    "status_code": 200,
+    "timestamp": 1775495311417000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&reporter_id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7&order=created_at.desc.nullslast&offset=0&limit=50 | Dart/3.11 (dart:io)",
+    "id": "9028f24e-eae3-4dba-964b-4705bfdda1f3",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&reporter_id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7&order=created_at.desc.nullslast&offset=0&limit=50",
+    "status_code": 200,
+    "timestamp": 1775495276131000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&latitude=gte.23.498145554954952&latitude=lte.23.588235645045046&longitude=gte.87.29590266402441&longitude=lte.87.39177453597564&order=created_at.desc.nullslast&limit=100 | Dart/3.11 (dart:io)",
+    "id": "2098aec1-6076-4cb1-9fac-ec4a750513f2",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&latitude=gte.23.498145554954952&latitude=lte.23.588235645045046&longitude=gte.87.29590266402441&longitude=lte.87.39177453597564&order=created_at.desc.nullslast&limit=100",
+    "status_code": 200,
+    "timestamp": 1775495275028000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&reporter_id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7&order=created_at.desc.nullslast&offset=0&limit=50 | Dart/3.11 (dart:io)",
+    "id": "eb8deeb8-0a01-4f86-998e-61c19539cc2c",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&reporter_id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7&order=created_at.desc.nullslast&offset=0&limit=50",
+    "status_code": 200,
+    "timestamp": 1775495269889000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/profiles?select=*&id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7 | Dart/3.11 (dart:io)",
+    "id": "f3fa1ab1-3d98-4df4-a697-c38397244472",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/profiles",
+    "search": "?select=*&id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7",
+    "status_code": 200,
+    "timestamp": 1775495241605000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&reporter_id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7&order=created_at.desc.nullslast&offset=0&limit=50 | Dart/3.11 (dart:io)",
+    "id": "76101c9a-29e1-4ebb-8a94-7fedc4de734a",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&reporter_id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7&order=created_at.desc.nullslast&offset=0&limit=50",
+    "status_code": 200,
+    "timestamp": 1775495240281000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&latitude=gte.23.498146454954952&latitude=lte.23.588236545045046&longitude=gte.87.29590316402435&longitude=lte.87.39177503597558&order=created_at.desc.nullslast&limit=100 | Dart/3.11 (dart:io)",
+    "id": "6f103e73-b103-427a-9b8d-7b4c23b6f375",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&latitude=gte.23.498146454954952&latitude=lte.23.588236545045046&longitude=gte.87.29590316402435&longitude=lte.87.39177503597558&order=created_at.desc.nullslast&limit=100",
+    "status_code": 200,
+    "timestamp": 1775495222835000
+  },
+  {
+    "event_message": "GET | 206 | https://gipfcndtddodeyveexjx.supabase.co/storage/v1/object/public/issues/0d993af8-172c-425b-bada-c2ccb6a500b7/1775493291553_v.mp4 | ExoPlayer",
+    "id": "069d9b76-d1cf-4c79-985f-cbbef65a7bc6",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/storage/v1/object/public/issues/0d993af8-172c-425b-bada-c2ccb6a500b7/1775493291553_v.mp4",
+    "search": null,
+    "status_code": 206,
+    "timestamp": 1775495174097000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/storage/v1/object/public/issues/0d993af8-172c-425b-bada-c2ccb6a500b7/1775493291553_v.mp4 | ExoPlayer",
+    "id": "c4848be8-1efb-4f8e-a2e7-4383a800d265",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/storage/v1/object/public/issues/0d993af8-172c-425b-bada-c2ccb6a500b7/1775493291553_v.mp4",
+    "search": null,
+    "status_code": 200,
+    "timestamp": 1775495173378000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issue_history?select=id%2Cissue_id%2Cto_status%2Cnote%2Ccreated_at&issue_id=eq.ae6cafb6-dadd-422f-b83c-f9717faaf714&order=created_at.asc.nullslast | Dart/3.11 (dart:io)",
+    "id": "aa2dd4aa-3d25-4b96-865b-5e2c19bd5820",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issue_history",
+    "search": "?select=id%2Cissue_id%2Cto_status%2Cnote%2Ccreated_at&issue_id=eq.ae6cafb6-dadd-422f-b83c-f9717faaf714&order=created_at.asc.nullslast",
+    "status_code": 200,
+    "timestamp": 1775495172859000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/downvotes?select=id&issue_id=eq.ae6cafb6-dadd-422f-b83c-f9717faaf714&user_id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7 | Dart/3.11 (dart:io)",
+    "id": "4aa9aed0-a19a-4a7d-ae02-8cf7396dcf28",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/downvotes",
+    "search": "?select=id&issue_id=eq.ae6cafb6-dadd-422f-b83c-f9717faaf714&user_id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7",
+    "status_code": 200,
+    "timestamp": 1775495172851000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/upvotes?select=id&issue_id=eq.ae6cafb6-dadd-422f-b83c-f9717faaf714&user_id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7 | Dart/3.11 (dart:io)",
+    "id": "90a9b48f-b032-4399-88d1-b73d8ca13bad",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/upvotes",
+    "search": "?select=id&issue_id=eq.ae6cafb6-dadd-422f-b83c-f9717faaf714&user_id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7",
+    "status_code": 200,
+    "timestamp": 1775495172808000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=*%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&id=eq.ae6cafb6-dadd-422f-b83c-f9717faaf714 | Dart/3.11 (dart:io)",
+    "id": "b2e9a47f-2e42-4816-b72c-4c3d95be46f9",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=*%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&id=eq.ae6cafb6-dadd-422f-b83c-f9717faaf714",
+    "status_code": 200,
+    "timestamp": 1775495172714000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&reporter_id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7&order=created_at.desc.nullslast&offset=0&limit=50 | Dart/3.11 (dart:io)",
+    "id": "6fc3c31f-e4da-4459-8ec9-f9651f2c9c65",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&reporter_id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7&order=created_at.desc.nullslast&offset=0&limit=50",
+    "status_code": 200,
+    "timestamp": 1775495169584000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&latitude=gte.23.498091054954955&latitude=lte.23.58818114504505&longitude=gte.87.29588766402438&longitude=lte.87.39175953597561&order=created_at.desc.nullslast&limit=100 | Dart/3.11 (dart:io)",
+    "id": "acf373a7-eae2-469d-b9fb-09c583e820cb",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&latitude=gte.23.498091054954955&latitude=lte.23.58818114504505&longitude=gte.87.29588766402438&longitude=lte.87.39175953597561&order=created_at.desc.nullslast&limit=100",
+    "status_code": 200,
+    "timestamp": 1775494999348000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&latitude=gte.23.498091054954955&latitude=lte.23.58818114504505&longitude=gte.87.29588766402438&longitude=lte.87.39175953597561&order=created_at.desc.nullslast&limit=100 | Dart/3.11 (dart:io)",
+    "id": "5d86f760-a2fb-49bc-995d-7d82eead64ed",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&latitude=gte.23.498091054954955&latitude=lte.23.58818114504505&longitude=gte.87.29588766402438&longitude=lte.87.39175953597561&order=created_at.desc.nullslast&limit=100",
+    "status_code": 200,
+    "timestamp": 1775494999222000
+  },
+  {
+    "event_message": "POST | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/rpc/get_dashboard_stats | Dart/3.11 (dart:io)",
+    "id": "df733503-a0a6-4bba-b31d-2ac3276206d9",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "POST",
+    "path": "/rest/v1/rpc/get_dashboard_stats",
+    "search": null,
+    "status_code": 200,
+    "timestamp": 1775494998040000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&order=created_at.desc.nullslast&offset=0&limit=10 | Dart/3.11 (dart:io)",
+    "id": "261595ba-9b96-49bf-9952-8765cb890709",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=id%2Ctitle%2Ccategory%2Cseverity%2Cstatus%2Clatitude%2Clongitude%2Caddress%2Cphoto_urls%2Cvideo_url%2Cupvote_count%2Cdownvote_count%2Cis_draft%2Ccreated_at%2Cupdated_at%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&order=created_at.desc.nullslast&offset=0&limit=10",
+    "status_code": 200,
+    "timestamp": 1775494995372000
+  },
+  {
+    "event_message": "POST | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/rpc/get_dashboard_stats | Dart/3.11 (dart:io)",
+    "id": "a75ea757-c377-4074-8202-69afeb6c5273",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "POST",
+    "path": "/rest/v1/rpc/get_dashboard_stats",
+    "search": null,
+    "status_code": 200,
+    "timestamp": 1775494995122000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/profiles?select=*&id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7 | Dart/3.11 (dart:io)",
+    "id": "211663d2-77fb-4a9a-979e-43fbd930834e",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/profiles",
+    "search": "?select=*&id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7",
+    "status_code": 200,
+    "timestamp": 1775494993615000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/profiles?select=*&id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7 | Dart/3.11 (dart:io)",
+    "id": "838646ee-282e-458a-8f96-e0ecb42cd06e",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/profiles",
+    "search": "?select=*&id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7",
+    "status_code": 200,
+    "timestamp": 1775494991687000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/profiles?select=*&id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7 | Dart/3.11 (dart:io)",
+    "id": "0c5f8b49-5a39-4571-a9ff-2c0db6092284",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/profiles",
+    "search": "?select=*&id=eq.0d993af8-172c-425b-bada-c2ccb6a500b7",
+    "status_code": 200,
+    "timestamp": 1775494982002000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=*%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&order=created_at.desc.nullslast | Dart/3.11 (dart:io)",
+    "id": "c1677187-af4d-4344-b234-69b087b46df3",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=*%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&order=created_at.desc.nullslast",
+    "status_code": 200,
+    "timestamp": 1775494981608000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=*%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&order=created_at.desc.nullslast | Dart/3.11 (dart:io)",
+    "id": "b70f1182-7c9e-483c-a437-a0bff20fba6d",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=*%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&order=created_at.desc.nullslast",
+    "status_code": 200,
+    "timestamp": 1775494980142000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=*%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&order=created_at.desc.nullslast | Dart/3.11 (dart:io)",
+    "id": "ac357300-9c2d-45aa-8dc6-51e776ada6d7",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=*%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&order=created_at.desc.nullslast",
+    "status_code": 200,
+    "timestamp": 1775494978493000
+  },
+  {
+    "event_message": "POST | 200 | https://gipfcndtddodeyveexjx.supabase.co/auth/v1/token?grant_type=password | Dart/3.11 (dart:io)",
+    "id": "6f18c533-9d57-489a-a82a-dfb47f60918e",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "POST",
+    "path": "/auth/v1/token",
+    "search": "?grant_type=password",
+    "status_code": 200,
+    "timestamp": 1775494974837000
+  },
+  {
+    "event_message": "POST | 204 | https://gipfcndtddodeyveexjx.supabase.co/auth/v1/logout?scope=local | Dart/3.11 (dart:io)",
+    "id": "5e21031c-af9b-4166-b8ac-ced2dbea69d0",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "POST",
+    "path": "/auth/v1/logout",
+    "search": "?scope=local",
+    "status_code": 204,
+    "timestamp": 1775494966176000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/storage/v1/object/public/avatars/c08fe4ec-393d-4983-96c3-46d25f6cd220/avatar_1774883647264.jpg | Dart/3.11 (dart:io)",
+    "id": "4dbba304-748c-42f8-8ba9-0aef1d11713a",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/storage/v1/object/public/avatars/c08fe4ec-393d-4983-96c3-46d25f6cd220/avatar_1774883647264.jpg",
+    "search": null,
+    "status_code": 200,
+    "timestamp": 1775494964609000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/profiles?select=*&id=eq.c08fe4ec-393d-4983-96c3-46d25f6cd220 | Dart/3.11 (dart:io)",
+    "id": "8447bbbd-e13f-4f71-8861-7d6c3c120d47",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/profiles",
+    "search": "?select=*&id=eq.c08fe4ec-393d-4983-96c3-46d25f6cd220",
+    "status_code": 200,
+    "timestamp": 1775494963534000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/storage/v1/object/public/avatars/c08fe4ec-393d-4983-96c3-46d25f6cd220/avatar_1774883647264.jpg | Dart/3.11 (dart:io)",
+    "id": "d87222c8-639d-48fe-a0c7-a7dd9d4abe3b",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/storage/v1/object/public/avatars/c08fe4ec-393d-4983-96c3-46d25f6cd220/avatar_1774883647264.jpg",
+    "search": null,
+    "status_code": 200,
+    "timestamp": 1775494124007000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/profiles?select=*&id=eq.c08fe4ec-393d-4983-96c3-46d25f6cd220 | Dart/3.11 (dart:io)",
+    "id": "a8b2c64d-da67-4796-af20-cc02367f22c8",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/profiles",
+    "search": "?select=*&id=eq.c08fe4ec-393d-4983-96c3-46d25f6cd220",
+    "status_code": 200,
+    "timestamp": 1775494123417000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issue_history?select=*&issue_id=eq.074706f4-49fb-4f57-a430-e43629196883&order=created_at.desc.nullslast | Dart/3.11 (dart:io)",
+    "id": "34733e01-cb61-429e-b98c-d094f228c77f",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issue_history",
+    "search": "?select=*&issue_id=eq.074706f4-49fb-4f57-a430-e43629196883&order=created_at.desc.nullslast",
+    "status_code": 200,
+    "timestamp": 1775494093651000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=*%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&id=eq.074706f4-49fb-4f57-a430-e43629196883 | Dart/3.11 (dart:io)",
+    "id": "de809fde-7605-4d5c-9637-1ed29e741628",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=*%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&id=eq.074706f4-49fb-4f57-a430-e43629196883",
+    "status_code": 200,
+    "timestamp": 1775494093423000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issue_history?select=*&issue_id=eq.312a0c63-6cf6-4538-93d1-595a5b206fe4&order=created_at.desc.nullslast | Dart/3.11 (dart:io)",
+    "id": "8067b704-2c0b-4059-97b1-1e38a40f8f53",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issue_history",
+    "search": "?select=*&issue_id=eq.312a0c63-6cf6-4538-93d1-595a5b206fe4&order=created_at.desc.nullslast",
+    "status_code": 200,
+    "timestamp": 1775494084005000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=*%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&id=eq.312a0c63-6cf6-4538-93d1-595a5b206fe4 | Dart/3.11 (dart:io)",
+    "id": "f3fc3466-0934-42f4-8d0e-9f4dc6f1e72c",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=*%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&id=eq.312a0c63-6cf6-4538-93d1-595a5b206fe4",
+    "status_code": 200,
+    "timestamp": 1775494083721000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/storage/v1/object/public/issues/scaled_b9fd33a9-1df4-4ba9-8e0f-22e984523f968795637812536502771.jpg | Dart/3.11 (dart:io)",
+    "id": "ed25896a-d7f7-440e-b827-9a31d1b3c369",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/storage/v1/object/public/issues/scaled_b9fd33a9-1df4-4ba9-8e0f-22e984523f968795637812536502771.jpg",
+    "search": null,
+    "status_code": 200,
+    "timestamp": 1775494079651000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/storage/v1/object/public/issues/scaled_1eed4429-9116-49e2-87a5-b853f46ec74e1140703580049413056.jpg | Dart/3.11 (dart:io)",
+    "id": "dfe35ebb-8a3a-418c-a9e6-7a06b0ec83c6",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/storage/v1/object/public/issues/scaled_1eed4429-9116-49e2-87a5-b853f46ec74e1140703580049413056.jpg",
+    "search": null,
+    "status_code": 200,
+    "timestamp": 1775494079638000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/storage/v1/object/public/issues/scaled_f178d537-1bf8-419d-bb29-9ead12fc50e73167910052859000843.jpg | Dart/3.11 (dart:io)",
+    "id": "0208145d-9d45-441e-a455-e43c5ecaf73a",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/storage/v1/object/public/issues/scaled_f178d537-1bf8-419d-bb29-9ead12fc50e73167910052859000843.jpg",
+    "search": null,
+    "status_code": 200,
+    "timestamp": 1775494079636000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=*%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&order=created_at.desc.nullslast | Dart/3.11 (dart:io)",
+    "id": "9f51e9da-dfc2-48ed-a2db-3dd44a2a4b74",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=*%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&is_draft=eq.false&order=created_at.desc.nullslast",
+    "status_code": 200,
+    "timestamp": 1775494078679000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issue_history?select=*&issue_id=eq.074706f4-49fb-4f57-a430-e43629196883&order=created_at.desc.nullslast | Dart/3.11 (dart:io)",
+    "id": "7e297e0c-9fbe-46c4-b08c-f12c7371bf2f",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issue_history",
+    "search": "?select=*&issue_id=eq.074706f4-49fb-4f57-a430-e43629196883&order=created_at.desc.nullslast",
+    "status_code": 200,
+    "timestamp": 1775493955185000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=*%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&id=eq.074706f4-49fb-4f57-a430-e43629196883 | Dart/3.11 (dart:io)",
+    "id": "9c86ff21-3c73-4895-acda-f2e99ea4dec7",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=*%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&id=eq.074706f4-49fb-4f57-a430-e43629196883",
+    "status_code": 200,
+    "timestamp": 1775493954482000
+  },
+  {
+    "event_message": "PATCH | 400 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?id=eq.074706f4-49fb-4f57-a430-e43629196883 | Dart/3.11 (dart:io)",
+    "id": "eea331de-5599-4178-a679-c2d8c1aa85b4",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "PATCH",
+    "path": "/rest/v1/issues",
+    "search": "?id=eq.074706f4-49fb-4f57-a430-e43629196883",
+    "status_code": 400,
+    "timestamp": 1775493831174000
+  },
+  {
+    "event_message": "POST | 400 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issue_history | Dart/3.11 (dart:io)",
+    "id": "d63893fd-43aa-4bb2-8e71-a889d99f2474",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "POST",
+    "path": "/rest/v1/issue_history",
+    "search": null,
+    "status_code": 400,
+    "timestamp": 1775493823916000
+  },
+  {
+    "event_message": "PATCH | 204 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?id=eq.074706f4-49fb-4f57-a430-e43629196883 | Dart/3.11 (dart:io)",
+    "id": "a4c7409d-5012-45f0-ba3d-4996d90e0717",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "PATCH",
+    "path": "/rest/v1/issues",
+    "search": "?id=eq.074706f4-49fb-4f57-a430-e43629196883",
+    "status_code": 204,
+    "timestamp": 1775493823529000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/storage/v1/object/public/issues/c08fe4ec-393d-4983-96c3-46d25f6cd220/1775227707605.jpg | Dart/3.11 (dart:io)",
+    "id": "02373241-851f-4810-baae-317b1a2c395e",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/storage/v1/object/public/issues/c08fe4ec-393d-4983-96c3-46d25f6cd220/1775227707605.jpg",
+    "search": null,
+    "status_code": 200,
+    "timestamp": 1775493817246000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issue_history?select=*&issue_id=eq.074706f4-49fb-4f57-a430-e43629196883&order=created_at.desc.nullslast | Dart/3.11 (dart:io)",
+    "id": "3dd091a2-6942-474a-aea3-32c02afbedea",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issue_history",
+    "search": "?select=*&issue_id=eq.074706f4-49fb-4f57-a430-e43629196883&order=created_at.desc.nullslast",
+    "status_code": 200,
+    "timestamp": 1775493816715000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?select=*%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&id=eq.074706f4-49fb-4f57-a430-e43629196883 | Dart/3.11 (dart:io)",
+    "id": "c9f4beea-b929-466a-ac16-28ba677a9b4f",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/issues",
+    "search": "?select=*%2Cprofiles%21reporter_id%28full_name%29%2Cdepartments%28name%29&id=eq.074706f4-49fb-4f57-a430-e43629196883",
+    "status_code": 200,
+    "timestamp": 1775493816141000
+  },
+  {
+    "event_message": "GET | 200 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/profiles?select=*&id=eq.c08fe4ec-393d-4983-96c3-46d25f6cd220 | Dart/3.11 (dart:io)",
+    "id": "ee7732df-c0ac-418b-b266-bfca68a3c9d1",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "GET",
+    "path": "/rest/v1/profiles",
+    "search": "?select=*&id=eq.c08fe4ec-393d-4983-96c3-46d25f6cd220",
+    "status_code": 200,
+    "timestamp": 1775493762259000
+  },
+  {
+    "event_message": "POST | 400 | https://gipfcndtddodeyveexjx.supabase.co/storage/v1/object/issues/scaled_1eed4429-9116-49e2-87a5-b853f46ec74e1140703580049413056.jpg | Dart/3.11 (dart:io)",
+    "id": "9053bca1-bfb8-4537-9d25-a76573ffe46e",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "POST",
+    "path": "/storage/v1/object/issues/scaled_1eed4429-9116-49e2-87a5-b853f46ec74e1140703580049413056.jpg",
+    "search": null,
+    "status_code": 400,
+    "timestamp": 1775493697732000
+  },
+  {
+    "event_message": "POST | 400 | https://gipfcndtddodeyveexjx.supabase.co/storage/v1/object/issues/scaled_1eed4429-9116-49e2-87a5-b853f46ec74e1140703580049413056.jpg | Dart/3.11 (dart:io)",
+    "id": "81c96c26-0b2c-488c-9c00-9953ddbcb1d4",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "POST",
+    "path": "/storage/v1/object/issues/scaled_1eed4429-9116-49e2-87a5-b853f46ec74e1140703580049413056.jpg",
+    "search": null,
+    "status_code": 400,
+    "timestamp": 1775493696334000
+  },
+  {
+    "event_message": "POST | 400 | https://gipfcndtddodeyveexjx.supabase.co/storage/v1/object/issues/scaled_1eed4429-9116-49e2-87a5-b853f46ec74e1140703580049413056.jpg | Dart/3.11 (dart:io)",
+    "id": "689cc109-e641-4ba5-bf5c-d680e34dbb4a",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "POST",
+    "path": "/storage/v1/object/issues/scaled_1eed4429-9116-49e2-87a5-b853f46ec74e1140703580049413056.jpg",
+    "search": null,
+    "status_code": 400,
+    "timestamp": 1775493692863000
+  },
+  {
+    "event_message": "POST | 400 | https://gipfcndtddodeyveexjx.supabase.co/storage/v1/object/issues/scaled_1eed4429-9116-49e2-87a5-b853f46ec74e1140703580049413056.jpg | Dart/3.11 (dart:io)",
+    "id": "88f81ba2-ddc1-4417-a028-4fba21bfcf5f",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "POST",
+    "path": "/storage/v1/object/issues/scaled_1eed4429-9116-49e2-87a5-b853f46ec74e1140703580049413056.jpg",
+    "search": null,
+    "status_code": 400,
+    "timestamp": 1775493691508000
+  },
+  {
+    "event_message": "POST | 400 | https://gipfcndtddodeyveexjx.supabase.co/storage/v1/object/issues/scaled_1eed4429-9116-49e2-87a5-b853f46ec74e1140703580049413056.jpg | Dart/3.11 (dart:io)",
+    "id": "9ba35325-4c47-46c7-86e7-b72caa482a02",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "POST",
+    "path": "/storage/v1/object/issues/scaled_1eed4429-9116-49e2-87a5-b853f46ec74e1140703580049413056.jpg",
+    "search": null,
+    "status_code": 400,
+    "timestamp": 1775493690176000
+  },
+  {
+    "event_message": "POST | 400 | https://gipfcndtddodeyveexjx.supabase.co/storage/v1/object/issues/scaled_1eed4429-9116-49e2-87a5-b853f46ec74e1140703580049413056.jpg | Dart/3.11 (dart:io)",
+    "id": "863f943b-7c83-403d-8689-e057578dd39f",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "POST",
+    "path": "/storage/v1/object/issues/scaled_1eed4429-9116-49e2-87a5-b853f46ec74e1140703580049413056.jpg",
+    "search": null,
+    "status_code": 400,
+    "timestamp": 1775493688520000
+  },
+  {
+    "event_message": "POST | 400 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issue_history | Dart/3.11 (dart:io)",
+    "id": "25ea5209-0f99-4c28-8466-26985145033f",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "POST",
+    "path": "/rest/v1/issue_history",
+    "search": null,
+    "status_code": 400,
+    "timestamp": 1775493685661000
+  },
+  {
+    "event_message": "PATCH | 204 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?id=eq.312a0c63-6cf6-4538-93d1-595a5b206fe4 | Dart/3.11 (dart:io)",
+    "id": "eb9dabb4-6cca-4e5c-ac17-24da4f1b4b2d",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "PATCH",
+    "path": "/rest/v1/issues",
+    "search": "?id=eq.312a0c63-6cf6-4538-93d1-595a5b206fe4",
+    "status_code": 204,
+    "timestamp": 1775493685017000
+  },
+  {
+    "event_message": "POST | 200 | https://gipfcndtddodeyveexjx.supabase.co/storage/v1/object/issues/scaled_b9fd33a9-1df4-4ba9-8e0f-22e984523f968795637812536502771.jpg | Dart/3.11 (dart:io)",
+    "id": "5012239e-0209-49bc-8c87-110efc4fe130",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "POST",
+    "path": "/storage/v1/object/issues/scaled_b9fd33a9-1df4-4ba9-8e0f-22e984523f968795637812536502771.jpg",
+    "search": null,
+    "status_code": 200,
+    "timestamp": 1775493684660000
+  },
+  {
+    "event_message": "POST | 200 | https://gipfcndtddodeyveexjx.supabase.co/storage/v1/object/issues/scaled_f178d537-1bf8-419d-bb29-9ead12fc50e73167910052859000843.jpg | Dart/3.11 (dart:io)",
+    "id": "94ea8087-497c-4290-b182-a72438429871",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "POST",
+    "path": "/storage/v1/object/issues/scaled_f178d537-1bf8-419d-bb29-9ead12fc50e73167910052859000843.jpg",
+    "search": null,
+    "status_code": 200,
+    "timestamp": 1775493683684000
+  },
+  {
+    "event_message": "POST | 200 | https://gipfcndtddodeyveexjx.supabase.co/storage/v1/object/issues/scaled_1eed4429-9116-49e2-87a5-b853f46ec74e1140703580049413056.jpg | Dart/3.11 (dart:io)",
+    "id": "4a04b170-85c8-49ff-a041-524c177c0f3d",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "POST",
+    "path": "/storage/v1/object/issues/scaled_1eed4429-9116-49e2-87a5-b853f46ec74e1140703580049413056.jpg",
+    "search": null,
+    "status_code": 200,
+    "timestamp": 1775493682600000
+  },
+  {
+    "event_message": "POST | 400 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issue_history | Dart/3.11 (dart:io)",
+    "id": "64e78d6d-d072-4d57-a87e-c554252f0353",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "POST",
+    "path": "/rest/v1/issue_history",
+    "search": null,
+    "status_code": 400,
+    "timestamp": 1775493578101000
+  },
+  {
+    "event_message": "PATCH | 204 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?id=eq.312a0c63-6cf6-4538-93d1-595a5b206fe4 | Dart/3.11 (dart:io)",
+    "id": "a147f1d0-9ba5-4cc7-bab0-c84477851262",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "PATCH",
+    "path": "/rest/v1/issues",
+    "search": "?id=eq.312a0c63-6cf6-4538-93d1-595a5b206fe4",
+    "status_code": 204,
+    "timestamp": 1775493577744000
+  },
+  {
+    "event_message": "POST | 400 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issue_history | Dart/3.11 (dart:io)",
+    "id": "66b05afb-8282-48d1-9d5f-cf7b4dd8b357",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "POST",
+    "path": "/rest/v1/issue_history",
+    "search": null,
+    "status_code": 400,
+    "timestamp": 1775493566287000
+  },
+  {
+    "event_message": "PATCH | 204 | https://gipfcndtddodeyveexjx.supabase.co/rest/v1/issues?id=eq.312a0c63-6cf6-4538-93d1-595a5b206fe4 | Dart/3.11 (dart:io)",
+    "id": "9bc6837b-3d27-4c86-bff7-fd07e1934480",
+    "identifier": "gipfcndtddodeyveexjx",
+    "method": "PATCH",
+    "path": "/rest/v1/issues",
+    "search": "?id=eq.312a0c63-6cf6-4538-93d1-595a5b206fe4",
+    "status_code": 204,
+    "timestamp": 1775493565862000
+  }
+]

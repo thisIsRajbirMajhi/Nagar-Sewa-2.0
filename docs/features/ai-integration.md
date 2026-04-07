@@ -1,4 +1,7 @@
-# AI Integration
+# AI Integration (Deprecated)
+
+> [!WARNING]
+> This feature set is currently **DEPRECATED** and has been removed from the core `lib/` implementation in favor of a simplified direct-reporting model (v1.2.0). These docs are preserved for architectural reference only.
 
 ## Overview
 
