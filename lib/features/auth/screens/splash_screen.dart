@@ -10,6 +10,7 @@ import '../../../core/constants/app_colors.dart';
 import '../../../services/cache_service.dart';
 import '../../../services/supabase_service.dart';
 import '../../../services/sync_service.dart';
+import '../../../models/user_model.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -116,11 +117,14 @@ class _SplashScreenState extends State<SplashScreen>
     final isAuthenticated =
         session != null && user != null && user.emailConfirmedAt != null;
 
+    UserModel? currentProfile = CacheService.getCachedProfile();
+
     if (isAuthenticated && _isOnline) {
       try {
         final profile = await SupabaseService.getProfile();
         if (profile != null) {
           await CacheService.cacheProfile(profile);
+          currentProfile = profile;
         }
       } catch (_) {
         // Use cached profile — already available
@@ -145,8 +149,10 @@ class _SplashScreenState extends State<SplashScreen>
       try {
         final stats = await SupabaseService.getDashboardStats();
         await CacheService.cacheStats(stats);
-        final issues = await SupabaseService.getIssues(limit: 10);
-        await CacheService.cacheIssues(issues, key: 'all');
+        if (currentProfile?.role != 'officer') {
+          final issues = await SupabaseService.getIssues(limit: 10);
+          await CacheService.cacheIssues(issues, key: 'all');
+        }
       } catch (_) {
         // Non-critical — dashboard will fetch on its own
       }
@@ -161,7 +167,11 @@ class _SplashScreenState extends State<SplashScreen>
 
     // Navigate
     if (isAuthenticated) {
-      context.go('/dashboard');
+      if (currentProfile?.role == 'officer') {
+        context.go('/officer/dashboard');
+      } else {
+        context.go('/dashboard');
+      }
     } else {
       // Clean up unconfirmed sessions
       if (user != null && user.emailConfirmedAt == null) {

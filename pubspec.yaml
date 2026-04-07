@@ -32,12 +32,10 @@ dependencies:
   maplibre_gl: ^0.25.0
   location: ^8.0.1
   latlong2: ^0.9.1
-  exif: ^3.3.0
-  image: ^4.5.4
-  flutter_image_compress: ^2.2.0
   sqflite: ^2.3.0
   path: ^1.9.0
   record: ^6.2.0
+  speech_to_text: ^7.3.0
 
 
 dev_dependencies:

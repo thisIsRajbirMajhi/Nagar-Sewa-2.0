@@ -5,7 +5,6 @@ import '../models/user_model.dart';
 import '../models/issue_model.dart';
 import '../models/department_model.dart';
 import '../models/notification_model.dart';
-import 'image_compression_service.dart';
 
 class SupabaseService {
   static SupabaseClient get client => Supabase.instance.client;
@@ -200,6 +199,17 @@ class SupabaseService {
           .eq('id', id)
           .eq('reporter_id', userId!)
           .eq('is_draft', true),
+    );
+  }
+
+  static Future<void> deleteIssue(String id) async {
+    if (userId == null) return;
+    await _withRetry(
+      () => client
+          .from('issues')
+          .delete()
+          .eq('id', id)
+          .eq('reporter_id', userId!), // ensure only owner can delete
     );
   }
 
@@ -471,13 +481,10 @@ class SupabaseService {
     final futures = <Future>[];
 
     if (photoBytes != null) {
-      final compressed = await ImageCompressionService.compressIfNeeded(
-        photoBytes,
-      );
       futures.add(
         uploadImage(
           '$uid/$ts.jpg',
-          compressed,
+          photoBytes,
         ).then((url) => photoUrls.add(url)),
       );
     }
@@ -509,6 +516,19 @@ class SupabaseService {
       };
     }
     return {'resolved': 0, 'urgent': 0, 'reported': 0, 'nearby': 0};
+  }
+
+  // ─── COMPLAINTS ─────────────────────────────────────
+  static Future<void> submitComplaint(String issueId, String content) async {
+    final user = client.auth.currentUser;
+    if (user == null) throw Exception('Auth required');
+
+    await client.from('complaints').insert({
+      'issue_id': issueId,
+      'user_id': user.id,
+      'content': content,
+      'status': 'pending',
+    });
   }
 }
 

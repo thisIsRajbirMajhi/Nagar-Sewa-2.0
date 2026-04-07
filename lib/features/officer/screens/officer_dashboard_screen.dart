@@ -1,264 +1,548 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../models/issue_model.dart';
-import '../../../../core/constants/app_colors.dart';
-import '../providers/officer_provider.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:go_router/go_router.dart';
+import '../../../core/constants/app_colors.dart';
+import '../../../providers/auth_provider.dart';
+import '../../../providers/notifications_provider.dart';
+import '../../../services/supabase_service.dart';
+import '../providers/officer_provider.dart';
+import '../widgets/officer_issue_card.dart';
+import '../widgets/officer_stats_card.dart';
 
 class OfficerDashboardScreen extends ConsumerStatefulWidget {
   const OfficerDashboardScreen({super.key});
 
   @override
-  ConsumerState<OfficerDashboardScreen> createState() => _OfficerDashboardScreenState();
+  ConsumerState<OfficerDashboardScreen> createState() =>
+      _OfficerDashboardScreenState();
 }
 
-class _OfficerDashboardScreenState extends ConsumerState<OfficerDashboardScreen> with SingleTickerProviderStateMixin {
-  late TabController _tabController;
-
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(length: 4, vsync: this);
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
-  }
-
+class _OfficerDashboardScreenState
+    extends ConsumerState<OfficerDashboardScreen> {
   @override
   Widget build(BuildContext context) {
     final issuesAsync = ref.watch(officerIssuesProvider);
+    final stats = ref.watch(officerDashboardStatsProvider);
+    final filter = ref.watch(officerFilterProvider);
+    final filteredIssues = ref.watch(officerFilteredIssuesProvider);
+    final profileAsync = ref.watch(userProfileProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Officer Portal', style: TextStyle(fontWeight: FontWeight.bold)),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.refresh),
-            onPressed: () => ref.read(officerIssuesProvider.notifier).fetchIssues(),
-          ),
-          IconButton(
-            icon: const Icon(Icons.notifications_none),
-            onPressed: () => context.push('/notifications'),
+      backgroundColor: AppColors.background,
+      body: Column(
+        children: [
+          // ─── Officer Header ─────────────────────────
+          _buildHeader(profileAsync),
+
+          // ─── Content ────────────────────────────────
+          Expanded(
+            child: RefreshIndicator(
+              onRefresh: () async {
+                ref.invalidate(officerIssuesProvider);
+                ref.invalidate(officerDashboardStatsProvider);
+              },
+              color: AppColors.greenAccent,
+              child: issuesAsync.when(
+                loading: () => const Center(child: CircularProgressIndicator()),
+                error: (e, st) => _buildErrorState(e),
+                data: (_) => CustomScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  slivers: [
+                    // KPI Stats
+                    SliverToBoxAdapter(
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Overview',
+                              style: GoogleFonts.inter(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w700,
+                                color: AppColors.textPrimary,
+                              ),
+                            ).animate().fadeIn(duration: 350.ms),
+                            const SizedBox(height: 12),
+                            _buildStatsGrid(stats),
+                            const SizedBox(height: 20),
+                          ],
+                        ),
+                      ),
+                    ),
+
+                    // Filter chips + Issue count
+                    SliverToBoxAdapter(
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+                        child: Column(
+                          children: [
+                            _buildFilterRow(filter, stats),
+                            const SizedBox(height: 10),
+                            Row(
+                              children: [
+                                Text(
+                                  'Priority Queue',
+                                  style: GoogleFonts.inter(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w700,
+                                    color: AppColors.textPrimary,
+                                  ),
+                                ),
+                                const SizedBox(width: 8),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 7,
+                                    vertical: 2,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: AppColors.navyPrimary.withValues(
+                                      alpha: 0.1,
+                                    ),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Text(
+                                    '${filteredIssues.length}',
+                                    style: GoogleFonts.inter(
+                                      fontSize: 11,
+                                      fontWeight: FontWeight.w700,
+                                      color: AppColors.navyPrimary,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ).animate().fadeIn(delay: 300.ms),
+                          ],
+                        ),
+                      ),
+                    ),
+
+                    // Issue cards
+                    if (filteredIssues.isEmpty)
+                      SliverFillRemaining(child: _buildEmptyState(filter))
+                    else
+                      SliverPadding(
+                        padding: const EdgeInsets.fromLTRB(16, 4, 16, 80),
+                        sliver: SliverList(
+                          delegate: SliverChildBuilderDelegate(
+                            (context, index) => OfficerIssueCard(
+                              issue: filteredIssues[index],
+                              index: index,
+                            ),
+                            childCount: filteredIssues.length,
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+            ),
           ),
         ],
-        bottom: TabBar(
-          controller: _tabController,
-          isScrollable: true,
-          tabs: const [
-            Tab(text: 'Priority Queue'),
-            Tab(text: 'Open'),
-            Tab(text: 'In Progress'),
-            Tab(text: 'Resolved'),
-          ],
-        ),
-      ),
-      body: issuesAsync.when(
-        data: (issues) {
-          return TabBarView(
-            controller: _tabController,
-            children: [
-              _IssueList(issues: issues.where((i) => !i.isResolved).toList(), title: 'Priority Queue'),
-              _IssueList(issues: issues.where((i) => i.status == 'submitted' || i.status == 'assigned' || i.status == 'acknowledged').toList(), title: 'Open Issues'),
-              _IssueList(issues: issues.where((i) => i.status == 'in_progress').toList(), title: 'In Progress'),
-              _IssueList(issues: issues.where((i) => i.isResolved).toList(), title: 'Resolved Issues'),
-            ],
-          );
-        },
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (e, st) => Center(child: Text('Error: $e')),
       ),
     );
   }
-}
 
-class _IssueList extends StatelessWidget {
-  final List<IssueModel> issues;
-  final String title;
+  // ─── Header ──────────────────────────────────────────
+  Widget _buildHeader(AsyncValue profileAsync) {
+    final userName = switch (profileAsync) {
+      AsyncData(:final value) => value?.fullName ?? _getAuthUserName(),
+      _ => _getAuthUserName(),
+    };
 
-  const _IssueList({required this.issues, required this.title});
+    final department = switch (profileAsync) {
+      AsyncData(:final value) => value?.ward ?? 'Municipal Officer',
+      _ => 'Municipal Officer',
+    };
 
-  @override
-  Widget build(BuildContext context) {
-    if (issues.isEmpty) {
-      return Center(
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      decoration: BoxDecoration(color: AppColors.navyPrimary),
+      child: SafeArea(
+        bottom: false,
+        child: Row(
+          children: [
+            // Avatar
+            GestureDetector(
+              onTap: () => context.push('/profile'),
+              child: Container(
+                width: 42,
+                height: 42,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  gradient: LinearGradient(
+                    colors: [const Color(0xFF3B82F6), AppColors.greenAccent],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                ),
+                child: const Icon(
+                  Icons.shield_rounded,
+                  color: Colors.white,
+                  size: 20,
+                ),
+              ),
+            ),
+            const SizedBox(width: 12),
+
+            // Greeting
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    _getGreeting(),
+                    style: GoogleFonts.inter(
+                      fontSize: 11,
+                      color: Colors.white60,
+                    ),
+                  ),
+                  Text(
+                    userName,
+                    style: GoogleFonts.inter(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white,
+                    ),
+                  ),
+                  Text(
+                    department,
+                    style: GoogleFonts.inter(
+                      fontSize: 11,
+                      color: Colors.white54,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            // Notification bell with badge
+            _buildNotificationBell(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildNotificationBell() {
+    final unreadCount = ref.watch(unreadNotificationCountProvider);
+
+    return Stack(
+      children: [
+        IconButton(
+          icon: const Icon(Icons.notifications_outlined, color: Colors.white),
+          onPressed: () => context.push('/notifications'),
+        ),
+        if (unreadCount > 0)
+          Positioned(
+            right: 8,
+            top: 8,
+            child: Container(
+              padding: const EdgeInsets.all(4),
+              decoration: BoxDecoration(
+                color: AppColors.urgentRed,
+                shape: BoxShape.circle,
+              ),
+              constraints: const BoxConstraints(minWidth: 16, minHeight: 16),
+              child: Text(
+                '${unreadCount > 9 ? '9+' : unreadCount}',
+                style: GoogleFonts.inter(
+                  fontSize: 9,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.white,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
+      ],
+    );
+  }
+
+  // ─── Stats Grid ──────────────────────────────────────
+  Widget _buildStatsGrid(AsyncValue<Map<String, int>> statsAsync) {
+    final stats =
+        statsAsync.asData?.value ??
+        {
+          'pending': 0,
+          'resolved_today': 0,
+          'in_progress': 0,
+          'sla_breaching': 0,
+        };
+
+    return Column(
+      children: [
+        Row(
+          children: [
+            Expanded(
+              child: SizedBox(
+                height: 105,
+                child: OfficerStatsCard(
+                  title: 'Pending',
+                  value: '${stats['pending'] ?? 0}',
+                  subtitle: 'Awaiting action',
+                  icon: Icons.pending_actions_rounded,
+                  color: AppColors.reportedBlue,
+                ),
+              ),
+            ),
+            const SizedBox(width: 10),
+            Expanded(
+              child: SizedBox(
+                height: 105,
+                child: OfficerStatsCard(
+                  title: 'Resolved Today',
+                  value: '${stats['resolved_today'] ?? 0}',
+                  subtitle: 'Completed today',
+                  icon: Icons.check_circle_rounded,
+                  color: AppColors.greenAccent,
+                ),
+              ),
+            ),
+          ],
+        ).animate().fadeIn(delay: 100.ms, duration: 400.ms).slideY(begin: 0.08),
+        const SizedBox(height: 10),
+        Row(
+          children: [
+            Expanded(
+              child: SizedBox(
+                height: 105,
+                child: OfficerStatsCard(
+                  title: 'In Progress',
+                  value: '${stats['in_progress'] ?? 0}',
+                  subtitle: 'Being worked on',
+                  icon: Icons.engineering_rounded,
+                  color: AppColors.communityOrange,
+                ),
+              ),
+            ),
+            const SizedBox(width: 10),
+            Expanded(
+              child: SizedBox(
+                height: 105,
+                child: OfficerStatsCard(
+                  title: 'SLA Breaching',
+                  value: '${stats['sla_breaching'] ?? 0}',
+                  subtitle: 'Overdue tasks',
+                  icon: Icons.timer_off_rounded,
+                  color: AppColors.urgentRed,
+                ),
+              ),
+            ),
+          ],
+        ).animate().fadeIn(delay: 200.ms, duration: 400.ms).slideY(begin: 0.08),
+      ],
+    );
+  }
+
+  // ─── Filter Row ──────────────────────────────────────
+  Widget _buildFilterRow(
+    OfficerIssueFilter current,
+    AsyncValue<Map<String, int>> statsAsync,
+  ) {
+    final stats = statsAsync.asData?.value ?? {};
+
+    final filters = [
+      (OfficerIssueFilter.all, 'All', Icons.layers_rounded, null),
+      (
+        OfficerIssueFilter.open,
+        'Open',
+        Icons.radio_button_unchecked_rounded,
+        stats['pending'],
+      ),
+      (
+        OfficerIssueFilter.inProgress,
+        'In Progress',
+        Icons.sync_rounded,
+        stats['in_progress'],
+      ),
+    ];
+
+    return SizedBox(
+      height: 36,
+      child: ListView.separated(
+        scrollDirection: Axis.horizontal,
+        itemCount: filters.length,
+        separatorBuilder: (_, _) => const SizedBox(width: 8),
+        itemBuilder: (context, index) {
+          final (filterEnum, label, icon, count) = filters[index];
+          final isSelected = current == filterEnum;
+
+          return GestureDetector(
+            onTap: () =>
+                ref.read(officerFilterProvider.notifier).set(filterEnum),
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              decoration: BoxDecoration(
+                color: isSelected ? AppColors.navyPrimary : AppColors.surface,
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(
+                  color: isSelected ? AppColors.navyPrimary : AppColors.border,
+                ),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    icon,
+                    size: 14,
+                    color: isSelected ? Colors.white : AppColors.textSecondary,
+                  ),
+                  const SizedBox(width: 5),
+                  Text(
+                    label,
+                    style: GoogleFonts.inter(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      color: isSelected
+                          ? Colors.white
+                          : AppColors.textSecondary,
+                    ),
+                  ),
+                  if (count != null && count > 0) ...[
+                    const SizedBox(width: 5),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 5,
+                        vertical: 1,
+                      ),
+                      decoration: BoxDecoration(
+                        color: isSelected
+                            ? Colors.white.withValues(alpha: 0.2)
+                            : AppColors.navyPrimary.withValues(alpha: 0.1),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Text(
+                        '$count',
+                        style: GoogleFonts.inter(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w700,
+                          color: isSelected
+                              ? Colors.white
+                              : AppColors.navyPrimary,
+                        ),
+                      ),
+                    ),
+                  ],
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+    ).animate().fadeIn(delay: 250.ms);
+  }
+
+  // ─── Empty State ─────────────────────────────────────
+  Widget _buildEmptyState(OfficerIssueFilter filter) {
+    final messages = {
+      OfficerIssueFilter.all: (
+        'No pending issues',
+        'All caught up! Great work.',
+        Icons.celebration_rounded,
+      ),
+      OfficerIssueFilter.open: (
+        'No open issues',
+        'No new issues awaiting your attention.',
+        Icons.inbox_rounded,
+      ),
+      OfficerIssueFilter.inProgress: (
+        'Nothing in progress',
+        'Start working on open issues from the queue.',
+        Icons.engineering_rounded,
+      ),
+    };
+
+    final (title, subtitle, icon) = messages[filter]!;
+
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(icon, size: 56, color: AppColors.textLight),
+          const SizedBox(height: 16),
+          Text(
+            title,
+            style: GoogleFonts.inter(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+              color: AppColors.textSecondary,
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            subtitle,
+            style: GoogleFonts.inter(fontSize: 13, color: AppColors.textLight),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // ─── Error State ─────────────────────────────────────
+  Widget _buildErrorState(Object error) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(32),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.assignment_turned_in_outlined, size: 64, color: Colors.grey[400]),
+            Icon(Icons.error_outline_rounded, size: 48, color: AppColors.error),
             const SizedBox(height: 16),
-            Text('No issues found in $title', style: TextStyle(color: Colors.grey[600])),
+            Text(
+              'Failed to load issues',
+              style: GoogleFonts.inter(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                color: AppColors.textPrimary,
+              ),
+            ),
+            const SizedBox(height: 6),
+            Text(
+              '$error',
+              style: GoogleFonts.inter(
+                fontSize: 12,
+                color: AppColors.textSecondary,
+              ),
+              textAlign: TextAlign.center,
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
+            ),
+            const SizedBox(height: 16),
+            TextButton.icon(
+              onPressed: () => ref.invalidate(officerIssuesProvider),
+              icon: const Icon(Icons.refresh_rounded),
+              label: const Text('Retry'),
+            ),
           ],
         ),
-      );
+      ),
+    );
+  }
+
+  // ─── Helpers ─────────────────────────────────────────
+  String _getGreeting() {
+    final hour = DateTime.now().hour;
+    if (hour < 12) return 'Good morning';
+    if (hour < 17) return 'Good afternoon';
+    return 'Good evening';
+  }
+
+  String _getAuthUserName() {
+    final user = SupabaseService.currentUser;
+    if (user == null) return 'Officer';
+    final metadata = user.userMetadata;
+    if (metadata != null && metadata['full_name'] != null) {
+      return metadata['full_name'] as String;
     }
-
-    return ListView.builder(
-      padding: const EdgeInsets.all(16),
-      itemCount: issues.length,
-      itemBuilder: (context, index) {
-        final issue = issues[index];
-        return _IssueCard(issue: issue);
-      },
-    );
-  }
-}
-
-class _IssueCard extends StatelessWidget {
-  final IssueModel issue;
-
-  const _IssueCard({required this.issue});
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      elevation: 2,
-      margin: const EdgeInsets.only(bottom: 16),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      child: InkWell(
-        onTap: () => context.push('/issue/${issue.id}'),
-        borderRadius: BorderRadius.circular(16),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                    decoration: BoxDecoration(
-                      color: AppColors.getStatusColor(issue.status).withValues(alpha: 0.1),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Text(
-                      issue.statusLabel,
-                      style: TextStyle(
-                        color: AppColors.getStatusColor(issue.status),
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  if (issue.upvoteCount > 0)
-                    Row(
-                      children: [
-                        const Icon(Icons.arrow_upward, size: 16, color: Colors.orange),
-                        const SizedBox(width: 4),
-                        Text('${issue.upvoteCount}', style: const TextStyle(fontWeight: FontWeight.bold)),
-                      ],
-                    ),
-                ],
-              ),
-              const SizedBox(height: 12),
-              Text(
-                issue.title,
-                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-              const SizedBox(height: 8),
-              Row(
-                children: [
-                  Icon(Icons.location_on_outlined, size: 16, color: Colors.grey[600]),
-                  const SizedBox(width: 4),
-                  Expanded(
-                    child: Text(
-                      issue.address ?? 'No address',
-                      style: TextStyle(color: Colors.grey[600], fontSize: 13),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 12),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      _CategoryChip(category: issue.category),
-                      const SizedBox(width: 8),
-                      _SeverityChip(severity: issue.severity),
-                    ],
-                  ),
-                  Text(
-                    _formatDate(issue.createdAt),
-                    style: TextStyle(color: Colors.grey[500], fontSize: 12),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  // Removed local _getStatusColor as it's now using AppColors.getStatusColor
-
-  String _formatDate(DateTime date) {
-    // Basic format: "Today", "Yesterday", or "DD/MM/YYYY"
-    final now = DateTime.now();
-    final today = DateTime(now.year, now.month, now.day);
-    final yesterday = today.subtract(const Duration(days: 1));
-    final issueDate = DateTime(date.year, date.month, date.day);
-
-    if (issueDate == today) return 'Today';
-    if (issueDate == yesterday) return 'Yesterday';
-    return '${date.day}/${date.month}/${date.year}';
-  }
-}
-
-class _CategoryChip extends StatelessWidget {
-  final String category;
-  const _CategoryChip({required this.category});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-      decoration: BoxDecoration(
-        color: Colors.grey[200],
-        borderRadius: BorderRadius.circular(4),
-      ),
-      child: Text(
-        category.replaceAll('_', ' ').toUpperCase(),
-        style: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
-      ),
-    );
-  }
-}
-
-class _SeverityChip extends StatelessWidget {
-  final String severity;
-  const _SeverityChip({required this.severity});
-
-  @override
-  Widget build(BuildContext context) {
-    Color color;
-    switch (severity.toLowerCase()) {
-      case 'critical': color = Colors.red; break;
-      case 'high': color = Colors.deepOrange; break;
-      case 'medium': color = Colors.orange; break;
-      case 'low': color = Colors.green; break;
-      default: color = Colors.grey;
+    final email = user.email;
+    if (email != null && email.contains('@')) {
+      return email.split('@').first;
     }
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-      decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(4),
-        border: Border.all(color: color.withValues(alpha: 0.5)),
-      ),
-      child: Text(
-        severity.toUpperCase(),
-        style: TextStyle(fontSize: 10, color: color, fontWeight: FontWeight.bold),
-      ),
-    );
+    return 'Officer';
   }
 }

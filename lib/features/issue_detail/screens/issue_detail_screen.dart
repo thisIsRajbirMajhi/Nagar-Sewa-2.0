@@ -5,16 +5,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter/services.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:video_player/video_player.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/widgets/app_button.dart';
 import '../../../models/issue_model.dart';
-import '../../../models/ai_models.dart';
 import '../../../services/supabase_service.dart';
-import '../../officer/notifiers/draft_response_notifier.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class IssueDetailScreen extends ConsumerStatefulWidget {
   final String issueId;
@@ -94,10 +92,24 @@ class _IssueDetailScreenState extends ConsumerState<IssueDetailScreen> {
     if (_issue == null) return;
     final wasUpvoted = _hasUpvoted;
     final wasDownvoted = _hasDownvoted;
+    final oldUpvotes = _issue!.upvoteCount;
+    final oldDownvotes = _issue!.downvoteCount;
+
     setState(() {
       _hasUpvoted = !wasUpvoted;
-      if (_hasUpvoted) _hasDownvoted = false;
+      if (_hasUpvoted) {
+        _hasDownvoted = false;
+        _issue = _issue!.copyWith(
+          upvoteCount: oldUpvotes + 1,
+          downvoteCount: wasDownvoted ? oldDownvotes - 1 : oldDownvotes,
+        );
+      } else {
+        _issue = _issue!.copyWith(
+          upvoteCount: oldUpvotes - 1,
+        );
+      }
     });
+
     try {
       await SupabaseService.toggleUpvote(widget.issueId);
       await _refreshDataSilently();
@@ -106,10 +118,14 @@ class _IssueDetailScreenState extends ConsumerState<IssueDetailScreen> {
         setState(() {
           _hasUpvoted = wasUpvoted;
           _hasDownvoted = wasDownvoted;
+          _issue = _issue!.copyWith(
+            upvoteCount: oldUpvotes,
+            downvoteCount: oldDownvotes,
+          );
         });
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(const SnackBar(content: Text('Failed to update vote')));
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Failed to update vote')),
+        );
       }
     }
   }
@@ -118,10 +134,24 @@ class _IssueDetailScreenState extends ConsumerState<IssueDetailScreen> {
     if (_issue == null) return;
     final wasDownvoted = _hasDownvoted;
     final wasUpvoted = _hasUpvoted;
+    final oldUpvotes = _issue!.upvoteCount;
+    final oldDownvotes = _issue!.downvoteCount;
+
     setState(() {
       _hasDownvoted = !wasDownvoted;
-      if (_hasDownvoted) _hasUpvoted = false;
+      if (_hasDownvoted) {
+        _hasUpvoted = false;
+        _issue = _issue!.copyWith(
+          downvoteCount: oldDownvotes + 1,
+          upvoteCount: wasUpvoted ? oldUpvotes - 1 : oldUpvotes,
+        );
+      } else {
+        _issue = _issue!.copyWith(
+          downvoteCount: oldDownvotes - 1,
+        );
+      }
     });
+
     try {
       await SupabaseService.toggleDownvote(widget.issueId);
       await _refreshDataSilently();
@@ -130,10 +160,14 @@ class _IssueDetailScreenState extends ConsumerState<IssueDetailScreen> {
         setState(() {
           _hasDownvoted = wasDownvoted;
           _hasUpvoted = wasUpvoted;
+          _issue = _issue!.copyWith(
+            upvoteCount: oldUpvotes,
+            downvoteCount: oldDownvotes,
+          );
         });
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(const SnackBar(content: Text('Failed to update vote')));
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Failed to update vote')),
+        );
       }
     }
   }
@@ -160,114 +194,7 @@ Report via NagarSewa App
     SharePlus.instance.share(ShareParams(text: shareText.trim()));
   }
 
-  Future<void> _generateDraft() async {
-    if (_issue == null) return;
 
-    final lastTwoLogs = _history.length >= 2
-        ? _history.sublist(_history.length - 2)
-        : _history;
-    final statusLogs = lastTwoLogs
-        .map(
-          (e) => StatusLogEntry(
-            changedByName: 'Officer',
-            oldStatus: e['from_status'] ?? 'unknown',
-            newStatus: e['to_status'] ?? 'unknown',
-            officerNote: e['note'] ?? '',
-            changedAt:
-                DateTime.tryParse(e['created_at'] ?? '') ?? DateTime.now(),
-          ),
-        )
-        .toList();
-
-    try {
-      await ref
-          .read(draftResponseProvider.notifier)
-          .generateDraft(
-            _issue!.title,
-            _issue!.category,
-            _issue!.status,
-            statusLogs,
-          );
-
-      final draftState = ref.read(draftResponseProvider);
-      if (draftState is AsyncData<String?> &&
-          draftState.value != null &&
-          mounted) {
-        _showDraftResult(draftState.value!);
-      }
-    } catch (e) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to generate draft: ${e.toString()}')),
-        );
-      }
-    }
-  }
-
-  void _showDraftResult(String draft) {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder: (context) => Container(
-        padding: const EdgeInsets.all(24),
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Icon(Icons.edit_note, color: AppColors.navyPrimary),
-                const SizedBox(width: 8),
-                Text(
-                  'AI Draft Resolution',
-                  style: GoogleFonts.inter(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.navyPrimary,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            Text(draft, style: GoogleFonts.inter(fontSize: 14, height: 1.5)),
-            const SizedBox(height: 24),
-            Row(
-              children: [
-                Expanded(
-                  child: OutlinedButton(
-                    onPressed: () => Navigator.pop(context),
-                    child: const Text('Close'),
-                  ),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                      Clipboard.setData(ClipboardData(text: draft));
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Copied to clipboard')),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.greenAccent,
-                      foregroundColor: Colors.white,
-                    ),
-                    child: const Text('Copy'),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -285,8 +212,6 @@ Report via NagarSewa App
     final issue = _issue!;
     final statusColor = AppColors.getStatusColor(issue.status);
     final categoryColor = AppColors.getCategoryColor(issue.category);
-    final draftState = ref.watch(draftResponseProvider);
-    final isGeneratingDraft = draftState.isLoading;
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -554,36 +479,7 @@ Report via NagarSewa App
                   ).animate().fadeIn(delay: 200.ms),
                   const SizedBox(height: 24),
 
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton.icon(
-                      onPressed: isGeneratingDraft ? null : _generateDraft,
-                      icon: isGeneratingDraft
-                          ? const SizedBox(
-                              width: 16,
-                              height: 16,
-                              child: CircularProgressIndicator(
-                                strokeWidth: 2,
-                                color: Colors.white,
-                              ),
-                            )
-                          : const Icon(Icons.auto_awesome, size: 18),
-                      label: Text(
-                        isGeneratingDraft
-                            ? 'Generating Draft...'
-                            : 'Generate Resolution Draft',
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.navyPrimary,
-                        foregroundColor: Colors.white,
-                        padding: const EdgeInsets.symmetric(vertical: 14),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                    ),
-                  ).animate().fadeIn(delay: 300.ms),
-                  const SizedBox(height: 24),
+
 
                   Text(
                     'Status Timeline',
@@ -740,6 +636,104 @@ Report via NagarSewa App
                         ),
                       ],
                     ).animate().fadeIn(delay: 400.ms),
+                  ],
+                  if (Supabase.instance.client.auth.currentUser?.id == issue.reporterId) ...[
+                    const SizedBox(height: 16),
+                    SizedBox(
+                      width: double.infinity,
+                      child: AppButton(
+                        text: 'Raise a Complaint',
+                        backgroundColor: Colors.orange,
+                        icon: Icons.report_problem_outlined,
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              final complaintController = TextEditingController();
+                              return AlertDialog(
+                                title: const Text('Raise a Complaint'),
+                                content: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    const Text('Describe your complaint regarding this issue:'),
+                                    const SizedBox(height: 12),
+                                    TextField(
+                                      controller: complaintController,
+                                      maxLines: 4,
+                                      decoration: const InputDecoration(
+                                        hintText: 'Enter complaint details...',
+                                        border: OutlineInputBorder(),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () => Navigator.pop(context),
+                                    child: const Text('Cancel'),
+                                  ),
+                                  ElevatedButton(
+                                    onPressed: () async {
+                                      final content = complaintController.text.trim();
+                                      if (content.isEmpty) return;
+                                      
+                                      try {
+                                        await SupabaseService.submitComplaint(issue.id, content);
+                                        if (context.mounted) {
+                                          Navigator.pop(context);
+                                          ScaffoldMessenger.of(context).showSnackBar(
+                                            const SnackBar(content: Text('Complaint registered successfully.')),
+                                          );
+                                        }
+                                      } catch (e) {
+                                        if (context.mounted) {
+                                          ScaffoldMessenger.of(context).showSnackBar(
+                                            SnackBar(content: Text('Failed to register complaint: $e')),
+                                          );
+                                        }
+                                      }
+                                    },
+                                    child: const Text('Submit'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    SizedBox(
+                      width: double.infinity,
+                      child: AppButton(
+                        text: 'Delete Issue',
+                        backgroundColor: AppColors.urgentRed,
+                        icon: Icons.delete_outline,
+                        onPressed: () async {
+                          final confirm = await showDialog<bool>(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              title: const Text('Delete Issue'),
+                              content: const Text('Are you sure you want to delete this issue?'),
+                              actions: [
+                                TextButton(onPressed: () => Navigator.pop(context, false), child: const Text('Cancel')),
+                                TextButton(
+                                  onPressed: () => Navigator.pop(context, true), 
+                                  child: const Text('Delete', style: TextStyle(color: Colors.red)),
+                                ),
+                              ]
+                            )
+                          );
+                          if (confirm == true) {
+                            await SupabaseService.deleteIssue(issue.id);
+                            if (context.mounted) {
+                              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Issue deleted successfully.')));
+                              context.pop();
+                            }
+                          }
+                        },
+                      ),
+                    ),
                   ],
                   const SizedBox(height: 32),
                 ],
@@ -968,7 +962,6 @@ Report via NagarSewa App
   String _statusLabel(String? status) {
     const labels = {
       'submitted': 'Issue Submitted',
-      'ai_verified': 'AI Verified',
       'assigned': 'Assigned to Department',
       'acknowledged': 'Department Acknowledged',
       'in_progress': 'Work In Progress',

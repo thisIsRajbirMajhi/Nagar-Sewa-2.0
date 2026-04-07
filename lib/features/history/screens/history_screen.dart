@@ -18,6 +18,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
   List<IssueModel> _issues = [];
   bool _isLoading = true;
   String _filter = 'all';
+  String _searchQuery = '';
 
   @override
   void initState() {
@@ -41,19 +42,26 @@ class _HistoryScreenState extends State<HistoryScreen> {
   }
 
   List<IssueModel> get _filteredIssues {
-    if (_filter == 'all') return _issues;
+    List<IssueModel> filtered = _issues;
+
     if (_filter == 'open') {
-      return _issues
-          .where((i) => !i.isResolved && i.status != 'rejected')
-          .toList();
+      filtered = filtered.where((i) => !i.isResolved && i.status != 'rejected').toList();
+    } else if (_filter == 'resolved') {
+      filtered = filtered.where((i) => i.isResolved).toList();
+    } else if (_filter == 'escalated') {
+      filtered = filtered.where((i) => i.isUrgent).toList();
     }
-    if (_filter == 'resolved') {
-      return _issues.where((i) => i.isResolved).toList();
+
+    if (_searchQuery.isNotEmpty) {
+      final query = _searchQuery.toLowerCase();
+      filtered = filtered.where((i) =>
+        i.title.toLowerCase().contains(query) ||
+        (i.description?.toLowerCase().contains(query) ?? false) ||
+        i.category.toLowerCase().contains(query)
+      ).toList();
     }
-    if (_filter == 'escalated') {
-      return _issues.where((i) => i.isUrgent).toList();
-    }
-    return _issues;
+
+    return filtered;
   }
 
   @override
@@ -83,6 +91,23 @@ class _HistoryScreenState extends State<HistoryScreen> {
                     style: GoogleFonts.inter(
                       fontSize: 13,
                       color: AppColors.textSecondary,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(14),
+                      border: Border.all(color: AppColors.border),
+                    ),
+                    child: TextField(
+                      onChanged: (val) => setState(() => _searchQuery = val),
+                      decoration: InputDecoration(
+                        hintText: 'Search by title, description or category...',
+                        border: InputBorder.none,
+                        prefixIcon: Icon(Icons.search, color: AppColors.textSecondary),
+                        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                      ),
                     ),
                   ),
                   const SizedBox(height: 16),

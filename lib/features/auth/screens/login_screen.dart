@@ -3,21 +3,23 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:go_router/go_router.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/widgets/app_button.dart';
 import '../../../core/widgets/app_text_field.dart';
 import '../../../core/utils/validators.dart';
 import '../../../core/utils/error_messages.dart';
 import '../../../services/supabase_service.dart';
+import '../../../providers/auth_provider.dart';
 
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  ConsumerState<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends ConsumerState<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -52,7 +54,16 @@ class _LoginScreenState extends State<LoginScreen> {
         return;
       }
 
-      if (mounted) context.go('/dashboard');
+      if (mounted) {
+        ref.invalidate(userProfileProvider);
+        final profile = await SupabaseService.getProfile();
+        if (!mounted) return;
+        if (profile?.role == 'officer') {
+          context.go('/officer/dashboard');
+        } else {
+          context.go('/dashboard');
+        }
+      }
     } on AuthException catch (e) {
       if (mounted) {
         setState(() {

@@ -1,32 +1,3 @@
-class VerificationConstants {
-  VerificationConstants._();
-
-  static const double strictThresholdMeters = 500.0;
-  static const double baseToleranceMeters = 500.0;
-  static const double maxToleranceMeters = 2000.0;
-  static const double toleranceGrowthPerHour = 500.0;
-
-  static const int maxTimestampDiffMinutesFresh = 30;
-  static const int maxTimestampDiffMinutesWarning = 120;
-  static const int maxTimestampDiffMinutesBad = 240;
-
-  static const double gpsWeight = 0.30;
-  static const double timestampWeight = 0.20;
-  static const double metadataWeight = 0.15;
-  static const double authenticityWeight = 0.20;
-  static const double baselineWeight = 0.15;
-
-  static const double highConfidenceThreshold = 0.8;
-  static const double mediumConfidenceThreshold = 0.5;
-
-  static const double suspiciousTimestampThreshold = 0.5;
-
-  static const double photoWeight = 0.6;
-  static const double videoWeight = 0.4;
-
-  static const int maxSubmissionDelayMinutes = 30;
-}
-
 class CacheConstants {
   CacheConstants._();
 
@@ -49,15 +20,6 @@ class ApiConstants {
   static const Duration retryMaxDelay = Duration(seconds: 30);
 
   static const Duration requestTimeout = Duration(seconds: 30);
-}
-
-class ImageConstants {
-  ImageConstants._();
-
-  static const int maxImageWidth = 1920;
-  static const int maxImageHeight = 1920;
-  static const int imageQuality = 80;
-  static const int maxImageSizeBytes = 2 * 1024 * 1024; // 2MB
 }
 
 class LocationConstants {

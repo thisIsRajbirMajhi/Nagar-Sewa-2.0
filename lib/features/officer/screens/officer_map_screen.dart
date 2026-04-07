@@ -1,14 +1,17 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:maplibre_gl/maplibre_gl.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../models/issue_model.dart';
 import '../../../services/location_service.dart';
 import '../providers/officer_provider.dart';
+
 
 class OfficerMapScreen extends ConsumerStatefulWidget {
   const OfficerMapScreen({super.key});
@@ -22,6 +25,7 @@ class _OfficerMapScreenState extends ConsumerState<OfficerMapScreen> {
   LatLng? _currentPosition;
   StreamSubscription? _positionStream;
   String? _selectedCategory;
+  bool _showLegend = false;
 
   final Map<String, Color> _categoryColors = {
     'pothole': AppColors.catPothole,
@@ -33,12 +37,25 @@ class _OfficerMapScreenState extends ConsumerState<OfficerMapScreen> {
     'open_manhole': AppColors.catManhole,
   };
 
+  final Map<String, String> _categoryLabels = {
+    'pothole': 'Pothole',
+    'garbage_overflow': 'Garbage',
+    'broken_streetlight': 'Streetlight',
+    'sewage_leak': 'Sewage',
+    'waterlogging': 'Waterlogging',
+    'damaged_road': 'Road Damage',
+    'open_manhole': 'Manhole',
+    'encroachment': 'Encroachment',
+    'other': 'Other',
+  };
+
   final Map<String, IconData> _categoryIcons = {
     'pothole': Icons.warning_rounded,
     'garbage_overflow': Icons.delete_rounded,
     'broken_streetlight': Icons.lightbulb_outline,
     'sewage_leak': Icons.water_drop,
     'waterlogging': Icons.waves,
+    'damaged_road': Icons.add_road_rounded,
     'open_manhole': Icons.circle_outlined,
     'encroachment': Icons.fence,
     'other': Icons.more_horiz,
@@ -65,7 +82,7 @@ class _OfficerMapScreenState extends ConsumerState<OfficerMapScreen> {
       setState(() {
         _currentPosition = LatLng(position.latitude, position.longitude);
       });
-      
+
       _positionStream = LocationService.getPositionStream().listen((pos) {
         if (!mounted) return;
         setState(() {
@@ -74,7 +91,7 @@ class _OfficerMapScreenState extends ConsumerState<OfficerMapScreen> {
       });
     } else if (mounted) {
       setState(() {
-        _currentPosition = const LatLng(20.5937, 78.9629); // India center
+        _currentPosition = const LatLng(20.5937, 78.9629);
       });
     }
   }
@@ -95,9 +112,25 @@ class _OfficerMapScreenState extends ConsumerState<OfficerMapScreen> {
     }
   }
 
+  /// Compute circle radius based on severity
+  double _getSeverityRadius(String severity) {
+    switch (severity.toLowerCase()) {
+      case 'critical':
+        return 16;
+      case 'high':
+        return 13;
+      case 'medium':
+        return 10;
+      case 'low':
+        return 8;
+      default:
+        return 10;
+    }
+  }
+
   Future<void> _updateMapFeatures() async {
     if (_mapController == null) return;
-    
+
     final issuesAsync = ref.read(officerIssuesProvider);
     if (!issuesAsync.hasValue) return;
 
@@ -106,26 +139,35 @@ class _OfficerMapScreenState extends ConsumerState<OfficerMapScreen> {
 
     final issues = issuesAsync.value!;
     final filteredIssues = issues.where((i) {
-      if (i.isResolved) return false;
-      if (_selectedCategory != null && i.category != _selectedCategory) return false;
+      if (i.isResolved) {
+        return false;
+      }
+      if (_selectedCategory != null && i.category != _selectedCategory) {
+        return false;
+      }
       return true;
     }).toList();
 
     for (final issue in filteredIssues) {
       final color = _categoryColors[issue.category] ?? AppColors.catOther;
-      final hexColor = '#${color.toARGB32().toRadixString(16).substring(2).padLeft(6, '0')}';
+      final hexColor =
+          '#${color.toARGB32().toRadixString(16).substring(2).padLeft(6, '0')}';
 
-      // Higher radius for priority issues
-      double radius = 10;
-      if (issue.upvoteCount > 50) radius = 14;
-      if (issue.upvoteCount > 100) radius = 18;
+      // Severity-based radius
+      double radius = _getSeverityRadius(issue.severity);
+
+      // Boost for high upvotes
+      if (issue.upvoteCount > 50) radius += 2;
+      if (issue.upvoteCount > 100) radius += 4;
+
+      final opacity = 0.8; // Default opacity
 
       final circle = await _mapController!.addCircle(
         CircleOptions(
           geometry: LatLng(issue.latitude, issue.longitude),
           circleColor: hexColor,
           circleRadius: radius,
-          circleOpacity: 0.8,
+          circleOpacity: opacity,
           circleStrokeWidth: 2,
           circleStrokeColor: '#FFFFFF',
         ),
@@ -138,7 +180,6 @@ class _OfficerMapScreenState extends ConsumerState<OfficerMapScreen> {
   Widget build(BuildContext context) {
     final issuesAsync = ref.watch(officerIssuesProvider);
 
-    // Trigger update when issues change
     if (issuesAsync.hasValue) {
       WidgetsBinding.instance.addPostFrameCallback((_) => _updateMapFeatures());
     }
@@ -146,6 +187,7 @@ class _OfficerMapScreenState extends ConsumerState<OfficerMapScreen> {
     return Scaffold(
       body: Stack(
         children: [
+          // Map
           if (_currentPosition != null)
             MapLibreMap(
               styleString: 'https://tiles.openfreemap.org/styles/liberty',
@@ -163,37 +205,87 @@ class _OfficerMapScreenState extends ConsumerState<OfficerMapScreen> {
 
           // Header
           Positioned(
-            top: MediaQuery.of(context).padding.top + 16,
+            top: MediaQuery.of(context).padding.top + 12,
             left: 16,
             right: 16,
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
               decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(16),
-                boxShadow: [
-                  BoxShadow(color: Colors.black.withValues(alpha: 0.1), blurRadius: 10),
-                ],
+                color: AppColors.cardBg,
+                borderRadius: BorderRadius.circular(14),
+                boxShadow: [BoxShadow(color: AppColors.shadow, blurRadius: 10)],
               ),
               child: Row(
                 children: [
-                  Icon(Icons.map_outlined, color: AppColors.navyPrimary),
-                  const SizedBox(width: 12),
+                  Icon(
+                    Icons.map_rounded,
+                    color: AppColors.navyPrimary,
+                    size: 22,
+                  ),
+                  const SizedBox(width: 10),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Text('Officer Map View', style: GoogleFonts.inter(fontWeight: FontWeight.bold)),
+                        Text(
+                          'Task Map',
+                          style: GoogleFonts.inter(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 14,
+                            color: AppColors.textPrimary,
+                          ),
+                        ),
                         Text(
                           issuesAsync.when(
-                            data: (list) => '${list.where((i) => !i.isResolved).length} pending tasks',
-                            loading: () => 'Loading tasks...',
-                            error: (e, st) => 'Error loading tasks',
+                            data: (list) =>
+                                '${list.where((i) => !i.isResolved).length} active tasks in your area',
+                            loading: () => 'Loading...',
+                            error: (_, _) => 'Error loading tasks',
                           ),
-                          style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+                          style: GoogleFonts.inter(
+                            fontSize: 11,
+                            color: AppColors.textLight,
+                          ),
                         ),
                       ],
+                    ),
+                  ),
+                  // Legend toggle
+                  IconButton(
+                    icon: Icon(
+                      _showLegend ? Icons.info : Icons.info_outline_rounded,
+                      color: _showLegend
+                          ? AppColors.navyPrimary
+                          : AppColors.textLight,
+                      size: 20,
+                    ),
+                    onPressed: () => setState(() => _showLegend = !_showLegend),
+                    constraints: const BoxConstraints(),
+                    padding: const EdgeInsets.all(4),
+                  ),
+                ],
+              ),
+            ).animate().fadeIn(duration: 300.ms).slideY(begin: -0.1),
+          ),
+
+          // Category filter
+          Positioned(
+            top: MediaQuery.of(context).padding.top + 72,
+            left: 0,
+            right: 0,
+            child: SizedBox(
+              height: 36,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                children: [
+                  _buildFilterChip(null, 'All', Icons.layers_rounded),
+                  ..._categoryColors.entries.map(
+                    (e) => _buildFilterChip(
+                      e.key,
+                      _categoryLabels[e.key] ?? e.key,
+                      _categoryIcons[e.key] ?? Icons.info,
                     ),
                   ),
                 ],
@@ -201,36 +293,39 @@ class _OfficerMapScreenState extends ConsumerState<OfficerMapScreen> {
             ),
           ),
 
-          // Category filter
-          Positioned(
-            top: MediaQuery.of(context).padding.top + 80,
-            left: 0,
-            right: 0,
-            child: SizedBox(
-              height: 40,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                children: [
-                  _buildFilterChip(null, 'All', Icons.layers),
-                  ..._categoryColors.entries.map((e) => _buildFilterChip(e.key, e.key.replaceAll('_', ' ').toUpperCase(), _categoryIcons[e.key] ?? Icons.info)),
-                ],
-              ),
+          // Legend overlay
+          if (_showLegend)
+            Positioned(
+              top: MediaQuery.of(context).padding.top + 116,
+              right: 16,
+              child: _buildLegend(),
             ),
-          ),
 
-          // Re-center button
+          // Bottom controls
           Positioned(
             bottom: 24,
             right: 16,
-            child: FloatingActionButton(
-              onPressed: () {
-                if (_currentPosition != null) {
-                  _mapController?.animateCamera(CameraUpdate.newLatLngZoom(_currentPosition!, 14));
-                }
-              },
-              backgroundColor: Colors.white,
-              child: Icon(Icons.my_location, color: AppColors.navyPrimary),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // Re-center
+                FloatingActionButton.small(
+                  heroTag: 'recenter',
+                  onPressed: () {
+                    if (_currentPosition != null) {
+                      _mapController?.animateCamera(
+                        CameraUpdate.newLatLngZoom(_currentPosition!, 14),
+                      );
+                    }
+                  },
+                  backgroundColor: AppColors.cardBg,
+                  child: Icon(
+                    Icons.my_location,
+                    color: AppColors.navyPrimary,
+                    size: 20,
+                  ),
+                ),
+              ],
             ),
           ),
         ],
@@ -240,95 +335,411 @@ class _OfficerMapScreenState extends ConsumerState<OfficerMapScreen> {
 
   Widget _buildFilterChip(String? category, String label, IconData icon) {
     final isSelected = _selectedCategory == category;
+    final color = category != null
+        ? (_categoryColors[category] ?? AppColors.catOther)
+        : AppColors.navyPrimary;
+
     return Padding(
-      padding: const EdgeInsets.only(right: 8),
-      child: FilterChip(
-        selected: isSelected,
-        label: Text(label, style: TextStyle(fontSize: 12, color: isSelected ? Colors.white : Colors.black)),
-        onSelected: (val) {
-          setState(() => _selectedCategory = val ? category : null);
+      padding: const EdgeInsets.only(right: 6),
+      child: GestureDetector(
+        onTap: () {
+          setState(() => _selectedCategory = isSelected ? null : category);
           _updateMapFeatures();
         },
-        backgroundColor: Colors.white,
-        selectedColor: AppColors.navyPrimary,
-        elevation: 2,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          decoration: BoxDecoration(
+            color: isSelected ? color : AppColors.cardBg,
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: [BoxShadow(color: AppColors.shadow, blurRadius: 4)],
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(
+                icon,
+                size: 14,
+                color: isSelected ? Colors.white : AppColors.textSecondary,
+              ),
+              const SizedBox(width: 4),
+              Text(
+                label,
+                style: GoogleFonts.inter(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w600,
+                  color: isSelected ? Colors.white : AppColors.textSecondary,
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
 
+  Widget _buildLegend() {
+    return Container(
+      width: 180,
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: AppColors.cardBg,
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [BoxShadow(color: AppColors.shadow, blurRadius: 8)],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Legend',
+            style: GoogleFonts.inter(
+              fontSize: 12,
+              fontWeight: FontWeight.w700,
+              color: AppColors.textPrimary,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            'Categories',
+            style: GoogleFonts.inter(
+              fontSize: 9,
+              fontWeight: FontWeight.w600,
+              color: AppColors.textLight,
+              letterSpacing: 0.5,
+            ),
+          ),
+          const SizedBox(height: 4),
+          ..._categoryColors.entries.map(
+            (e) => Padding(
+              padding: const EdgeInsets.only(bottom: 3),
+              child: Row(
+                children: [
+                  Container(
+                    width: 8,
+                    height: 8,
+                    decoration: BoxDecoration(
+                      color: e.value,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                  const SizedBox(width: 6),
+                  Text(
+                    _categoryLabels[e.key] ?? e.key,
+                    style: GoogleFonts.inter(
+                      fontSize: 10,
+                      color: AppColors.textSecondary,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            'Size = Severity',
+            style: GoogleFonts.inter(
+              fontSize: 9,
+              fontWeight: FontWeight.w600,
+              color: AppColors.textLight,
+              letterSpacing: 0.5,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Row(
+            children: [
+              Container(
+                width: 6,
+                height: 6,
+                decoration: BoxDecoration(
+                  color: AppColors.textLight,
+                  shape: BoxShape.circle,
+                ),
+              ),
+              const SizedBox(width: 4),
+              Text(
+                'Low',
+                style: GoogleFonts.inter(
+                  fontSize: 9,
+                  color: AppColors.textLight,
+                ),
+              ),
+              const SizedBox(width: 8),
+              Container(
+                width: 10,
+                height: 10,
+                decoration: BoxDecoration(
+                  color: AppColors.textLight,
+                  shape: BoxShape.circle,
+                ),
+              ),
+              const SizedBox(width: 4),
+              Text(
+                'Med',
+                style: GoogleFonts.inter(
+                  fontSize: 9,
+                  color: AppColors.textLight,
+                ),
+              ),
+              const SizedBox(width: 8),
+              Container(
+                width: 14,
+                height: 14,
+                decoration: BoxDecoration(
+                  color: AppColors.textLight,
+                  shape: BoxShape.circle,
+                ),
+              ),
+              const SizedBox(width: 4),
+              Text(
+                'Crit',
+                style: GoogleFonts.inter(
+                  fontSize: 9,
+                  color: AppColors.textLight,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 6),
+          Text(
+            'Opacity = AI Confidence',
+            style: GoogleFonts.inter(
+              fontSize: 9,
+              fontWeight: FontWeight.w600,
+              color: AppColors.textLight,
+              letterSpacing: 0.5,
+            ),
+          ),
+        ],
+      ),
+    ).animate().fadeIn(duration: 200.ms).slideX(begin: 0.1);
+  }
+
   void _showIssuePreview(IssueModel issue) {
+    final statusColor = AppColors.getStatusColor(issue.status);
+    final severityColor = _getSeverityColorForDisplay(issue.severity);
+
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
       builder: (context) => Container(
-        padding: const EdgeInsets.all(24),
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: AppColors.cardBg,
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+          boxShadow: [BoxShadow(color: AppColors.shadow, blurRadius: 12)],
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Handle
+            Center(
+              child: Container(
+                width: 40,
+                height: 4,
+                decoration: BoxDecoration(
+                  color: AppColors.border,
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+            ),
+            const SizedBox(height: 14),
+
+            // Title + Status
             Row(
               children: [
                 Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(issue.title, style: GoogleFonts.inter(fontSize: 18, fontWeight: FontWeight.bold)),
-                      Text(issue.categoryLabel, style: TextStyle(color: Colors.grey[600], fontSize: 13)),
-                    ],
+                  child: Text(
+                    issue.title,
+                    style: GoogleFonts.inter(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                      color: AppColors.textPrimary,
+                    ),
                   ),
                 ),
                 Container(
-                  padding: const EdgeInsets.all(8),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 4,
+                  ),
                   decoration: BoxDecoration(
-                    color: AppColors.getStatusColor(issue.status).withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(12),
+                    color: statusColor.withValues(alpha: 0.12),
+                    borderRadius: BorderRadius.circular(8),
                   ),
                   child: Text(
                     issue.statusLabel.toUpperCase(),
-                    style: TextStyle(
-                      color: AppColors.getStatusColor(issue.status),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 11,
+                    style: GoogleFonts.inter(
+                      fontSize: 9,
+                      fontWeight: FontWeight.w800,
+                      color: statusColor,
+                      letterSpacing: 0.3,
                     ),
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 8),
+
+            // Location
             Row(
               children: [
-                Icon(Icons.arrow_upward, size: 16, color: AppColors.navyPrimary),
+                Icon(
+                  Icons.location_on_outlined,
+                  size: 13,
+                  color: AppColors.textLight,
+                ),
                 const SizedBox(width: 4),
-                Text('${issue.upvoteCount} upvotes', style: const TextStyle(fontWeight: FontWeight.w600)),
-                const SizedBox(width: 16),
-                const Icon(Icons.access_time, size: 16, color: Colors.grey),
-                const SizedBox(width: 4),
-                Text(DateFormat('MMM dd').format(issue.createdAt), style: const TextStyle(color: Colors.grey)),
+                Expanded(
+                  child: Text(
+                    issue.address ?? 'Location not specified',
+                    style: GoogleFonts.inter(
+                      fontSize: 11,
+                      color: AppColors.textLight,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
               ],
             ),
-            const SizedBox(height: 24),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                  context.push('/issue/${issue.id}');
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.navyPrimary,
-                  padding: const EdgeInsets.symmetric(vertical: 14),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            const SizedBox(height: 12),
+
+            // Meta row: severity + AI confidence + upvotes + date
+            Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 6,
+                    vertical: 3,
+                  ),
+                  decoration: BoxDecoration(
+                    color: severityColor.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  child: Text(
+                    issue.severity.toUpperCase(),
+                    style: GoogleFonts.inter(
+                      fontSize: 9,
+                      fontWeight: FontWeight.w800,
+                      color: severityColor,
+                    ),
+                  ),
                 ),
-                child: const Text('View Official Task', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-              ),
+
+                Icon(
+                  Icons.arrow_upward_rounded,
+                  size: 14,
+                  color: AppColors.communityOrange,
+                ),
+                Text(
+                  '${issue.upvoteCount}',
+                  style: GoogleFonts.inter(
+                    fontSize: 11,
+                    fontWeight: FontWeight.w700,
+                    color: AppColors.communityOrange,
+                  ),
+                ),
+                const Spacer(),
+                Text(
+                  DateFormat('MMM dd').format(issue.createdAt),
+                  style: GoogleFonts.inter(
+                    fontSize: 11,
+                    color: AppColors.textLight,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+
+            // Action buttons
+            Row(
+              children: [
+                Expanded(
+                  child: OutlinedButton.icon(
+                    onPressed: () async {
+                      final lat = issue.latitude;
+                      final lng = issue.longitude;
+                      final url = Uri.parse(
+                        'https://www.google.com/maps/dir/?api=1&destination=$lat,$lng',
+                      );
+                      if (await canLaunchUrl(url)) {
+                        await launchUrl(
+                          url,
+                          mode: LaunchMode.externalApplication,
+                        );
+                      }
+                    },
+                    icon: Icon(
+                      Icons.directions_rounded,
+                      size: 16,
+                      color: AppColors.reportedBlue,
+                    ),
+                    label: Text(
+                      'Navigate',
+                      style: GoogleFonts.inter(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    style: OutlinedButton.styleFrom(
+                      foregroundColor: AppColors.reportedBlue,
+                      side: BorderSide(
+                        color: AppColors.reportedBlue.withValues(alpha: 0.3),
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 10),
+                Expanded(
+                  flex: 2,
+                  child: ElevatedButton.icon(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      context.push('/issue/${issue.id}');
+                    },
+                    icon: const Icon(Icons.open_in_new_rounded, size: 16),
+                    label: Text(
+                      'View Details',
+                      style: GoogleFonts.inter(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.navyPrimary,
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
       ),
     );
+  }
+
+  Color _getSeverityColorForDisplay(String severity) {
+    switch (severity.toLowerCase()) {
+      case 'critical':
+        return const Color(0xFFDC2626);
+      case 'high':
+        return const Color(0xFFEA580C);
+      case 'medium':
+        return const Color(0xFFF59E0B);
+      case 'low':
+        return const Color(0xFF22C55E);
+      default:
+        return Colors.grey;
+    }
   }
 }

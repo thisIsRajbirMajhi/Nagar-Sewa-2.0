@@ -1,4 +1,3 @@
-import 'orchestration_result.dart';
 
 class IssueModel {
   final String id;
@@ -25,24 +24,14 @@ class IssueModel {
   final int? citizenRating;
   final DateTime createdAt;
   final DateTime updatedAt;
-  // Verification fields
-  final String verificationConfidence;
-  final List<String> verificationFlags;
-  final double? exifGpsLat;
-  final double? exifGpsLng;
-  final DateTime? exifTimestamp;
-  final String? captureDevice;
-  final bool isDelayedSubmission;
-  final bool adminReviewed;
-  final bool? adminApproved;
-  // AI Orchestration metadata fields
-  final double? aiConfidence;
-  final String? aiConfidenceTier;
-  final List<String> aiSecondaryIssues;
-  final String? aiLocationHint;
-  final String? aiVisionSummary;
-  final List<String> aiExtractedText;
-  final List<String> aiWarnings;
+
+  // Resolution Fields (Phase 3)
+  final String? actionTaken;
+  final String? resourcesUsed;
+  final int? timeSpentMinutes;
+  final double? resolutionGpsLat;
+  final double? resolutionGpsLng;
+  final double? costEstimate;
   // Joined fields
   final String? reporterName;
   final String? departmentName;
@@ -72,22 +61,13 @@ class IssueModel {
     this.citizenRating,
     required this.createdAt,
     required this.updatedAt,
-    this.verificationConfidence = 'high',
-    this.verificationFlags = const [],
-    this.exifGpsLat,
-    this.exifGpsLng,
-    this.exifTimestamp,
-    this.captureDevice,
-    this.isDelayedSubmission = false,
-    this.adminReviewed = false,
-    this.adminApproved,
-    this.aiConfidence,
-    this.aiConfidenceTier,
-    this.aiSecondaryIssues = const [],
-    this.aiLocationHint,
-    this.aiVisionSummary,
-    this.aiExtractedText = const [],
-    this.aiWarnings = const [],
+
+    this.actionTaken,
+    this.resourcesUsed,
+    this.timeSpentMinutes,
+    this.resolutionGpsLat,
+    this.resolutionGpsLng,
+    this.costEstimate,
     this.reporterName,
     this.departmentName,
   });
@@ -130,41 +110,13 @@ class IssueModel {
       citizenRating: json['citizen_rating'] as int?,
       createdAt: DateTime.parse(json['created_at'] as String),
       updatedAt: DateTime.parse(json['updated_at'] as String),
-      verificationConfidence:
-          json['verification_confidence'] as String? ?? 'high',
-      verificationFlags:
-          (json['verification_flags'] as List<dynamic>?)
-              ?.map((e) => e as String)
-              .toList() ??
-          [],
-      exifGpsLat: (json['exif_gps_lat'] as num?)?.toDouble(),
-      exifGpsLng: (json['exif_gps_lng'] as num?)?.toDouble(),
-      exifTimestamp: json['exif_timestamp'] != null
-          ? DateTime.parse(json['exif_timestamp'] as String)
-          : null,
-      captureDevice: json['capture_device'] as String?,
-      isDelayedSubmission: json['is_delayed_submission'] as bool? ?? false,
-      adminReviewed: json['admin_reviewed'] as bool? ?? false,
-      adminApproved: json['admin_approved'] as bool?,
-      aiConfidence: (json['ai_confidence'] as num?)?.toDouble(),
-      aiConfidenceTier: json['ai_confidence_tier'] as String?,
-      aiSecondaryIssues:
-          (json['ai_secondary_issues'] as List<dynamic>?)
-              ?.map((e) => e as String)
-              .toList() ??
-          [],
-      aiLocationHint: json['ai_location_hint'] as String?,
-      aiVisionSummary: json['ai_vision_summary'] as String?,
-      aiExtractedText:
-          (json['ai_extracted_text'] as List<dynamic>?)
-              ?.map((e) => e as String)
-              .toList() ??
-          [],
-      aiWarnings:
-          (json['ai_warnings'] as List<dynamic>?)
-              ?.map((e) => e as String)
-              .toList() ??
-          [],
+
+      actionTaken: json['action_taken'] as String?,
+      resourcesUsed: json['resources_used'] as String?,
+      timeSpentMinutes: json['time_spent_minutes'] as int?,
+      resolutionGpsLat: (json['resolution_gps_lat'] as num?)?.toDouble(),
+      resolutionGpsLng: (json['resolution_gps_lng'] as num?)?.toDouble(),
+      costEstimate: (json['cost_estimate'] as num?)?.toDouble(),
       reporterName: json['profiles'] != null
           ? (json['profiles'] as Map<String, dynamic>)['full_name'] as String?
           : null,
@@ -191,39 +143,76 @@ class IssueModel {
     };
   }
 
-  Map<String, dynamic> toInsertJsonWithAiMetadata(
-    OrchestrationResult aiResult,
-  ) {
-    return {
-      'reporter_id': reporterId,
-      'title': aiResult.description.isNotEmpty
-          ? aiResult.description.split('.').first
-          : title,
-      'description': aiResult.description.isNotEmpty
-          ? aiResult.description
-          : description,
-      'category': aiResult.category.isNotEmpty ? aiResult.category : category,
-      'severity': aiResult.severity.isNotEmpty ? aiResult.severity : severity,
-      'latitude': latitude,
-      'longitude': longitude,
-      'address': address,
-      'photo_urls': photoUrls,
-      'video_url': videoUrl,
-      'is_draft': isDraft,
-      'is_anonymous': isAnonymous,
-      'ai_confidence': aiResult.confidence,
-      'ai_confidence_tier': aiResult.confidenceTier.value,
-      'ai_secondary_issues': aiResult.secondaryIssues,
-      'ai_location_hint': aiResult.locationHint.isNotEmpty
-          ? aiResult.locationHint
-          : null,
-      'ai_vision_summary': aiResult.visionSummary.isNotEmpty
-          ? aiResult.visionSummary
-          : null,
-      'ai_extracted_text': aiResult.extractedText,
-      'ai_warnings': aiResult.warnings,
-    };
+  IssueModel copyWith({
+    String? id,
+    String? reporterId,
+    String? departmentId,
+    String? title,
+    String? description,
+    String? category,
+    String? severity,
+    String? status,
+    double? latitude,
+    double? longitude,
+    String? address,
+    List<String>? photoUrls,
+    String? videoUrl,
+    double? severityScore,
+    DateTime? slaDeadline,
+    int? upvoteCount,
+    int? downvoteCount,
+    bool? isDraft,
+    bool? isAnonymous,
+    DateTime? resolvedAt,
+    List<String>? resolutionProofUrls,
+    int? citizenRating,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    String? actionTaken,
+    String? resourcesUsed,
+    int? timeSpentMinutes,
+    double? resolutionGpsLat,
+    double? resolutionGpsLng,
+    double? costEstimate,
+    String? reporterName,
+    String? departmentName,
+  }) {
+    return IssueModel(
+      id: id ?? this.id,
+      reporterId: reporterId ?? this.reporterId,
+      departmentId: departmentId ?? this.departmentId,
+      title: title ?? this.title,
+      description: description ?? this.description,
+      category: category ?? this.category,
+      severity: severity ?? this.severity,
+      status: status ?? this.status,
+      latitude: latitude ?? this.latitude,
+      longitude: longitude ?? this.longitude,
+      address: address ?? this.address,
+      photoUrls: photoUrls ?? this.photoUrls,
+      videoUrl: videoUrl ?? this.videoUrl,
+      severityScore: severityScore ?? this.severityScore,
+      slaDeadline: slaDeadline ?? this.slaDeadline,
+      upvoteCount: upvoteCount ?? this.upvoteCount,
+      downvoteCount: downvoteCount ?? this.downvoteCount,
+      isDraft: isDraft ?? this.isDraft,
+      isAnonymous: isAnonymous ?? this.isAnonymous,
+      resolvedAt: resolvedAt ?? this.resolvedAt,
+      resolutionProofUrls: resolutionProofUrls ?? this.resolutionProofUrls,
+      citizenRating: citizenRating ?? this.citizenRating,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      actionTaken: actionTaken ?? this.actionTaken,
+      resourcesUsed: resourcesUsed ?? this.resourcesUsed,
+      timeSpentMinutes: timeSpentMinutes ?? this.timeSpentMinutes,
+      resolutionGpsLat: resolutionGpsLat ?? this.resolutionGpsLat,
+      resolutionGpsLng: resolutionGpsLng ?? this.resolutionGpsLng,
+      costEstimate: costEstimate ?? this.costEstimate,
+      reporterName: reporterName ?? this.reporterName,
+      departmentName: departmentName ?? this.departmentName,
+    );
   }
+
 
   bool get isResolved =>
       status == 'resolved' ||
@@ -263,9 +252,5 @@ class IssueModel {
     return labels[category] ?? category;
   }
 
-  bool get needsAdminReview =>
-      verificationConfidence == 'low' && !adminReviewed;
 
-  bool get isVerified =>
-      verificationConfidence == 'high' || adminApproved == true;
 }

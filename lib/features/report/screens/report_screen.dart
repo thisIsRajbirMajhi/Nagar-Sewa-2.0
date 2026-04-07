@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -10,16 +9,10 @@ import 'package:image_picker/image_picker.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/widgets/app_button.dart';
 import '../../../core/widgets/app_header.dart';
-import '../../../models/verification_result.dart';
-import '../../../models/orchestration_result.dart';
-import '../../../models/confidence_tier.dart';
 import '../../../services/location_service.dart';
 import '../../../services/supabase_service.dart';
-import '../../../services/verification_service.dart';
-import '../notifiers/orchestration_notifier.dart';
-import '../widgets/confidence_badge.dart';
-import '../widgets/voice_recorder_button.dart';
-import '../widgets/orchestration_result_sheet.dart';
+import 'package:speech_to_text/speech_to_text.dart' as stt;
+import 'package:permission_handler/permission_handler.dart';
 
 class ReportScreen extends ConsumerStatefulWidget {
   const ReportScreen({super.key});
@@ -31,7 +24,6 @@ class ReportScreen extends ConsumerStatefulWidget {
 class _ReportScreenState extends ConsumerState<ReportScreen> {
   final _descriptionController = TextEditingController();
   final _picker = ImagePicker();
-  final _verificationService = VerificationService();
   MapLibreMapController? _mapController;
 
   XFile? _photo;
@@ -43,20 +35,9 @@ class _ReportScreenState extends ConsumerState<ReportScreen> {
   bool _locationFetched = false;
   bool _isSubmitting = false;
   String _selectedCategory = 'pothole';
-  bool _showVerificationWarning = false;
-  String _verificationWarningMessage = '';
-  ConfidenceLevel _verificationConfidence = ConfidenceLevel.high;
-  bool _isVerifying = false;
-  bool _isAnalyzing = false;
-  Uint8List? _audioBytes;
-  OrchestrationResult? _orchestrationResult;
-  ConfidenceTier? _aiConfidenceTier;
-  double? _aiConfidence;
-  String? _aiLocationHint;
-  // ignore: unused_field
-  List<String> _aiSecondaryIssues = [];
-  // ignore: unused_field
-  List<String> _aiTags = [];
+
+  final stt.SpeechToText _speechToText = stt.SpeechToText();
+  bool _isListening = false;
 
   final List<Map<String, dynamic>> _categories = [
     {'value': 'pothole', 'label': 'Pothole', 'icon': Icons.warning_rounded},
@@ -108,6 +89,7 @@ class _ReportScreenState extends ConsumerState<ReportScreen> {
   void initState() {
     super.initState();
     _fetchLocation();
+    _initSpeech();
   }
 
   @override
@@ -133,6 +115,41 @@ class _ReportScreenState extends ConsumerState<ReportScreen> {
     }
   }
 
+  Future<void> _initSpeech() async {
+    bool available = await _speechToText.initialize(
+      onStatus: (status) {
+        if (status == 'done') {
+          setState(() => _isListening = false);
+        }
+      },
+      onError: (val) => debugPrint('onError: $val'),
+    );
+    if (!available) {
+      debugPrint("Speech recognition not available");
+    }
+  }
+
+  Future<void> _toggleListening() async {
+    if (!_isListening) {
+      bool available = await _speechToText.initialize();
+      if (available) {
+        setState(() => _isListening = true);
+        _speechToText.listen(
+          onResult: (val) {
+            setState(() {
+              _descriptionController.text = val.recognizedWords;
+            });
+          },
+        );
+      } else {
+        await Permission.microphone.request();
+      }
+    } else {
+      setState(() => _isListening = false);
+      _speechToText.stop();
+    }
+  }
+
   Future<void> _pickPhoto() async {
     final file = await _picker.pickImage(
       source: ImageSource.camera,
@@ -146,8 +163,6 @@ class _ReportScreenState extends ConsumerState<ReportScreen> {
         _photo = file;
         _photoBytes = bytes;
       });
-      await _verifyMedia();
-      await _runOrchestration();
     }
   }
 
@@ -158,199 +173,7 @@ class _ReportScreenState extends ConsumerState<ReportScreen> {
     );
     if (file != null) {
       setState(() => _video = file);
-      await _verifyMedia();
     }
-  }
-
-  Future<void> _verifyMedia() async {
-    if (_photoBytes == null && _video == null) return;
-    if (_latitude == null || _longitude == null) return;
-
-    setState(() => _isVerifying = true);
-
-    try {
-      Uint8List? videoBytes;
-      if (_video != null) {
-        videoBytes = await _video!.readAsBytes();
-      }
-
-      final result = await _verificationService.verifyMedia(
-        photoBytes: _photoBytes,
-        videoBytes: videoBytes,
-        userLat: _latitude!,
-        userLng: _longitude!,
-        submissionTime: DateTime.now(),
-      );
-
-      if (mounted) {
-        setState(() {
-          _showVerificationWarning = result.hasIssues;
-          _verificationWarningMessage = result.failureReason;
-          _verificationConfidence = result.confidence;
-        });
-      }
-    } finally {
-      if (mounted) {
-        setState(() => _isVerifying = false);
-      }
-    }
-  }
-
-  Future<void> _runOrchestration() async {
-    if (_photoBytes == null) return;
-
-    setState(() => _isAnalyzing = true);
-
-    try {
-      await ref
-          .read(orchestrationProvider.notifier)
-          .analyzeReport(
-            imageBytes: _photoBytes!,
-            audioBytes: _audioBytes,
-            userText: _descriptionController.text.trim().isNotEmpty
-                ? _descriptionController.text.trim()
-                : null,
-            latitude: _latitude,
-            longitude: _longitude,
-            locale: Platform.localeName,
-          );
-
-      if (!mounted) return;
-      final resultAsync = ref.read(orchestrationProvider);
-      final result = resultAsync is AsyncData<OrchestrationResult?>
-          ? resultAsync.value
-          : null;
-
-      if (result != null && mounted) {
-        _showOrchestrationResult(result);
-      }
-    } catch (e) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('AI analysis failed: ${e.toString()}')),
-        );
-      }
-    } finally {
-      if (mounted) setState(() => _isAnalyzing = false);
-    }
-  }
-
-  void _showOrchestrationResult(OrchestrationResult result) {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder: (context) => OrchestrationResultSheet(
-        result: result,
-        onApply: () {
-          setState(() {
-            _orchestrationResult = result;
-            _aiConfidenceTier = result.confidenceTier;
-            _aiConfidence = result.confidence;
-            _aiLocationHint = result.locationHint;
-            _aiSecondaryIssues = result.secondaryIssues;
-            _aiTags = result.tags;
-            if (result.description.isNotEmpty) {
-              _descriptionController.text = result.description;
-            }
-            _selectedCategory = _mapAiCategory(result.category);
-          });
-          Navigator.pop(context);
-        },
-      ),
-    );
-  }
-
-  void _onRecordingComplete(Uint8List? audioBytes) {
-    setState(() => _audioBytes = audioBytes);
-  }
-
-  String _mapAiCategory(String aiCategory) {
-    final normalized = aiCategory.toLowerCase().trim();
-
-    final exactMap = {
-      'pothole': 'pothole',
-      'road_crack': 'road_crack',
-      'road': 'pothole',
-      'damaged_road': 'pothole',
-      'broken_streetlight': 'broken_streetlight',
-      'streetlight': 'broken_streetlight',
-      'electricity': 'broken_streetlight',
-      'power': 'broken_streetlight',
-      'waterlogging': 'waterlogging',
-      'water': 'waterlogging',
-      'water_supply': 'waterlogging',
-      'flooding': 'waterlogging',
-      'drainage_blockage': 'drainage_blockage',
-      'sewage_leak': 'sewage_leak',
-      'sewage': 'sewage_leak',
-      'sanitation': 'sanitation',
-      'garbage_overflow': 'garbage_overflow',
-      'garbage': 'garbage_overflow',
-      'waste': 'garbage_overflow',
-      'illegal_dumping': 'illegal_dumping',
-      'construction_debris': 'construction_debris',
-      'open_manhole': 'open_manhole',
-      'manhole': 'open_manhole',
-      'encroachment': 'encroachment',
-      'encroach': 'encroachment',
-      'damaged_road_divider': 'damaged_road_divider',
-      'broken_footpath': 'broken_footpath',
-      'footpath': 'broken_footpath',
-      'sidewalk': 'broken_footpath',
-      'traffic_signal_issue': 'traffic_signal_issue',
-      'traffic': 'traffic_signal_issue',
-      'signal': 'traffic_signal_issue',
-      'other': 'other',
-    };
-
-    if (exactMap.containsKey(normalized)) {
-      return exactMap[normalized]!;
-    }
-
-    if (normalized.contains('pothole') || normalized.contains('crack')) {
-      return normalized.contains('crack') ? 'road_crack' : 'pothole';
-    }
-    if (normalized.contains('water') || normalized.contains('flood')) {
-      return normalized.contains('drain')
-          ? 'drainage_blockage'
-          : 'waterlogging';
-    }
-    if (normalized.contains('light') || normalized.contains('electric')) {
-      return 'broken_streetlight';
-    }
-    if (normalized.contains('sewage') || normalized.contains('sewer')) {
-      return 'sewage_leak';
-    }
-    if (normalized.contains('garbage') ||
-        normalized.contains('trash') ||
-        normalized.contains('dump')) {
-      return normalized.contains('illegal')
-          ? 'illegal_dumping'
-          : 'garbage_overflow';
-    }
-    if (normalized.contains('manhole') || normalized.contains('drain cover')) {
-      return 'open_manhole';
-    }
-    if (normalized.contains('divider') || normalized.contains('median')) {
-      return 'damaged_road_divider';
-    }
-    if (normalized.contains('footpath') ||
-        normalized.contains('sidewalk') ||
-        normalized.contains('pavement')) {
-      return 'broken_footpath';
-    }
-    if (normalized.contains('traffic') || normalized.contains('signal')) {
-      return 'traffic_signal_issue';
-    }
-    if (normalized.contains('debris') || normalized.contains('construction')) {
-      return 'construction_debris';
-    }
-    if (normalized.contains('encroach')) {
-      return 'encroachment';
-    }
-
-    return 'other';
   }
 
   Future<void> _submit({bool isDraft = false}) async {
@@ -359,11 +182,6 @@ class _ReportScreenState extends ConsumerState<ReportScreen> {
         context,
       ).showSnackBar(const SnackBar(content: Text('Waiting for location...')));
       return;
-    }
-
-    if (_verificationConfidence == ConfidenceLevel.low && !isDraft) {
-      final confirmed = await _showLowConfidenceDialog();
-      if (!confirmed) return;
     }
 
     setState(() => _isSubmitting = true);
@@ -395,21 +213,7 @@ class _ReportScreenState extends ConsumerState<ReportScreen> {
         'is_draft': isDraft,
       };
 
-      if (_orchestrationResult != null) {
-        issueData['ai_confidence'] = _orchestrationResult!.confidence;
-        issueData['ai_confidence_tier'] =
-            _orchestrationResult!.confidenceTier.value;
-        issueData['ai_secondary_issues'] =
-            _orchestrationResult!.secondaryIssues;
-        if (_orchestrationResult!.locationHint.isNotEmpty) {
-          issueData['ai_location_hint'] = _orchestrationResult!.locationHint;
-        }
-        if (_orchestrationResult!.visionSummary.isNotEmpty) {
-          issueData['ai_vision_summary'] = _orchestrationResult!.visionSummary;
-        }
-        issueData['ai_extracted_text'] = _orchestrationResult!.extractedText;
-        issueData['ai_warnings'] = _orchestrationResult!.warnings;
-      }
+
 
       await SupabaseService.createIssue(issueData);
 
@@ -438,55 +242,7 @@ class _ReportScreenState extends ConsumerState<ReportScreen> {
     }
   }
 
-  Future<bool> _showLowConfidenceDialog() async {
-    return await showDialog<bool>(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: const Text('Verification Warning'),
-            content: const Text(
-              'This report has been flagged due to verification issues. '
-              'It will be reviewed by an admin before publication. '
-              'Do you want to continue?',
-            ),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(context, false),
-                child: const Text('Cancel'),
-              ),
-              ElevatedButton(
-                onPressed: () => Navigator.pop(context, true),
-                child: const Text('Submit Anyway'),
-              ),
-            ],
-          ),
-        ) ??
-        false;
-  }
 
-  Widget _buildVerificationWarning() {
-    if (!_showVerificationWarning) return const SizedBox.shrink();
-    return Container(
-      margin: const EdgeInsets.only(bottom: 16),
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: Colors.orange.shade50,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.orange.shade300),
-      ),
-      child: Row(
-        children: [
-          Icon(Icons.warning_amber_rounded, color: Colors.orange.shade700),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Text(
-              _verificationWarningMessage,
-              style: TextStyle(color: Colors.orange.shade900),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -592,107 +348,7 @@ class _ReportScreenState extends ConsumerState<ReportScreen> {
                     ],
                   ).animate().fadeIn(delay: 200.ms),
 
-                  const SizedBox(height: 12),
-                  VoiceRecorderButton(
-                    onRecordingComplete: _onRecordingComplete,
-                  ),
 
-                  if (_photo != null) ...[
-                    const SizedBox(height: 12),
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton.icon(
-                        onPressed: _isAnalyzing ? null : _runOrchestration,
-                        icon: _isAnalyzing
-                            ? const SizedBox(
-                                width: 16,
-                                height: 16,
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 2,
-                                  color: Colors.white,
-                                ),
-                              )
-                            : const Icon(Icons.auto_awesome, size: 18),
-                        label: Text(
-                          _isAnalyzing ? 'Analyzing...' : 'Analyze with AI',
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColors.greenAccent,
-                          foregroundColor: Colors.white,
-                          padding: const EdgeInsets.symmetric(vertical: 12),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                        ),
-                      ),
-                    ).animate().fadeIn(delay: 300.ms),
-                  ],
-
-                  if (_isAnalyzing) ...[
-                    const SizedBox(height: 12),
-                    const LinearProgressIndicator(),
-                    const SizedBox(height: 8),
-                    Center(
-                      child: Text(
-                        'AI is analyzing your report...',
-                        style: GoogleFonts.inter(
-                          fontSize: 13,
-                          color: AppColors.textSecondary,
-                        ),
-                      ),
-                    ),
-                  ],
-                  if (_aiConfidenceTier != null && _aiConfidence != null) ...[
-                    const SizedBox(height: 8),
-                    Row(
-                      children: [
-                        ConfidenceBadge(
-                          tier: _aiConfidenceTier!,
-                          confidence: _aiConfidence!,
-                        ),
-                        const SizedBox(width: 8),
-                        if (_orchestrationResult?.requiresImmediateAction ==
-                            true)
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 8,
-                              vertical: 4,
-                            ),
-                            decoration: BoxDecoration(
-                              color: AppColors.urgentRed.withValues(
-                                alpha: 0.12,
-                              ),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Icon(
-                                  Icons.warning_rounded,
-                                  size: 14,
-                                  color: AppColors.urgentRed,
-                                ),
-                                const SizedBox(width: 4),
-                                Text(
-                                  'Urgent',
-                                  style: GoogleFonts.inter(
-                                    fontSize: 11,
-                                    fontWeight: FontWeight.w600,
-                                    color: AppColors.urgentRed,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                      ],
-                    ),
-                  ],
-
-                  const SizedBox(height: 8),
-                  if (_isVerifying)
-                    const LinearProgressIndicator()
-                  else
-                    _buildVerificationWarning(),
 
                   const SizedBox(height: 20),
 
@@ -705,93 +361,45 @@ class _ReportScreenState extends ConsumerState<ReportScreen> {
                     ),
                   ),
                   const SizedBox(height: 8),
-                  Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
-                    children: _categories.map((cat) {
-                      final isSelected = _selectedCategory == cat['value'];
-                      return GestureDetector(
-                        onTap: () =>
-                            setState(() => _selectedCategory = cat['value']),
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 12,
-                            vertical: 8,
-                          ),
-                          decoration: BoxDecoration(
-                            color: isSelected
-                                ? AppColors.navyPrimary
-                                : AppColors.surface,
-                            borderRadius: BorderRadius.circular(20),
-                            border: Border.all(
-                              color: isSelected
-                                  ? AppColors.navyPrimary
-                                  : AppColors.border,
-                            ),
-                          ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon(
-                                cat['icon'] as IconData,
-                                size: 16,
-                                color: isSelected
-                                    ? Colors.white
-                                    : AppColors.textSecondary,
-                              ),
-                              const SizedBox(width: 4),
-                              Text(
-                                cat['label'] as String,
-                                style: GoogleFonts.inter(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w500,
-                                  color: isSelected
-                                      ? Colors.white
-                                      : AppColors.textSecondary,
-                                ),
-                              ),
-                            ],
-                          ),
+                  DropdownButtonFormField<String>(
+                    initialValue: _selectedCategory,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: AppColors.surface,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(14),
+                        borderSide: BorderSide(color: AppColors.border),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(14),
+                        borderSide: BorderSide(color: AppColors.border),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(14),
+                        borderSide: BorderSide(color: AppColors.navyPrimary),
+                      ),
+                    ),
+                    items: _categories.map((cat) {
+                      return DropdownMenuItem<String>(
+                        value: cat['value'],
+                        child: Row(
+                          children: [
+                            Icon(cat['icon'] as IconData, size: 20, color: AppColors.textSecondary),
+                            const SizedBox(width: 8),
+                            Text(cat['label'] as String),
+                          ],
                         ),
                       );
                     }).toList(),
+                    onChanged: (value) {
+                      if (value != null) {
+                        setState(() => _selectedCategory = value);
+                      }
+                    },
                   ).animate().fadeIn(delay: 250.ms),
 
                   const SizedBox(height: 20),
                   _buildLocationSection(),
-                  if (_aiLocationHint != null &&
-                      _aiLocationHint!.isNotEmpty) ...[
-                    const SizedBox(height: 8),
-                    Container(
-                      padding: const EdgeInsets.all(12),
-                      decoration: BoxDecoration(
-                        color: AppColors.navyPrimary.withValues(alpha: 0.05),
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(
-                          color: AppColors.navyPrimary.withValues(alpha: 0.15),
-                        ),
-                      ),
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.location_on,
-                            size: 16,
-                            color: AppColors.navyPrimary,
-                          ),
-                          const SizedBox(width: 8),
-                          Expanded(
-                            child: Text(
-                              'AI detected: $_aiLocationHint',
-                              style: GoogleFonts.inter(
-                                fontSize: 12,
-                                color: AppColors.textPrimary,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
                   const SizedBox(height: 20),
                   _buildDescriptionSection(),
                   const SizedBox(height: 20),
@@ -890,13 +498,26 @@ class _ReportScreenState extends ConsumerState<ReportScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Description',
-          style: GoogleFonts.inter(
-            fontSize: 14,
-            fontWeight: FontWeight.w600,
-            color: AppColors.navyPrimary,
-          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              'Description',
+              style: GoogleFonts.inter(
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+                color: AppColors.navyPrimary,
+              ),
+            ),
+            IconButton(
+              icon: Icon(
+                _isListening ? Icons.mic : Icons.mic_none,
+                color: _isListening ? Colors.red : AppColors.navyPrimary,
+              ),
+              onPressed: _toggleListening,
+              tooltip: 'Speech to Text',
+            ),
+          ],
         ),
         const SizedBox(height: 8),
         Container(

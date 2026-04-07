@@ -5,7 +5,6 @@ import '../models/user_model.dart';
 import '../services/supabase_service.dart';
 import '../services/cache_service.dart';
 import 'connectivity_provider.dart';
-import '../features/chat/notifiers/chat_history_notifier.dart';
 
 final authStateProvider = StreamProvider<AuthState>((ref) {
   return SupabaseService.onAuthStateChange;
@@ -51,5 +50,5 @@ class UserProfileNotifier extends AsyncNotifier<UserModel?> {
 }
 
 void handleLogout(WidgetRef ref) {
-  ref.read(chatHistoryProvider.notifier).clear();
+  ref.invalidate(userProfileProvider);
 }

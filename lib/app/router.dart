@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../core/widgets/bottom_nav_bar.dart';
 import '../core/widgets/offline_banner.dart';
 import '../providers/auth_provider.dart';
@@ -14,7 +15,6 @@ import '../features/dashboard/screens/dashboard_screen.dart';
 import '../features/dashboard/screens/filtered_issues_screen.dart';
 import '../features/history/screens/history_screen.dart';
 import '../features/map/screens/live_map_screen.dart';
-import '../features/chat/screens/chat_screen.dart';
 import '../features/report/screens/report_screen.dart';
 import '../features/issue_detail/screens/issue_detail_screen.dart';
 import '../features/profile/screens/edit_profile_screen.dart';
@@ -22,7 +22,6 @@ import '../features/profile/screens/profile_screen.dart';
 import '../features/profile/screens/static_page_screen.dart';
 import '../features/notifications/screens/notifications_screen.dart';
 import '../features/drafts/screens/drafts_screen.dart';
-import '../features/admin/screens/verification_queue_screen.dart';
 import '../features/officer/screens/officer_dashboard_screen.dart';
 import '../features/officer/screens/officer_history_screen.dart';
 import '../features/officer/screens/officer_map_screen.dart';
@@ -114,11 +113,6 @@ final routerProvider = Provider<GoRouter>((ref) {
             pageBuilder: (context, state) =>
                 const NoTransitionPage(child: LiveMapScreen()),
           ),
-          GoRoute(
-            path: '/chat',
-            pageBuilder: (context, state) =>
-                const NoTransitionPage(child: ChatScreen()),
-          ),
         ],
       ),
 
@@ -129,21 +123,23 @@ final routerProvider = Provider<GoRouter>((ref) {
         routes: [
           GoRoute(
             path: '/officer/dashboard',
-            pageBuilder: (context, state) => const NoTransitionPage(
-              child: OfficerDashboardScreen(),
-            ),
+            pageBuilder: (context, state) =>
+                const NoTransitionPage(child: OfficerDashboardScreen()),
           ),
           GoRoute(
             path: '/officer/history',
-            pageBuilder: (context, state) => const NoTransitionPage(
-              child: OfficerHistoryScreen(),
-            ),
+            pageBuilder: (context, state) =>
+                const NoTransitionPage(child: OfficerHistoryScreen()),
           ),
           GoRoute(
             path: '/officer/map',
-            pageBuilder: (context, state) => const NoTransitionPage(
-              child: OfficerMapScreen(),
-            ),
+            pageBuilder: (context, state) =>
+                const NoTransitionPage(child: OfficerMapScreen()),
+          ),
+          GoRoute(
+            path: '/officer/profile',
+            pageBuilder: (context, state) =>
+                const NoTransitionPage(child: ProfileScreen()),
           ),
         ],
       ),
@@ -169,10 +165,6 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/drafts',
         builder: (context, state) => const DraftsScreen(),
-      ),
-      GoRoute(
-        path: '/admin/verification-queue',
-        builder: (context, state) => const VerificationQueueScreen(),
       ),
       GoRoute(
         path: '/profile',
@@ -217,7 +209,7 @@ class _AppShell extends ConsumerStatefulWidget {
 class _AppShellState extends ConsumerState<_AppShell> {
   int _currentIndex = 0;
 
-  static const _routes = ['/dashboard', '/history', '/map', '/chat'];
+  static const _routes = ['/dashboard', '/history', '/map'];
 
   @override
   Widget build(BuildContext context) {
@@ -267,7 +259,12 @@ class _OfficerShell extends ConsumerStatefulWidget {
 class _OfficerShellState extends ConsumerState<_OfficerShell> {
   int _currentIndex = 0;
 
-  static const _routes = ['/officer/dashboard', '/officer/history', '/officer/map'];
+  static const _routes = [
+    '/officer/dashboard',
+    '/officer/history',
+    '/officer/map',
+    '/officer/profile',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -291,26 +288,54 @@ class _OfficerShellState extends ConsumerState<_OfficerShell> {
           Expanded(child: widget.child),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          setState(() => _currentIndex = index);
-          context.go(_routes[index]);
-        },
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.assignment),
-            label: 'Tasks',
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          border: Border(
+            top: BorderSide(color: Colors.grey.shade200, width: 0.5),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.history),
-            label: 'History',
+        ),
+        child: BottomNavigationBar(
+          currentIndex: _currentIndex,
+          onTap: (index) {
+            setState(() => _currentIndex = index);
+            context.go(_routes[index]);
+          },
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: Colors.white,
+          selectedItemColor: const Color(0xFF132D46),
+          unselectedItemColor: Colors.grey.shade400,
+          selectedLabelStyle: GoogleFonts.inter(
+            fontSize: 11,
+            fontWeight: FontWeight.w700,
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.map),
-            label: 'Map',
+          unselectedLabelStyle: GoogleFonts.inter(
+            fontSize: 11,
+            fontWeight: FontWeight.w500,
           ),
-        ],
+          elevation: 0,
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.dashboard_rounded),
+              activeIcon: Icon(Icons.dashboard_rounded),
+              label: 'Tasks',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.history_rounded),
+              activeIcon: Icon(Icons.history_rounded),
+              label: 'History',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.map_rounded),
+              activeIcon: Icon(Icons.map_rounded),
+              label: 'Map',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person_outline_rounded),
+              activeIcon: Icon(Icons.person_rounded),
+              label: 'Profile',
+            ),
+          ],
+        ),
       ),
     );
   }
