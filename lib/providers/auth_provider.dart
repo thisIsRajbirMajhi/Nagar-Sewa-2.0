@@ -29,6 +29,14 @@ class UserProfileNotifier extends AsyncNotifier<UserModel?> {
 
     try {
       final profile = await SupabaseService.getProfile();
+
+      // Profile deleted from database - force logout
+      if (profile == null && SupabaseService.hasSession) {
+        await SupabaseService.signOut();
+        await CacheService.clearAll();
+        return null;
+      }
+
       if (profile != null) {
         await CacheService.cacheProfile(profile);
       }
