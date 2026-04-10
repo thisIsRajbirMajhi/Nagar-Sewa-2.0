@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'app/app.dart';
 import 'services/cache_service.dart';
 import 'services/log_service.dart';
@@ -41,6 +42,7 @@ Future<void> main() async {
   ]);
 
   await CacheService.initialize();
+  await Hive.openBox('settings');
   await LogService.initialize();
   LogService.setupErrorHandlers();
 
