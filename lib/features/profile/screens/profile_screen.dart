@@ -8,6 +8,8 @@ import '../../../core/widgets/app_button.dart';
 import '../../../models/user_model.dart';
 import '../../../services/supabase_service.dart';
 import '../../../providers/theme_provider.dart';
+import '../../../providers/locale_provider.dart';
+import 'package:nagar_sewa/l10n/app_localizations.dart';
 
 class ProfileScreen extends ConsumerStatefulWidget {
   const ProfileScreen({super.key});
@@ -167,7 +169,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                       'Notifications',
                       () => context.push('/notifications'),
                     ),
-                    _buildTile(Icons.language, 'Language', () {}),
+                    _buildLanguageTile(),
                     SwitchListTile(
                       value: ref.watch(themeProvider) == ThemeMode.dark,
                       onChanged: (_) {
@@ -286,6 +288,111 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
       trailing: Icon(Icons.chevron_right, color: AppColors.textLight),
       onTap: onTap,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+    );
+  }
+
+  Widget _buildLanguageTile() {
+    final locale = ref.watch(localeProvider);
+    final languageNames = {
+      'en': 'English',
+      'hi': 'हिन्दी',
+      'or': 'ଓଡ଼ିଆ',
+      'bn': 'বাংলা',
+    };
+    final currentName = languageNames[locale.languageCode] ?? 'English';
+
+    return ListTile(
+      leading: Icon(Icons.language, color: AppColors.navyPrimary, size: 22),
+      title: Text(
+        AppLocalizations.of(context).language,
+        style: GoogleFonts.inter(fontSize: 14),
+      ),
+      subtitle: Text(
+        currentName,
+        style: GoogleFonts.inter(
+          fontSize: 12,
+          color: AppColors.textSecondary,
+        ),
+      ),
+      trailing: Icon(Icons.chevron_right, color: AppColors.textLight),
+      onTap: () => _showLanguagePicker(locale.languageCode, languageNames),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+    );
+  }
+
+  void _showLanguagePicker(
+    String currentCode,
+    Map<String, String> names,
+  ) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (context) => Container(
+        decoration: BoxDecoration(
+          color: AppColors.cardBg,
+          borderRadius:
+              const BorderRadius.vertical(top: Radius.circular(24)),
+        ),
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Center(
+              child: Container(
+                width: 40,
+                height: 4,
+                decoration: BoxDecoration(
+                  color: AppColors.border,
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+            Text(
+              AppLocalizations.of(this.context).selectLanguage,
+              style: GoogleFonts.inter(
+                fontSize: 18,
+                fontWeight: FontWeight.w700,
+                color: AppColors.textPrimary,
+              ),
+            ),
+            const SizedBox(height: 16),
+            ...names.entries.map((entry) {
+              final isSelected = entry.key == currentCode;
+              return ListTile(
+                leading: Icon(
+                  isSelected
+                      ? Icons.radio_button_checked
+                      : Icons.radio_button_off,
+                  color: isSelected
+                      ? AppColors.greenAccent
+                      : AppColors.textLight,
+                ),
+                title: Text(
+                  entry.value,
+                  style: GoogleFonts.inter(
+                    fontSize: 16,
+                    fontWeight:
+                        isSelected ? FontWeight.w700 : FontWeight.w400,
+                    color: AppColors.textPrimary,
+                  ),
+                ),
+                onTap: () {
+                  ref
+                      .read(localeProvider.notifier)
+                      .setLocale(entry.key);
+                  Navigator.pop(context);
+                },
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              );
+            }),
+            const SizedBox(height: 8),
+          ],
+        ),
+      ),
     );
   }
 }
