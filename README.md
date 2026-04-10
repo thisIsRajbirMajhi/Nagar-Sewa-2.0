@@ -18,18 +18,10 @@ A civic accountability platform for **Odisha, India**. Citizens report infrastru
 - **Live Map** — See all reported issues on an interactive map with real-time updates using **MapLibre GL**
 - **Track Resolution** — Follow each issue from report to resolution with status tracking
 - **Offline Support** — Report issues without internet; sync automatically when reconnected
-- **Multilingual** — Supports English, Hindi, and Odia
-- **Officer Dashboard** — Specialized interface for government officials to manage and resolve issues
+- **Multilingual** — Supports English, Hindi, Odia, and Bangla with auto-translation of user content
+- **Officer Dashboard** — Advanced interface for officials with quick actions, analytics, and comment threads
+- **Smart Notifications** — Real-time alerts grouped by issue with server-side batching to prevent fatigue
 
-## Screenshots
-
-| Citizen Dashboard | Live Map | Report Screen |
-|:---:|:---:|:---:|
-| ![Dashboard](resources/Citizen%20Dashboard.png) | ![Map](resources/Live%20Map.png) | ![Report](resources/Report%20Screen.png) |
-
-| Login | Registration | Mobile Verification |
-|:---:|:---:|:---:|
-| ![Login](resources/Login%20Screen.png) | ![Register](resources/Registration%20Screen.png) | ![Verify](resources/Mobile%20Verification.png) |
 
 ## Tech Stack
 
