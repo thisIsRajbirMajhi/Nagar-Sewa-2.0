@@ -10,6 +10,7 @@ import '../../../services/supabase_service.dart';
 import '../providers/officer_provider.dart';
 import '../widgets/officer_issue_card.dart';
 import '../widgets/officer_stats_card.dart';
+import '../widgets/officer_analytics_view.dart';
 
 class OfficerDashboardScreen extends ConsumerStatefulWidget {
   const OfficerDashboardScreen({super.key});
@@ -21,6 +22,8 @@ class OfficerDashboardScreen extends ConsumerStatefulWidget {
 
 class _OfficerDashboardScreenState
     extends ConsumerState<OfficerDashboardScreen> {
+  bool _showAnalytics = false;
+
   @override
   Widget build(BuildContext context) {
     final issuesAsync = ref.watch(officerIssuesProvider);
@@ -67,74 +70,85 @@ class _OfficerDashboardScreenState
                             ).animate().fadeIn(duration: 350.ms),
                             const SizedBox(height: 12),
                             _buildStatsGrid(stats),
-                            const SizedBox(height: 20),
+                            const SizedBox(height: 16),
+                            // Queue / Analytics toggle
+                            _buildViewToggle(),
+                            const SizedBox(height: 12),
                           ],
                         ),
                       ),
                     ),
 
-                    // Filter chips + Issue count
-                    SliverToBoxAdapter(
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
-                        child: Column(
-                          children: [
-                            _buildFilterRow(filter, stats),
-                            const SizedBox(height: 10),
-                            Row(
-                              children: [
-                                Text(
-                                  'Priority Queue',
-                                  style: GoogleFonts.inter(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w700,
-                                    color: AppColors.textPrimary,
-                                  ),
-                                ),
-                                const SizedBox(width: 8),
-                                Container(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 7,
-                                    vertical: 2,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: AppColors.navyPrimary.withValues(
-                                      alpha: 0.1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Text(
-                                    '${filteredIssues.length}',
+                    // Conditionally show Queue or Analytics
+                    if (_showAnalytics)
+                      const SliverFillRemaining(
+                        hasScrollBody: true,
+                        child: OfficerAnalyticsView(),
+                      )
+                    else ...[
+                      // Filter chips + Issue count
+                      SliverToBoxAdapter(
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+                          child: Column(
+                            children: [
+                              _buildFilterRow(filter, stats),
+                              const SizedBox(height: 10),
+                              Row(
+                                children: [
+                                  Text(
+                                    'Priority Queue',
                                     style: GoogleFonts.inter(
-                                      fontSize: 11,
+                                      fontSize: 16,
                                       fontWeight: FontWeight.w700,
-                                      color: AppColors.navyPrimary,
+                                      color: AppColors.textPrimary,
                                     ),
                                   ),
-                                ),
-                              ],
-                            ).animate().fadeIn(delay: 300.ms),
-                          ],
-                        ),
-                      ),
-                    ),
-
-                    // Issue cards
-                    if (filteredIssues.isEmpty)
-                      SliverFillRemaining(child: _buildEmptyState(filter))
-                    else
-                      SliverPadding(
-                        padding: const EdgeInsets.fromLTRB(16, 4, 16, 80),
-                        sliver: SliverList(
-                          delegate: SliverChildBuilderDelegate(
-                            (context, index) => OfficerIssueCard(
-                              issue: filteredIssues[index],
-                              index: index,
-                            ),
-                            childCount: filteredIssues.length,
+                                  const SizedBox(width: 8),
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 7,
+                                      vertical: 2,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: AppColors.navyPrimary.withValues(
+                                        alpha: 0.1,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Text(
+                                      '${filteredIssues.length}',
+                                      style: GoogleFonts.inter(
+                                        fontSize: 11,
+                                        fontWeight: FontWeight.w700,
+                                        color: AppColors.navyPrimary,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ).animate().fadeIn(delay: 300.ms),
+                            ],
                           ),
                         ),
                       ),
+
+                      // Issue cards
+                      if (filteredIssues.isEmpty)
+                        SliverFillRemaining(child: _buildEmptyState(filter))
+                      else
+                        SliverPadding(
+                          padding: const EdgeInsets.fromLTRB(16, 4, 16, 80),
+                          sliver: SliverList(
+                            delegate: SliverChildBuilderDelegate(
+                              (context, index) => OfficerIssueCard(
+                                issue: filteredIssues[index],
+                                index: index,
+                              ),
+                              childCount: filteredIssues.length,
+                            ),
+                          ),
+                        ),
+                    ],
                   ],
                 ),
               ),
@@ -143,6 +157,36 @@ class _OfficerDashboardScreenState
         ],
       ),
     );
+  }
+  // ─── View Toggle ──────────────────────────────────────
+  Widget _buildViewToggle() {
+    return Container(
+      padding: const EdgeInsets.all(3),
+      decoration: BoxDecoration(
+        color: AppColors.border.withValues(alpha: 0.5),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: _ToggleButton(
+              label: 'Queue',
+              icon: Icons.list_alt_rounded,
+              isSelected: !_showAnalytics,
+              onTap: () => setState(() => _showAnalytics = false),
+            ),
+          ),
+          Expanded(
+            child: _ToggleButton(
+              label: 'Analytics',
+              icon: Icons.insights_rounded,
+              isSelected: _showAnalytics,
+              onTap: () => setState(() => _showAnalytics = true),
+            ),
+          ),
+        ],
+      ),
+    ).animate().fadeIn(delay: 250.ms);
   }
 
   // ─── Header ──────────────────────────────────────────
@@ -544,5 +588,67 @@ class _OfficerDashboardScreenState
       return email.split('@').first;
     }
     return 'Officer';
+  }
+}
+
+class _ToggleButton extends StatelessWidget {
+  final String label;
+  final IconData icon;
+  final bool isSelected;
+  final VoidCallback onTap;
+
+  const _ToggleButton({
+    required this.label,
+    required this.icon,
+    required this.isSelected,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        padding: const EdgeInsets.symmetric(vertical: 8),
+        decoration: BoxDecoration(
+          color: isSelected ? AppColors.cardBg : Colors.transparent,
+          borderRadius: BorderRadius.circular(8),
+          boxShadow: isSelected
+              ? [
+                  BoxShadow(
+                    color: AppColors.shadow,
+                    blurRadius: 4,
+                    offset: const Offset(0, 1),
+                  ),
+                ]
+              : null,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              icon,
+              size: 14,
+              color: isSelected
+                  ? AppColors.navyPrimary
+                  : AppColors.textLight,
+            ),
+            const SizedBox(width: 4),
+            Text(
+              label,
+              style: GoogleFonts.inter(
+                fontSize: 12,
+                fontWeight:
+                    isSelected ? FontWeight.w700 : FontWeight.w500,
+                color: isSelected
+                    ? AppColors.navyPrimary
+                    : AppColors.textLight,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
