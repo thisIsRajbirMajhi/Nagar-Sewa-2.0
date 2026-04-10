@@ -10,6 +10,7 @@ import '../../../services/supabase_service.dart';
 import '../../../providers/theme_provider.dart';
 import '../../../providers/locale_provider.dart';
 import 'package:nagar_sewa/l10n/app_localizations.dart';
+import '../../notifications/providers/notification_preferences_provider.dart';
 
 class ProfileScreen extends ConsumerStatefulWidget {
   const ProfileScreen({super.key});
@@ -170,23 +171,54 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                       () => context.push('/notifications'),
                     ),
                     _buildLanguageTile(),
-                    SwitchListTile(
-                      value: ref.watch(themeProvider) == ThemeMode.dark,
-                      onChanged: (_) {
-                        ref.read(themeProvider.notifier).toggleTheme();
-                      },
-                      title: Text(
-                        'Toggle Dark Mode',
-                        style: GoogleFonts.inter(fontSize: 14),
+                      SwitchListTile(
+                        value: ref.watch(themeProvider) == ThemeMode.dark,
+                        onChanged: (_) {
+                          ref.read(themeProvider.notifier).toggleTheme();
+                        },
+                        title: Text(
+                          'Toggle Dark Mode',
+                          style: GoogleFonts.inter(fontSize: 14),
+                        ),
+                        secondary: Icon(
+                          Icons.nightlight_round,
+                          color: AppColors.navyPrimary,
+                          size: 22,
+                        ),
+                        activeThumbColor: AppColors.greenAccent,
                       ),
-                      secondary: Icon(
-                        Icons.nightlight_round,
-                        color: AppColors.navyPrimary,
-                        size: 22,
+                    ]).animate().fadeIn(delay: 500.ms),
+                    const SizedBox(height: 16),
+                    _buildSection('Notification Preferences', [
+                      SwitchListTile(
+                        title: Text('Status Updates', style: GoogleFonts.inter(fontSize: 14)),
+                        secondary: Icon(Icons.swap_horiz, color: AppColors.navyPrimary, size: 22),
+                        value: ref.watch(notificationPreferencesProvider).statusUpdates,
+                        onChanged: (val) => ref.read(notificationPreferencesProvider.notifier).toggleStatusUpdates(val),
+                        activeColor: AppColors.greenAccent,
                       ),
-                      activeThumbColor: AppColors.greenAccent,
-                    ),
-                  ]).animate().fadeIn(delay: 500.ms),
+                      SwitchListTile(
+                        title: Text('Comments', style: GoogleFonts.inter(fontSize: 14)),
+                        secondary: Icon(Icons.forum_outlined, color: AppColors.navyPrimary, size: 22),
+                        value: ref.watch(notificationPreferencesProvider).comments,
+                        onChanged: (val) => ref.read(notificationPreferencesProvider.notifier).toggleComments(val),
+                        activeColor: AppColors.greenAccent,
+                      ),
+                      SwitchListTile(
+                        title: Text('Upvotes', style: GoogleFonts.inter(fontSize: 14)),
+                        secondary: Icon(Icons.thumb_up_outlined, color: AppColors.navyPrimary, size: 22),
+                        value: ref.watch(notificationPreferencesProvider).upvotes,
+                        onChanged: (val) => ref.read(notificationPreferencesProvider.notifier).toggleUpvotes(val),
+                        activeColor: AppColors.greenAccent,
+                      ),
+                      SwitchListTile(
+                        title: Text('Resolutions', style: GoogleFonts.inter(fontSize: 14)),
+                        secondary: Icon(Icons.check_circle_outline, color: AppColors.navyPrimary, size: 22),
+                        value: ref.watch(notificationPreferencesProvider).resolutions,
+                        onChanged: (val) => ref.read(notificationPreferencesProvider.notifier).toggleResolutions(val),
+                        activeColor: AppColors.greenAccent,
+                      ),
+                    ]).animate().fadeIn(delay: 550.ms),
                   const SizedBox(height: 16),
                   _buildSection('About', [
                     _buildTile(Icons.help_outline, 'Help & Support', () {

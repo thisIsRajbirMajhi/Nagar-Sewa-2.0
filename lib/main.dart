@@ -8,6 +8,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'app/app.dart';
 import 'services/cache_service.dart';
 import 'services/log_service.dart';
+import 'services/realtime_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -51,6 +52,14 @@ Future<void> main() async {
     anonKey: supabaseAnonKey,
     debug: false,
   );
+
+  Supabase.instance.client.auth.onAuthStateChange.listen((data) {
+    if (data.event == AuthChangeEvent.signedIn || data.event == AuthChangeEvent.initialSession) {
+      RealtimeService.instance.initialize();
+    } else if (data.event == AuthChangeEvent.signedOut) {
+      RealtimeService.instance.dispose();
+    }
+  });
 
   runApp(const ProviderScope(child: NagarSewaApp()));
 }
