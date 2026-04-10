@@ -207,6 +207,33 @@ class OfficerIssuesNotifier extends AsyncNotifier<List<IssueModel>> {
     }
   }
 
+  /// Quick status update from dashboard cards (no navigation needed).
+  /// Returns true on success, false on failure.
+  Future<bool> quickUpdateStatus(String issueId, String fromStatus, String toStatus) async {
+    try {
+      await SupabaseService.client
+          .from('issues')
+          .update({
+            'status': toStatus,
+            'updated_at': DateTime.now().toIso8601String(),
+          })
+          .eq('id', issueId);
+
+      await SupabaseService.client.from('issue_history').insert({
+        'issue_id': issueId,
+        'from_status': fromStatus,
+        'to_status': toStatus,
+        'changed_by': SupabaseService.client.auth.currentUser?.id,
+        'note': 'Quick action: ${toStatus.replaceAll('_', ' ')}',
+      });
+
+      ref.invalidateSelf();
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
   Future<void> resolveIssue({
     required String issueId,
     required String oldStatus,

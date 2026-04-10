@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../models/issue_model.dart';
+import '../providers/officer_provider.dart';
 
-class OfficerIssueCard extends StatelessWidget {
+class OfficerIssueCard extends ConsumerWidget {
   final IssueModel issue;
   final int index;
 
   const OfficerIssueCard({super.key, required this.issue, this.index = 0});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final statusColor = AppColors.getStatusColor(issue.status);
     final severityColor = _getSeverityColor(issue.severity);
     final timeAgo = _formatTimeAgo(issue.createdAt);
@@ -154,6 +156,15 @@ class OfficerIssueCard extends StatelessWidget {
                                 _SlaCountdown(deadline: issue.slaDeadline!),
                             ],
                           ),
+
+                          // Row 5: Quick action chip
+                          if (_getNextAction(issue.status) != null) ...[
+                            const SizedBox(height: 10),
+                            _QuickActionChip(
+                              issue: issue,
+                              ref: ref,
+                            ),
+                          ],
                         ],
                       ),
                     ),
@@ -169,6 +180,19 @@ class OfficerIssueCard extends StatelessWidget {
           duration: 350.ms,
         )
         .slideX(begin: 0.03);
+  }
+
+  static (String, IconData, Color)? _getNextAction(String status) {
+    switch (status) {
+      case 'submitted':
+        return ('Acknowledge →', Icons.task_alt_rounded, AppColors.reportedBlue);
+      case 'acknowledged':
+        return ('Start Working →', Icons.engineering_rounded, AppColors.navyPrimary);
+      case 'in_progress':
+        return ('Resolve ✓', Icons.check_circle_rounded, AppColors.greenAccent);
+      default:
+        return null;
+    }
   }
 
   Color _getSeverityColor(String severity) {
@@ -193,6 +217,74 @@ class OfficerIssueCard extends StatelessWidget {
     if (diff.inHours < 24) return '${diff.inHours}h ago';
     if (diff.inDays < 7) return '${diff.inDays}d ago';
     return '${date.day}/${date.month}/${date.year}';
+  }
+}
+
+class _QuickActionChip extends StatelessWidget {
+  final IssueModel issue;
+  final WidgetRef ref;
+
+  const _QuickActionChip({required this.issue, required this.ref});
+
+  @override
+  Widget build(BuildContext context) {
+    final action = OfficerIssueCard._getNextAction(issue.status);
+    if (action == null) return const SizedBox.shrink();
+
+    final (label, icon, color) = action;
+    final nextStatus = {
+      'submitted': 'acknowledged',
+      'acknowledged': 'in_progress',
+      'in_progress': 'resolved',
+    }[issue.status];
+
+    return Align(
+      alignment: Alignment.centerRight,
+      child: GestureDetector(
+        onTap: () async {
+          if (nextStatus == 'resolved') {
+            // Navigate to detail for resolution form
+            context.push('/issue/${issue.id}');
+            return;
+          }
+          final success = await ref
+              .read(officerIssuesProvider.notifier)
+              .quickUpdateStatus(issue.id, issue.status, nextStatus!);
+          if (context.mounted && success) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Updated to ${nextStatus.replaceAll('_', ' ')}'),
+                backgroundColor: color,
+                duration: const Duration(seconds: 2),
+              ),
+            );
+          }
+        },
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+          decoration: BoxDecoration(
+            color: color.withValues(alpha: 0.1),
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(color: color.withValues(alpha: 0.3)),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(icon, size: 13, color: color),
+              const SizedBox(width: 4),
+              Text(
+                label,
+                style: GoogleFonts.inter(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w700,
+                  color: color,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
 
