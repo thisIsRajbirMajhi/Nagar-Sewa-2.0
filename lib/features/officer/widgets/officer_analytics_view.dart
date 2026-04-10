@@ -17,7 +17,7 @@ class OfficerAnalyticsView extends ConsumerWidget {
 
     return issuesAsync.when(
       loading: () => const Center(child: CircularProgressIndicator()),
-      error: (_, __) => Center(
+      error: (err, stack) => Center(
         child: Text(
           'Failed to load analytics',
           style: GoogleFonts.inter(color: AppColors.textSecondary),

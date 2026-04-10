@@ -58,7 +58,7 @@ class TranslationService {
             body: jsonEncode({
               'text': text,
               'targetLang': targetLang,
-              if (sourceLang != null) 'sourceLang': sourceLang,
+              'sourceLang': sourceLang,
             }),
           )
           .timeout(const Duration(seconds: 10));

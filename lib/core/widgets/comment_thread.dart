@@ -54,7 +54,7 @@ class _CommentThreadState extends ConsumerState<CommentThread> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = AppLocalizations.of(context);
     final commentsAsync = ref.watch(commentsProvider(widget.issueId));
 
     return Column(

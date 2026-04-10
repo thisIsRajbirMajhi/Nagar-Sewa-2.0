@@ -76,7 +76,7 @@ class _TranslatedTextState extends ConsumerState<TranslatedText> {
   @override
   Widget build(BuildContext context) {
     // Listen to locale changes and re-translate
-    ref.listen(localeProvider, (_, __) => _translate());
+    ref.listen(localeProvider, (previous, current) => _translate());
 
     final displayText =
         (_showOriginal || _translatedText == null)

@@ -7,7 +7,6 @@ import 'package:intl/intl.dart';
 import 'package:nagar_sewa/l10n/app_localizations.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../models/notification_model.dart';
-import '../../../services/supabase_service.dart';
 import '../../../providers/notifications_provider.dart';
 import '../providers/notification_preferences_provider.dart';
 
@@ -91,7 +90,7 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = AppLocalizations.of(context);
     final prefs = ref.watch(notificationPreferencesProvider);
     final notificationsAsync = ref.watch(notificationsProvider);
 
