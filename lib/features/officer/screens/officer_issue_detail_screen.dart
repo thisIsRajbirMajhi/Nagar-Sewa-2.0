@@ -142,62 +142,101 @@ class _OfficerIssueDetailScreenState
 
     final issue = _issue!;
 
-    return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: AppBar(
-        title: Text(
-          'Issue #${issue.id.substring(0, 8)}',
-          style: GoogleFonts.inter(fontSize: 15, fontWeight: FontWeight.w700),
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        backgroundColor: AppColors.background,
+        appBar: AppBar(
+          title: Text(
+            'Issue #${issue.id.substring(0, 8)}',
+            style: GoogleFonts.inter(fontSize: 15, fontWeight: FontWeight.w700),
+          ),
+          backgroundColor: AppColors.cardBg,
+          foregroundColor: AppColors.textPrimary,
+          elevation: 0,
+          surfaceTintColor: Colors.transparent,
+          actions: [
+            if (!issue.isResolved)
+              IconButton(
+                icon: const Icon(Icons.more_vert_rounded),
+                onPressed: () => _showStatusPicker(),
+              ),
+          ],
+          bottom: TabBar(
+            labelStyle: GoogleFonts.inter(fontWeight: FontWeight.w700, fontSize: 13),
+            unselectedLabelStyle: GoogleFonts.inter(fontWeight: FontWeight.w500, fontSize: 13),
+            labelColor: AppColors.navyPrimary,
+            unselectedLabelColor: AppColors.textLight,
+            indicatorColor: AppColors.navyPrimary,
+            dividerColor: AppColors.border,
+            tabs: const [
+              Tab(text: 'Overview'),
+              Tab(text: 'Actions'),
+              Tab(text: 'History'),
+            ],
+          ),
         ),
-        backgroundColor: AppColors.cardBg,
-        foregroundColor: AppColors.textPrimary,
-        elevation: 0,
-        surfaceTintColor: Colors.transparent,
-        actions: [
-          if (!issue.isResolved)
-            IconButton(
-              icon: const Icon(Icons.more_vert_rounded),
-              onPressed: () => _showStatusPicker(),
+        body: TabBarView(
+          children: [
+            // Tab 1: Overview
+            RefreshIndicator(
+              onRefresh: _loadData,
+              child: SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                child: Column(
+                  children: [
+                    _buildTitleHeader(issue),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(16, 16, 16, 80),
+                      child: _buildCitizenReport(issue),
+                    ),
+                  ],
+                ),
+              ),
             ),
-        ],
-      ),
-      body: RefreshIndicator(
-        onRefresh: _loadData,
-        child: SingleChildScrollView(
-          physics: const AlwaysScrollableScrollPhysics(),
-          child: Column(
-            children: [
-              // ─── Title & Status Header ────────────
-              _buildTitleHeader(issue),
 
-              Padding(
-                padding: const EdgeInsets.fromLTRB(16, 16, 16, 80),
+            // Tab 2: Actions
+            RefreshIndicator(
+              onRefresh: _loadData,
+              child: SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                padding: const EdgeInsets.fromLTRB(16, 24, 16, 80),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // ─── Workflow Stepper ────────────
+                    Text(
+                      'Workflow Progress',
+                      style: GoogleFonts.inter(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                        color: AppColors.textPrimary,
+                      ),
+                    ),
+                    const SizedBox(height: 16),
                     WorkflowStepper(
                       currentStatus: issue.status,
                       onStepTap: (nextStatus) =>
                           _confirmStepAdvance(nextStatus),
                     ),
-                    const SizedBox(height: 16),
-
-                    // ─── Citizen Report ──────────────
-                    _buildCitizenReport(issue),
-                    const SizedBox(height: 16),
-
-                    // ─── Audit Trail ─────────────────
-                    _buildAuditTrail(),
                   ],
                 ),
               ),
-            ],
-          ),
+            ),
+
+            // Tab 3: History & Comments
+            RefreshIndicator(
+              onRefresh: _loadData,
+              child: SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                padding: const EdgeInsets.fromLTRB(16, 24, 16, 80),
+                child: _buildAuditTrail(),
+              ),
+            ),
+          ],
         ),
+        // ─── Sticky Bottom Bar ────────────────────────
+        bottomNavigationBar: _buildBottomBar(issue),
       ),
-      // ─── Sticky Bottom Bar ────────────────────────
-      bottomNavigationBar: _buildBottomBar(issue),
     );
   }
 
@@ -348,204 +387,207 @@ class _OfficerIssueDetailScreenState
 
   // ─── Citizen Report ──────────────────────────────────
   Widget _buildCitizenReport(IssueModel issue) {
-    return Container(
-      decoration: BoxDecoration(
-        color: AppColors.cardBg,
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: AppColors.border),
-      ),
-      child: Theme(
-        data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
-        child: ExpansionTile(
-          initiallyExpanded: true,
-          tilePadding: const EdgeInsets.symmetric(horizontal: 16),
-          childrenPadding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-          leading: Container(
-            padding: const EdgeInsets.all(6),
-            decoration: BoxDecoration(
-              color: AppColors.reportedBlue.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(8),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Header
+        Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(6),
+              decoration: BoxDecoration(
+                color: AppColors.reportedBlue.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Icon(
+                Icons.person_outline_rounded,
+                size: 18,
+                color: AppColors.reportedBlue,
+              ),
             ),
-            child: Icon(
-              Icons.person_outline_rounded,
-              size: 18,
-              color: AppColors.reportedBlue,
+            const SizedBox(width: 12),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Citizen Report',
+                  style: GoogleFonts.inter(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w700,
+                    color: AppColors.textPrimary,
+                  ),
+                ),
+                Text(
+                  'Reported by ${issue.reporterName ?? 'Anonymous'}',
+                  style: GoogleFonts.inter(fontSize: 11, color: AppColors.textLight),
+                ),
+              ],
+            ),
+          ],
+        ),
+        const SizedBox(height: 16),
+        Container(
+          height: 1,
+          color: AppColors.border.withValues(alpha: 0.5),
+        ),
+        const SizedBox(height: 16),
+
+        // Photos
+        if (issue.photoUrls.isNotEmpty) ...[
+          SizedBox(
+            height: 180,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: issue.photoUrls.length,
+              itemBuilder: (context, i) => Container(
+                width: 250,
+                margin: const EdgeInsets.only(right: 12),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  color: AppColors.cardBg,
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: CachedNetworkImage(
+                    imageUrl: issue.photoUrls[i],
+                    fit: BoxFit.cover,
+                    placeholder: (_, _) => Center(
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        color: AppColors.textLight,
+                      ),
+                    ),
+                    errorWidget: (_, _, _) => Icon(
+                      Icons.broken_image,
+                      color: AppColors.textLight,
+                    ),
+                  ),
+                ),
+              ),
             ),
           ),
-          title: Text(
-            'Citizen Report',
+          const SizedBox(height: 14),
+        ],
+
+        // Description
+        Container(
+          width: double.infinity,
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: AppColors.cardBg,
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(color: AppColors.border),
+          ),
+          child: Text(
+            issue.description ?? 'No description provided.',
+            style: GoogleFonts.inter(
+              fontSize: 13,
+              color: AppColors.textSecondary,
+              height: 1.6,
+            ),
+          ),
+        ),
+
+        // Resolution proof (if resolved)
+        if (issue.resolutionProofUrls.isNotEmpty) ...[
+          const SizedBox(height: 16),
+          Text(
+            'Resolution Proof',
             style: GoogleFonts.inter(
               fontSize: 14,
               fontWeight: FontWeight.w700,
               color: AppColors.textPrimary,
             ),
           ),
-          subtitle: Text(
-            'Reported by ${issue.reporterName ?? 'Anonymous'}',
-            style: GoogleFonts.inter(fontSize: 11, color: AppColors.textLight),
+          const SizedBox(height: 12),
+          SizedBox(
+            height: 100,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: issue.resolutionProofUrls.length,
+              itemBuilder: (context, i) => Container(
+                width: 100,
+                margin: const EdgeInsets.only(right: 8),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(
+                    color: AppColors.greenAccent.withValues(alpha: 0.3),
+                  ),
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(7),
+                  child: CachedNetworkImage(
+                    imageUrl: issue.resolutionProofUrls[i],
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ),
           ),
-          children: [
-            Container(
-              height: 1,
-              color: AppColors.border.withValues(alpha: 0.5),
-            ),
-            const SizedBox(height: 12),
-
-            // Photos
-            if (issue.photoUrls.isNotEmpty) ...[
-              SizedBox(
-                height: 180,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: issue.photoUrls.length,
-                  itemBuilder: (context, i) => Container(
-                    width: 250,
-                    margin: const EdgeInsets.only(right: 12),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      color: AppColors.surface,
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
-                      child: CachedNetworkImage(
-                        imageUrl: issue.photoUrls[i],
-                        fit: BoxFit.cover,
-                        placeholder: (_, _) => Center(
-                          child: CircularProgressIndicator(
-                            strokeWidth: 2,
-                            color: AppColors.textLight,
-                          ),
-                        ),
-                        errorWidget: (_, _, _) => Icon(
-                          Icons.broken_image,
-                          color: AppColors.textLight,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 14),
-            ],
-
-            // Description
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: AppColors.surface,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Text(
-                issue.description ?? 'No description provided.',
-                style: GoogleFonts.inter(
-                  fontSize: 13,
-                  color: AppColors.textSecondary,
-                  height: 1.6,
-                ),
-              ),
-            ),
-
-            // Resolution proof (if resolved)
-            if (issue.resolutionProofUrls.isNotEmpty) ...[
-              const SizedBox(height: 14),
-              Text(
-                'Resolution Proof',
-                style: GoogleFonts.inter(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w700,
-                  color: AppColors.textPrimary,
-                ),
-              ),
-              const SizedBox(height: 8),
-              SizedBox(
-                height: 100,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: issue.resolutionProofUrls.length,
-                  itemBuilder: (context, i) => Container(
-                    width: 100,
-                    margin: const EdgeInsets.only(right: 8),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      border: Border.all(
-                        color: AppColors.greenAccent.withValues(alpha: 0.3),
-                      ),
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(7),
-                      child: CachedNetworkImage(
-                        imageUrl: issue.resolutionProofUrls[i],
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ],
-        ),
-      ),
+        ],
+      ],
     ).animate().fadeIn(delay: 100.ms, duration: 350.ms);
   }
 
   // ─── Audit Trail ─────────────────────────────────────
   Widget _buildAuditTrail() {
-    return Container(
-      decoration: BoxDecoration(
-        color: AppColors.cardBg,
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: AppColors.border),
-      ),
-      child: Theme(
-        data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
-        child: ExpansionTile(
-          initiallyExpanded: false,
-          tilePadding: const EdgeInsets.symmetric(horizontal: 16),
-          childrenPadding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-          leading: Container(
-            padding: const EdgeInsets.all(6),
-            decoration: BoxDecoration(
-              color: AppColors.communityOrange.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Icon(
-              Icons.history_rounded,
-              size: 18,
-              color: AppColors.communityOrange,
-            ),
-          ),
-          title: Text(
-            'Audit Trail',
-            style: GoogleFonts.inter(
-              fontSize: 14,
-              fontWeight: FontWeight.w700,
-              color: AppColors.textPrimary,
-            ),
-          ),
-          subtitle: Text(
-            '${_history.length} entries',
-            style: GoogleFonts.inter(fontSize: 11, color: AppColors.textLight),
-          ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Header
+        Row(
           children: [
             Container(
-              height: 1,
-              color: AppColors.border.withValues(alpha: 0.5),
+              padding: const EdgeInsets.all(6),
+              decoration: BoxDecoration(
+                color: AppColors.communityOrange.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Icon(
+                Icons.history_rounded,
+                size: 18,
+                color: AppColors.communityOrange,
+              ),
             ),
-            const SizedBox(height: 12),
-            if (_history.isEmpty)
-              Text(
-                'No history yet.',
-                style: GoogleFonts.inter(
-                  fontSize: 12,
-                  color: AppColors.textLight,
+            const SizedBox(width: 12),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Audit Trail',
+                  style: GoogleFonts.inter(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w700,
+                    color: AppColors.textPrimary,
+                  ),
                 ),
-              )
-            else
-              ..._history.map(_buildTimelineItem),
+                Text(
+                  '${_history.length} entries',
+                  style: GoogleFonts.inter(fontSize: 11, color: AppColors.textLight),
+                ),
+              ],
+            ),
           ],
         ),
-      ),
+        const SizedBox(height: 16),
+        Container(
+          height: 1,
+          color: AppColors.border.withValues(alpha: 0.5),
+        ),
+        const SizedBox(height: 16),
+
+        // Timeline items
+        if (_history.isEmpty)
+          Text(
+            'No history yet.',
+            style: GoogleFonts.inter(
+              fontSize: 12,
+              color: AppColors.textLight,
+            ),
+          )
+        else
+          ..._history.map(_buildTimelineItem),
+      ],
     ).animate().fadeIn(delay: 300.ms, duration: 350.ms);
   }
 
