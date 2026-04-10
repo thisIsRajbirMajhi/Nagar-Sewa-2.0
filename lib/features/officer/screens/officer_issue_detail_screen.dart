@@ -10,6 +10,7 @@ import 'package:geolocator/geolocator.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../models/issue_model.dart';
 import '../../../services/supabase_service.dart';
+import '../../../core/widgets/comment_thread.dart';
 import '../providers/officer_provider.dart';
 import '../widgets/workflow_stepper.dart';
 
@@ -229,7 +230,14 @@ class _OfficerIssueDetailScreenState
               child: SingleChildScrollView(
                 physics: const AlwaysScrollableScrollPhysics(),
                 padding: const EdgeInsets.fromLTRB(16, 24, 16, 80),
-                child: _buildAuditTrail(),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    _buildAuditTrail(),
+                    const SizedBox(height: 32),
+                    CommentThread(issueId: widget.issueId),
+                  ],
+                ),
               ),
             ),
           ],

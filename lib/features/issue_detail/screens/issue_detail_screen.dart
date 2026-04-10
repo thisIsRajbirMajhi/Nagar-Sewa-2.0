@@ -12,6 +12,7 @@ import '../../../core/constants/app_colors.dart';
 import '../../../core/widgets/app_button.dart';
 import '../../../models/issue_model.dart';
 import '../../../services/supabase_service.dart';
+import '../../../core/widgets/comment_thread.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class IssueDetailScreen extends ConsumerStatefulWidget {
@@ -585,6 +586,8 @@ Report via NagarSewa App
                       );
                     }),
 
+                  const SizedBox(height: 32),
+                  CommentThread(issueId: widget.issueId),
                   const SizedBox(height: 24),
 
                   if (issue.status == 'resolved') ...[

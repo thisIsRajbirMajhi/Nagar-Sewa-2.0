@@ -530,8 +530,30 @@ class SupabaseService {
       'status': 'pending',
     });
   }
-}
 
+  // ─── COMMENTS ───────────────────────────────────────
+  static Future<List<Map<String, dynamic>>> getIssueComments(String issueId) async {
+    final data = await _withRetry(
+      () => client
+          .from('issue_comments')
+          .select('*, profiles!author_id(full_name, role)')
+          .eq('issue_id', issueId)
+          .order('created_at', ascending: true),
+    );
+    return List<Map<String, dynamic>>.from(data);
+  }
+
+  static Future<void> addComment(String issueId, String content) async {
+    if (userId == null) throw Exception('Auth required');
+    await _withRetry(
+      () => client.from('issue_comments').insert({
+        'issue_id': issueId,
+        'author_id': userId,
+        'content': content,
+      }),
+    );
+  }
+}
 class IssueDetailData {
   final IssueModel? issue;
   final List<Map<String, dynamic>> history;
