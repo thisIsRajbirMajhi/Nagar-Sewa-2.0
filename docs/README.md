@@ -22,6 +22,9 @@ For a project overview and quick start, see the [root README](../README.md).
 | [Notifications](features/notifications.md) | Grouped UI, real-time updates, server-side batching |
 | [Multilanguage](features/multilanguage.md) | L10n ARB files, dynamic translation service, cache |
 | [Officer Panel](features/officer-panel.md) | Dashboard actions, analytics view, comment threads |
+| [Comments](features/comments.md) | Issue discussions, threading, author info |
+| [Voting](features/voting.md) | Upvote/downvote system, atomic RPC updates |
+| [Complaints](features/complaints.md) | Escalation flow, issue history tracking |
 
 ### Database
 | Document | Description |

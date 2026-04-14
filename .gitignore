@@ -76,6 +76,12 @@ ios/Flutter/profile
 
 # Supabase
 supabase/.temp/
+supabase/.env
+
+# OpenCode (local config)
+opencode.json
+.opencode/
+!.opencode/skills/ui-ux-pro-max/
 
 # IDEs
 .idea/
